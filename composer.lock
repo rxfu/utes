@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82c2ef81f631fb0a35c0fea02ba0efd3",
+    "content-hash": "c514ea28def34102fd6bc944ffe6e481",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1030,6 +1030,52 @@
                 "zf"
             ],
             "time": "2020-03-26T16:07:12+00:00"
+        },
+        {
+            "name": "laracasts/presenter",
+            "version": "0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracasts/Presenter.git",
+                "reference": "66ef61dac416f119de75788b5d50eacef3174303"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracasts/Presenter/zipball/66ef61dac416f119de75788b5d50eacef3174303",
+                "reference": "66ef61dac416f119de75788b5d50eacef3174303",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0|~6.0|~7.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Laracasts\\Presenter": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
+                }
+            ],
+            "description": "Simple view presenters",
+            "keywords": [
+                "laravel",
+                "presenter",
+                "view"
+            ],
+            "time": "2020-03-09T15:02:31+00:00"
         },
         {
             "name": "laravel/framework",
