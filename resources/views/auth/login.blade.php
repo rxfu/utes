@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.page')
+
+@section('title', '登录')
 
 @section('content')
 <form action="{{ route('login') }}" method="post">
@@ -31,24 +33,17 @@
     </div>
     <div class="row">
         <div class="col-8">
-            <div class="checkbox icheck">
-                <label>
-                    <input type="checkbox" value="1" name="remember_me"> 记住我
+            <div class="icheck-primary">
+                <input type="checkbox" value="1" name="remember_me" id="remember_me">
+                <label for="remember_me">
+                    记住我
                 </label>
             </div>
         </div>
 
         <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+            <button type="submit" class="btn btn-primary btn-block">登录</button>
         </div>
     </div>
 </form>
 @endsection
-
-@push('styles')
-<style>
-    .login-logo {
-        font-size: 28px;
-    }
-</style>
-@endpush

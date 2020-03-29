@@ -50,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof TokenMismatchException) {
+            return redirect('/')->withErrors('CSRF Token 已过期，请重试！');
+        }
+
         return parent::render($request, $exception);
     }
 }
