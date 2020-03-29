@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -51,9 +53,16 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof TokenMismatchException) {
-            return redirect('/')->withErrors('CSRF Token 已过期，请重试！');
+            return redirect('/')->withDanger('CSRF Token 已过期，请重试！');
+        } elseif ($exception instanceof ValidationException) {
+            return parent::render($request, $exception);
+        } else {
+            $message = iconv('GBK', 'UTF-8', __($exception->getMessage()));
+
+            return back()->withDanger($message)->withInput();
         }
 
-        return parent::render($request, $exception);
+
+        // return parent::render($request, $exception);
     }
 }
