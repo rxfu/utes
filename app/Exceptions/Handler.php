@@ -56,13 +56,11 @@ class Handler extends ExceptionHandler
             return redirect('/')->withDanger('CSRF Token 已过期，请重试！');
         } elseif ($exception instanceof ValidationException) {
             return parent::render($request, $exception);
-        } else {
-            $message = iconv('GBK', 'UTF-8', __($exception->getMessage()));
-
-            return back()->withDanger($message)->withInput();
         }
 
+        $message = iconv('GBK', 'UTF-8', __($exception->getMessage()));
+        session()->flash('danger', $message);
 
-        // return parent::render($request, $exception);
+        return parent::render($request, $exception);
     }
 }
