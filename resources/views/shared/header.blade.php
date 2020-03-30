@@ -28,19 +28,11 @@
 					<i class="fa fa-bars"></i>
 				</a>
 			</li>
-			@foreach (config('menu.navigation') as $item)
-				<li class="nav-item d-done d-sm-inine-block">
-					<a href="
-					@isset($item['route'])
-						{{ route($item['route']) }}
-					@else
-						@isset ($item['url'])
-							{{ url($item['url']) }}
-						@else
-							#
-						@endisset
-					@endisset
-					" class="nav-link">{{ $item['title'] ?? '无标题' }}</a>
+			@foreach ($menu_nav->menuitems as $item)
+				<li class="nav-item d-done d-sm-inline-block">
+					<a href="{{ empty($item->route) ? '#' : route($item->route) }}" class="nav-link" title="{{ $item->name }}">
+						{{ $item->name }}
+					</a>
 				</li>
 			@endforeach
 		</ul>

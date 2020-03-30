@@ -17,7 +17,7 @@ class CreateMenuitemsTable extends Migration
             $table->id();
             $table->string('uid', 50)->unique();
             $table->string('name');
-            $table->string('route');
+            $table->string('route')->nullable();
             $table->string('icon')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreignId('menu_id')

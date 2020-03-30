@@ -41,8 +41,20 @@ class MenusTableSeeder extends Seeder
             [
                 'uid' => 'item3',
                 'name' => '仪表盘',
-                'route' => 'home'
-            ]
+                'route' => 'home',
+                'icon' => 'tachometer-alt',
+            ],
+            [
+                'uid' => 'item4',
+                'name' => '系统管理',
+                'icon' => 'tachometer-alt',
+            ],
+            [
+                'uid' => 'item5',
+                'name' => '修改密码',
+                'icon' => 'shield-alt',
+                'parent_id' => 4,
+            ],
         ]);
     }
 }

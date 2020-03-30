@@ -30,4 +30,14 @@ class Menuitem extends Model
     {
         return $this->belongsTo('App\Models\Menu');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Menuitem', 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\Menuitem', 'parent_id');
+    }
 }
