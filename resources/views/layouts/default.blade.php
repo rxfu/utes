@@ -14,13 +14,6 @@
 
     <title>@yield('title', '默认页面') | {{ config('setting.name', 'Laravel') }}</title>
     
-    <!-- Scripts -->
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}" defer></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('admin-lte/js/adminlte.min.js') }}" defer></script>
     <!-- App Script -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -44,6 +37,13 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('admin-lte/js/adminlte.min.js') }}"></script>
     <!-- Custom scripts -->
     @stack('scripts')
 </body>
