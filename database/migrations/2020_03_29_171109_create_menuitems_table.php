@@ -26,6 +26,7 @@ class CreateMenuitemsTable extends Migration
                 ->onUpdate('cascade');
             $table->text('description')->nullable();
             $table->boolean('is_enable')->default(true);
+            $table->integer('order')->default(0);
         });
     }
 

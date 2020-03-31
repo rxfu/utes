@@ -28,7 +28,7 @@
 					<i class="fa fa-bars"></i>
 				</a>
 			</li>
-			@foreach ($menu_nav->menuitems as $item)
+			@foreach ($menus->getActiveItems('navigation') as $item)
 				<li class="nav-item d-done d-sm-inline-block">
 					<a href="{{ empty($item->route) ? '#' : route($item->route) }}" class="nav-link" title="{{ $item->name }}">
 						{{ $item->name }}

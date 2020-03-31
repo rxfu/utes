@@ -55,9 +55,6 @@ class Handler extends ExceptionHandler
             return redirect('/')->withDanger('CSRF Token 已过期，请重试！');
         }
 
-        $message = iconv('GBK', 'UTF-8', __($exception->getMessage()));
-        session()->flash('danger', $message);
-
         return parent::render($request, $exception);
     }
 }

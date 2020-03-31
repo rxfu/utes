@@ -26,8 +26,18 @@ class Menu extends Model
 
     public $timestamps = false;
 
-    public function menuitems()
+    public function items()
     {
         return $this->hasMany('App\Models\Menuitem');
+    }
+
+    public function scopeIsActive($query, $uid)
+    {
+        return $query->whereUid($uid)->whereIsEnable(true);
+    }
+
+    public function scopeActiveItems()
+    {
+        return $this->hasMany('App\Models\Menuitem')->whereIsEnable(true);
     }
 }

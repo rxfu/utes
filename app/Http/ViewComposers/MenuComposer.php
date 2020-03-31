@@ -21,9 +21,8 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $menu_main = $this->menus->getMenu('main');
-        $menu_nav = $this->menus->getMenu('navigation');
+        $menus = $this->menus;
 
-        $view->with(compact('menu_nav', 'menu_main'));
+        $view->with(compact('menus'));
     }
 }

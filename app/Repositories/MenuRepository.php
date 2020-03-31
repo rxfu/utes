@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\InternalException;
 use App\Models\Menu;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 
 class MenuRepository extends BaseRepository
 {
@@ -13,12 +15,14 @@ class MenuRepository extends BaseRepository
         $this->model = $menu;
     }
 
-    public function getMenu($uid)
+    public function getActiveItems($uid)
     {
         try {
-            return $this->model->whereUid($uid)->firstOrFail();
+            return $this->model->isActive($uid)->firstOrFail()->activeItems()->get();
+        } catch (QueryException $e) {
+            throw new InternalException($e);
         } catch (ModelNotFoundException $e) {
-            session()->flash('danger', '没有 ' . $uid . ' 菜单');
+            throw new InternalException($e);
         }
     }
 }

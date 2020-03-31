@@ -22,7 +22,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           	    <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                @foreach ($menu_main->menuitems as $item)
+                @foreach ($menus->getActiveItems('main') as $item)
                     @if ($item->children->count())
                         <li class="nav-item has-treeview">
                             <a href="{{ empty($item->route) ? '#' : route($item->route) }}" class="nav-link">
