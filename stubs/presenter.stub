@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use Laracasts\Presenter\Presenter;
+
+class {{ class }} extends Presenter
+{
+    //
+}

@@ -15,14 +15,14 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->string('name');
-            $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('is_enable')->default(true);
-            $table->boolean('is_super')->default(false);
-            $table->timestamp('last_login_at')->nullable();
+            $table->string('username')->unique()->comment('用户名');
+            $table->string('password')->comment('密码');
+            $table->string('name')->comment('真实姓名');
+            $table->string('email')->unique()->nullable()->comment('电子邮箱');
+            $table->timestamp('email_verified_at')->nullable()->comment('电子邮箱验证时间');
+            $table->boolean('is_enable')->default(true)->comment('是否启用，0-未启用，1-启用');
+            $table->boolean('is_super')->default(false)->comment('是否超级管理员，0-否，1-是');
+            $table->timestamp('last_login_at')->nullable()->comment('最后登录时间');
             $table->rememberToken();
             $table->timestamps();
         });

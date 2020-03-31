@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 class Menuitem extends Model
 {
+    use PresentableTrait;
+
+    protected $presenter = 'App\Presenters\MenuitemPresenter';
+
     /**
      * The attributes that are mass assignable.
      *

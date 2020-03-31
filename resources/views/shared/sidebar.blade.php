@@ -25,7 +25,7 @@
                 @foreach ($menus->getActiveItems('main') as $item)
                     @if ($item->children->count())
                         <li class="nav-item has-treeview">
-                            <a href="{{ empty($item->route) ? '#' : route($item->route) }}" class="nav-link">
+                            <a href="{{ $item->present()->link }}" class="nav-link">
                                 @if (!empty($item->icon))
                                     <i class="nav-icon fas fa-{{ $item->icon }}"></i>
                                 @else
@@ -39,7 +39,7 @@
                             <ul class="nav nav-treeview">
                                 @foreach ($item->children as $child)
                                     <li class="nav-item">
-                                        <a href="{{ empty($child->route) ? '#' : route($child->route) }}" class="nav-link" title="{{ $child->name }}">
+                                        <a href="{{ $child->present()->link }}" class="nav-link" title="{{ $child->name }}">
                                             @if (!empty($child->icon))
                                                 <i class="nav-icon fas fa-{{ $child->icon }}"></i>
                                             @else
@@ -54,7 +54,7 @@
                     @else
                         @if (empty($item->parent))
                             <li class="nav-item">
-                                <a href="{{ empty($item->route) ? '#' : route($item->route) }}" class="nav-link" title="{{ $item->name }}">
+                                <a href="{{ $item->present()->link }}" class="nav-link" title="{{ $item->name }}">
                                     @if (!empty($item->icon))
                                         <i class="nav-icon fas fa-{{ $item->icon }}"></i>
                                     @else

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-class BaseRepository
+abstract class Repository
 {
     protected $model;
 

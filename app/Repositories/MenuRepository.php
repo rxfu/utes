@@ -4,11 +4,9 @@ namespace App\Repositories;
 
 use App\Exceptions\InternalException;
 use App\Models\Menu;
-use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 
-class MenuRepository extends BaseRepository
+class MenuRepository extends Repository
 {
     public function __construct(Menu $menu)
     {
@@ -18,10 +16,8 @@ class MenuRepository extends BaseRepository
     public function getActiveItems($uid)
     {
         try {
-            return $this->model->isActive($uid)->firstOrFail()->activeItems()->get();
+            return $this->model->isActive($uid)->first()->activeItems()->get();
         } catch (QueryException $e) {
-            throw new InternalException($e);
-        } catch (ModelNotFoundException $e) {
             throw new InternalException($e);
         }
     }

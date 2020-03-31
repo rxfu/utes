@@ -18,7 +18,8 @@ class CreateLogsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->comment('用户ID');
             $table->unsignedInteger('ip')->default(0)->comment('IP地址');
             $table->string('level', 10)->comment('级别');
             $table->string('path', 128)->comment('路径');
