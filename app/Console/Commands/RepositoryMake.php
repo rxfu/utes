@@ -97,7 +97,7 @@ class RepositoryMake extends GeneratorCommand
             ]);
         }
 
-        $replace["use {$repositoryNamespace}\Controller;\n"] = '';
+        $replace["use {$repositoryNamespace}\Repository;\n"] = '';
 
         return str_replace(
             array_keys($replace),
@@ -121,6 +121,7 @@ class RepositoryMake extends GeneratorCommand
         }
 
         $model = trim(str_replace('/', '\\', $model), '\\');
+        $model = 'Models\\' . $model . 'Model';
 
         if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
             $model = $rootNamespace . $model;

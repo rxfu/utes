@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedRepository }};
+
+class {{ class }} extends Service
+{
+    public function __construct({{ repository }} ${{ repositoryVariable }})
+    {
+        $this->repository = ${{ repositoryVariable }};
+    }
+}
