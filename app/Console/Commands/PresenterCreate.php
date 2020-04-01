@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class PresenterMake extends GeneratorCommand
+class PresenterCreate extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:presenter';
+    protected $name = 'create:presenter';
 
     /**
      * The console command description.

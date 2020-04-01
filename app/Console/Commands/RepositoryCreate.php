@@ -7,14 +7,14 @@ use InvalidArgumentException;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-class RepositoryMake extends GeneratorCommand
+class RepositoryCreate extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:repository';
+    protected $name = 'create:repository';
 
     /**
      * The console command description.

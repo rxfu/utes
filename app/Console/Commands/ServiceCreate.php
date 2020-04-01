@@ -7,14 +7,14 @@ use InvalidArgumentException;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-class ServiceMake extends GeneratorCommand
+class ServiceCreate extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:service';
+    protected $name = 'create:service';
 
     /**
      * The console command description.
