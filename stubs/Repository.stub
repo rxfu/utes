@@ -2,6 +2,8 @@
 
 namespace {{ namespace }};
 
+use {{ namespacedModel }};
+
 class {{ class }} extends Repository
 {
     public function __construct({{ model }} ${{ modelVariable }})

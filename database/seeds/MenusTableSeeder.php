@@ -22,8 +22,8 @@ class MenusTableSeeder extends Seeder
             'name' => '主菜单',
         ]);
 
-        $item = Menu::find(1);
-        $item->menuitems()->createMany([
+        $menu = Menu::find(1);
+        $menu->items()->createMany([
             [
                 'uid' => 'item1',
                 'name' => '使用说明',
@@ -36,8 +36,8 @@ class MenusTableSeeder extends Seeder
             ],
         ]);
 
-        $item = Menu::find(2);
-        $item->menuitems()->createMany([
+        $menu = Menu::find(2);
+        $menu->items()->createMany([
             [
                 'uid' => 'item3',
                 'name' => '仪表盘',

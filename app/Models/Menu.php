@@ -31,13 +31,13 @@ class Menu extends Model
         return $this->hasMany('App\Models\Menuitem');
     }
 
+    public function activeItems()
+    {
+        return $this->hasMany('App\Models\Menuitem')->whereIsEnable(true);
+    }
+
     public function scopeIsActive($query, $uid)
     {
         return $query->whereUid($uid)->whereIsEnable(true);
-    }
-
-    public function scopeActiveItems()
-    {
-        return $this->hasMany('App\Models\Menuitem')->whereIsEnable(true);
     }
 }
