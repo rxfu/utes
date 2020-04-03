@@ -121,7 +121,7 @@ class RepositoryCreate extends GeneratorCommand
         }
 
         $model = trim(str_replace('/', '\\', $model), '\\');
-        $model = 'Models\\' . $model . 'Model';
+        $model = 'Models\\' . $model;
 
         if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
             $model = $rootNamespace . $model;
@@ -129,7 +129,7 @@ class RepositoryCreate extends GeneratorCommand
 
         return $model;
     }
-    
+
     /**
      * Get the console command options.
      *

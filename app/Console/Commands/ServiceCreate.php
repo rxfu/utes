@@ -22,7 +22,7 @@ class ServiceCreate extends GeneratorCommand
      * @var string
      */
     protected $description = 'Create a new service class';
-    
+
     /**
      * The type of class being generated.
      *
@@ -39,7 +39,7 @@ class ServiceCreate extends GeneratorCommand
     {
         parent::handle();
     }
-    
+
     /**
      * Get the stub file for the generator.
      *
@@ -71,7 +71,7 @@ class ServiceCreate extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        $repositoryNamespace = $this->getNamespace($name);
+        $serviceNamespace = $this->getNamespace($name);
 
         $replace = [];
 
@@ -80,7 +80,7 @@ class ServiceCreate extends GeneratorCommand
 
             if (!class_exists($repositoryClass)) {
                 if ($this->confirm("A {$repositoryClass} repository does not exist. Do you want to generate it?", true)) {
-                    $this->call('make:repository', ['name' => $repositoryClass]);
+                    $this->call('create:repository', ['name' => $repositoryClass]);
                 }
             }
 
@@ -97,7 +97,7 @@ class ServiceCreate extends GeneratorCommand
             ]);
         }
 
-        $replace["use {$repositoryNamespace}\Service;\n"] = '';
+        $replace["use {$serviceNamespace}\Service;\n"] = '';
 
         return str_replace(
             array_keys($replace),
@@ -129,7 +129,7 @@ class ServiceCreate extends GeneratorCommand
 
         return $repository;
     }
-    
+
     /**
      * Get the console command options.
      *

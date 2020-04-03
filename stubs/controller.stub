@@ -1,0 +1,114 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespaceService }};
+use Illuminate\Http\Request;
+
+class {{ class }} extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @param \{{ namespacedService }}  ${{ serviceVariable }}
+     * @return void
+     */
+    public function __construct({{ service }} ${{ serviceVariable }})
+    {
+        $this->service = ${{ serviceVariable }};
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $items = $this->service->getAll();
+
+        return view('{{ model }}.index', compact('items'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('{{ model }}.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if ($request->isMethod('post'))
+        {
+            $item = $this->service->store($request->all());
+        }
+
+        return redirect()->route('{{ model }}.show', ['id' => $item->id]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('{{ model }}.show', compact('item'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('{{ model }}.edit', compact('item'))->withSuccess('保存数据成功');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        if ($request->isMethod('put'))
+        {
+            $this->service->update($id, $request->all());
+        }
+
+        return redirect()->route('{{ model }}.show', compact('id'))->withSuccess('更新数据成功');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->service->delete($id);
+
+        return redirect()->route('{{ model }}.index')->withSuccess('删除数据成功');
+    }
+}
