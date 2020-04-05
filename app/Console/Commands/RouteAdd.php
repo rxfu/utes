@@ -2,16 +2,18 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
+use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
-class RouteAdd extends GeneratorCommand
+class RouteAdd extends Command
 {
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'add route';
+    protected $signature = 'add:route {name}';
 
     /**
      * The console command description.
@@ -28,30 +30,38 @@ class RouteAdd extends GeneratorCommand
     protected $type = 'Route';
 
     /**
+     * Create a new controller creator command instance.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @return void
+     */
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct();
+
+        $this->files = $files;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $modelTitle = ucfirst($modelName);
+        $modelName = $this->argument('name');
+        $replace = [
+            '{{ model }}' => ucfirst($modelName),
+            '{{ modelVariable }}' => Str::plural(Str::lower($modelName)),
+        ];
 
-        $modelName = strtolower($modelName);
+        $stub = $this->files->get($this->getStub());
+        $stub = str_replace(array_keys($replace), array_values($replace), $stub);
 
-        $newRoutes = $this->files->get(__DIR__ . '/../Stubs/routes.stub');
 
-        $newRoutes = str_replace('|MODEL_TITLE|', $modelTitle, $newRoutes);
+        $this->files->append(base_path('routes/web.php'), $stub);
 
-        $newRoutes = str_replace('|MODEL_NAME|', $modelName, $newRoutes);
-
-        $newRoutes = str_replace('|CONTROLLER_NAME|', $modelTitle . 'Controller', $newRoutes);
-
-        $this->files->append(
-            app_path('Http/routes.php'),
-            $newRoutes
-        );
-
-        $this->info('Added routes for ' . $modelTitle);
+        $this->info($modelName . ' resource routes added successfully.');
     }
 
     /**

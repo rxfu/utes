@@ -107,7 +107,7 @@ class ControllerCreate extends GeneratorCommand
 
         if (!class_exists($serviceClass)) {
             if ($this->confirm("A {$serviceClass} model does not exist. Do you want to generate it?", true)) {
-                $this->call('make:model', ['name' => $serviceClass]);
+                $this->call('create:service', ['name' => $serviceClass]);
             }
         }
 
