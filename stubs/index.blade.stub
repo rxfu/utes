@@ -1,17 +1,17 @@
 @extend('layouts.app')
 
-@section('title', '{{ Model }} List')
+@section('title', '{{ model }} List')
 
 @section('content)
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">{{ Model }} List</div>
+                <div class="card-title">{{ model }} List</div>
             </div>
 
             <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+                <table id="{{ modelVariable }}-table" class="table table-bordered table-hover">
                     <tr>
                         <td>
                             You are logged in!
