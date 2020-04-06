@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Console\GeneratorCommand;
+use Symfony\Component\Console\Input\InputOption;
 
 class ModelCreate extends GeneratorCommand
 {
@@ -72,6 +75,39 @@ class ModelCreate extends GeneratorCommand
         if ($this->option('controller') || $this->option('resource') || $this->option('api')) {
             $this->createController();
         }
+    }
+
+    /**
+     * Build the class with the given name.
+     *
+     * Remove the base controller import if we are already in base namespace.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function buildClass($name)
+    {/* 
+        $controllerNamespace = $this->getNamespace($name);
+
+        $replace = [];
+
+        if ($this->option('model')) {
+            $replace = $this->buildModelReplacements($replace);
+        }
+
+        $replace["use {$controllerNamespace}\Controller;\n"] = ''; */
+
+        $columns = Schema::getColumnListing(Str::plural(Str::lower(Str::afterLast($name, '\\'))));
+        $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
+        $replace = [
+            '{{ attributes }}' => "'" . implode("', '", $columns) . "'",
+        ];
+
+        return str_replace(
+            array_keys($replace),
+            array_values($replace),
+            parent::buildClass($name)
+        );
     }
 
     /**
