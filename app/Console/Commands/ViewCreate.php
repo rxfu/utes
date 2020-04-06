@@ -105,9 +105,9 @@ class ViewCreate extends Command
     protected function getPaths($name)
     {
         return [
-            'index' => resource_path('views/' . $name . '/index.blade.php'),
-            'show' => resource_path('views/' . $name . '/show.blade.php'),
-            // 'create' => resource_path('views/' . $name . '/create.blade.php'),
+            // 'index' => resource_path('views/' . $name . '/index.blade.php'),
+            // 'show' => resource_path('views/' . $name . '/show.blade.php'),
+            'create' => resource_path('views/' . $name . '/create.blade.php'),
             // 'edit' => resource_path('views/' . $name . '/edit.blade.php'),
         ];
     }
@@ -129,6 +129,9 @@ class ViewCreate extends Command
             case 'show':
                 return $this->_replaceShow($table, $replace);
 
+            case 'create':
+                return $this->_replaceCreate($table, $replace);
+
             default:
                 return $this->_replaceIndex($table, $replace);
         }
@@ -137,7 +140,7 @@ class ViewCreate extends Command
     private function _replaceIndex($table, $replace)
     {
         $columns = Schema::getColumnListing($table);
-        $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
         $attributeNames = array_map(function ($v) use ($table) {
             $table = Str::singular($table);
             return "<th>{{ __('$table.$v') }}</th>";
@@ -156,8 +159,34 @@ class ViewCreate extends Command
     {
 
         $columns = Schema::getColumnListing($table);
-        $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
         $attributes = array_map(function ($v) use ($table) {
+            $table = Str::singular($table);
+
+            $attribute = '
+                <div class="form-group row">
+                    <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="{{ __(\'' . $table . '.' . $v . '\') }}" id="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ $item->' . $v . ' }}" readonly>
+                    </div>
+                </div>';
+
+            return $attribute;
+        }, $columns);
+
+        return array_merge($replace, [
+            '{{ attributes }}' => implode(PHP_EOL, $attributes),
+        ]);
+    }
+
+    private function _replaceCreate($table, $replace)
+    {
+
+        $columns = Schema::getColumnListing($table);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
+        $attributes = array_map(function ($v) use ($table) {
+            $type = Schema::getColumnType($table, $v);
+            dd($type);
             $table = Str::singular($table);
 
             $attribute = '
