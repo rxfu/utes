@@ -1,2 +1,2 @@
 
-Route::middleware('auth')->resource('{{ modelVariable }}', '{{ model }}Controller');
+Route::middleware('auth')->resource('{{ collection }}', '{{ model }}Controller');

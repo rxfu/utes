@@ -52,7 +52,7 @@ class RouteAdd extends Command
         $modelName = $this->argument('name');
         $replace = [
             '{{ model }}' => ucfirst($modelName),
-            '{{ modelVariable }}' => Str::plural(Str::lower($modelName)),
+            '{{ collection }}' => Str::plural(Str::lower($modelName)),
         ];
 
         $stub = $this->files->get($this->getStub());

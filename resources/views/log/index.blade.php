@@ -1,27 +1,27 @@
 @extend('layouts.app')
 
-@section('title', 'Log 列表')
+@section('title', "{{ __('log.module') }}列表")
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Log 列表</h3>
+                <h3 class="card-title">{{ __('log.module') }}列表</h3>
             </div>
 
             <div class="card-body">
-                <table id="logs-table" class="table table-bordered table-striped datatable">
+                <table id="{{ modelVariable }}-table" class="table table-bordered table-striped datatable">
                     <tr>
-                        <th>{{ __('Log.user_id') }}</th>
-						<th>{{ __('Log.ip') }}</th>
-						<th>{{ __('Log.level') }}</th>
-						<th>{{ __('Log.path') }}</th>
-						<th>{{ __('Log.method') }}</th>
-						<th>{{ __('Log.action') }}</th>
-						<th>{{ __('Log.model') }}</th>
-						<th>{{ __('Log.model_id') }}</th>
-						<th>{{ __('Log.content') }}</th>
+                        <th>{{ __('log.user_id') }}</th>
+						<th>{{ __('log.ip') }}</th>
+						<th>{{ __('log.level') }}</th>
+						<th>{{ __('log.path') }}</th>
+						<th>{{ __('log.method') }}</th>
+						<th>{{ __('log.action') }}</th>
+						<th>{{ __('log.model') }}</th>
+						<th>{{ __('log.model_id') }}</th>
+						<th>{{ __('log.content') }}</th>
                         <th colspan="2">操作</th>
                     </tr>
                 </table>
@@ -58,7 +58,7 @@
 
             <div class="card-foot">
                 <a href="{{ route('logs.create') }}" title="创建" class="btn btn-success">
-                    <i class="icon fa fa-plus"></i> 创建 Log
+                    <i class="icon fa fa-plus"></i> 创建{{ __('log.module') }}
                 </a>
             </div>
         </div>

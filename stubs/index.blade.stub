@@ -1,13 +1,13 @@
 @extend('layouts.app')
 
-@section('title', '{{ model }} 列表')
+@section('title', "{{ __('DummyModel.module') }}列表")
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ model }} 列表</h3>
+                <h3 class="card-title">{{ __('DummyModel.module') }}列表</h3>
             </div>
 
             <div class="card-body">
@@ -22,12 +22,12 @@
                         <tr>
                             {{ attributes }}
                             <td>
-                                <a href="{{ route('DummyModel.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
+                                <a href="{{ route('DummyCollection.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
                                     <i class="icon fa fa-edit"></i> 编辑
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('DummyModel.delete', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').action='{{ route('DummyModel.delete', $item->getKey()) }}';document.getElementById('delete-form').submit();">
+                                <a href="{{ route('DummyCollection.delete', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').action='{{ route('DummyCollection.delete', $item->getKey()) }}';document.getElementById('delete-form').submit();">
                                     <i class="icon fa fa-trash"></i> 删除
                                 </a>
                             </td>
@@ -41,8 +41,8 @@
             </form>
 
             <div class="card-foot">
-                <a href="{{ route('DummyModel.create') }}" title="创建" class="btn btn-success">
-                    <i class="icon fa fa-plus"></i> 创建 {{ model }}
+                <a href="{{ route('DummyCollection.create') }}" title="创建" class="btn btn-success">
+                    <i class="icon fa fa-plus"></i> 创建{{ __('DummyModel.module') }}
                 </a>
             </div>
         </div>
