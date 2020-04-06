@@ -1,28 +1,49 @@
 @extend('layouts.app')
 
-@section('title', '{{ model }} List')
+@section('title', '{{ model }} 列表')
 
-@section('content)
+@section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">{{ model }} List</div>
+                <h3 class="card-title">{{ model }} 列表</h3>
             </div>
 
             <div class="card-body">
-                <table id="{{ modelVariable }}-table" class="table table-bordered table-hover">
+                <table id="{{ modelVariable }}-table" class="table table-bordered table-striped datatable">
                     <tr>
-                        {{ attributesName }}
+                        {{ attributeNames }}
+                        <th colspan="2">操作</th>
                     </tr>
                 </table>
                 <tbody>
                     @foreach ($items as $item)
                         <tr>
                             {{ attributes }}
+                            <td>
+                                <a href="{{ route('DummyModel.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
+                                    <i class="icon fa fa-edit"></i> 编辑
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('DummyModel.delete', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').action='{{ route('DummyModel.delete', $item->getKey()) }}';document.getElementById('delete-form').submit();">
+                                    <i class="icon fa fa-trash"></i> 删除
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
+            </div>
+            <form id="delete-form" method="POST" style="display: none;">
+                @csrf
+                @method('delete')
+            </form>
+
+            <div class="card-foot">
+                <a href="{{ route('DummyModel.create') }}" title="创建" class="btn btn-success">
+                    <i class="icon fa fa-plus"></i> 创建 {{ model }}
+                </a>
             </div>
         </div>
     </div>

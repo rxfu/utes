@@ -28,3 +28,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/contact', 'HomeController@contact')->name('contact');
 });
+
+Route::middleware('auth')->resource('logs', 'LogController');

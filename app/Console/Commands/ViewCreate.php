@@ -54,6 +54,7 @@ class ViewCreate extends Command
         $replace = [
             '{{ model }}' => ucfirst($name),
             '{{ modelVariable }}' => Str::plural(Str::lower($name)),
+            'DummyModel' => Str::plural(Str::lower($name)),
         ];
 
         $paths = $this->getPaths(Str::lower($name));
@@ -61,13 +62,14 @@ class ViewCreate extends Command
         foreach ($paths as $method => $path) {
             $this->makeDirectory($path);
 
-            $stub = $this->files->get($this->getStub('index'));
+            $stub = $this->files->get($this->getStub($method));
+            $replace = $this->replaceAttributes($name, $replace);
             $stub = str_replace(array_keys($replace), array_values($replace), $stub);
 
             $this->files->put($path, $stub);
-        }
 
-        $this->info($this->type . 's created successfully.');
+            $this->info(Str::ucfirst($method) . ' ' . $this->type . ' created successfully.');
+        }
     }
 
     /**
@@ -117,17 +119,20 @@ class ViewCreate extends Command
      * @param  string  $name
      * @return array
      */
-    protected function replaceAttributes($name)
+    protected function replaceAttributes($name, $replace)
     {
         $columns = Schema::getColumnListing(Str::plural(Str::lower($name, '\\')));
         $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
-        $attributes = array_map(function ($v) {
-            return '<td>' . $v . '</td>';
+        $attributeNames = array_map(function ($v) use ($name) {
+            return "<th>{{ __('$name.$v') }}</th>";
         }, $columns);
-        $replace = [
-            '{{ attributes }}' => implode('\r\n', $attributes),
-        ];
+        $attributes = array_map(function ($v) {
+            return '<td>{{ $item->' . $v . ' }}</td>';
+        }, $columns);
 
-        return $replace;
+        return array_merge($replace, [
+            '{{ attributeNames }}' => implode(PHP_EOL . "\t\t\t\t\t\t", $attributeNames),
+            '{{ attributes }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t", $attributes),
+        ]);
     }
 }
