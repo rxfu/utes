@@ -13,11 +13,16 @@
             <div class="card-body">
                 <table id="{{ modelVariable }}-table" class="table table-bordered table-hover">
                     <tr>
-                        <td>
-                            You are logged in!
-                        </td>
+                        {{ attributesName }}
                     </tr>
                 </table>
+                <tbody>
+                    @foreach ($items as $item)
+                        <tr>
+                            {{ attributes }}
+                        </tr>
+                    @endforeach
+                </tbody>
             </div>
         </div>
     </div>

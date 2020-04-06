@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Schema;
 
 class ViewCreate extends Command
 {
@@ -49,21 +50,21 @@ class ViewCreate extends Command
      */
     public function handle()
     {
-        $modelName = $this->argument('name');
+        $name = $this->argument('name');
         $replace = [
-            '{{ model }}' => ucfirst($modelName),
-            '{{ modelVariable }}' => Str::plural(Str::lower($modelName)),
+            '{{ model }}' => ucfirst($name),
+            '{{ modelVariable }}' => Str::plural(Str::lower($name)),
         ];
 
-        $stubs = $this->files->get($this->getStubs());
-        $stubs = str_replace(array_keys($replace), array_values($replace), $stubs);
-
-        $paths = $this->getPaths(Str::lower($modelName));
+        $paths = $this->getPaths(Str::lower($name));
 
         foreach ($paths as $method => $path) {
             $this->makeDirectory($path);
 
-            $this->files->put($path, $stubs[$method]);
+            $stub = $this->files->get($this->getStub('index'));
+            $stub = str_replace(array_keys($replace), array_values($replace), $stub);
+
+            $this->files->put($path, $stub);
         }
 
         $this->info($this->type . 's created successfully.');
@@ -74,14 +75,9 @@ class ViewCreate extends Command
      *
      * @return string
      */
-    protected function getStub()
+    protected function getStub($name)
     {
-        return [
-            'index' => base_path('stubs/index.blade.stub'),
-            'show' => base_path('stubs/show.blade.stub'),
-            'create' => base_path('stubs/create.blade.stub'),
-            'edit' => base_path('stubs/edit.blade.stub'),
-        ];
+        return base_path('stubs/' . $name . '.blade.stub');
     }
 
     /**
@@ -109,9 +105,29 @@ class ViewCreate extends Command
     {
         return [
             'index' => resource_path('views/' . $name . '/index.blade.php'),
-            'show' => resource_path('views/' . $name . '/show.blade.php'),
-            'create' => resource_path('views/' . $name . '/create.blade.php'),
-            'edit' => resource_path('views/' . $name . '/edit.blade.php'),
+            // 'show' => resource_path('views/' . $name . '/show.blade.php'),
+            // 'create' => resource_path('views/' . $name . '/create.blade.php'),
+            // 'edit' => resource_path('views/' . $name . '/edit.blade.php'),
         ];
+    }
+
+    /**
+     * Build the attribute replacement values.
+     *
+     * @param  string  $name
+     * @return array
+     */
+    protected function replaceAttributes($name)
+    {
+        $columns = Schema::getColumnListing(Str::plural(Str::lower($name, '\\')));
+        $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
+        $attributes = array_map(function ($v) {
+            return '<td>' . $v . '</td>';
+        }, $columns);
+        $replace = [
+            '{{ attributes }}' => implode('\r\n', $attributes),
+        ];
+
+        return $replace;
     }
 }
