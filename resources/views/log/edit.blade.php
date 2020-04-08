@@ -77,22 +77,6 @@
                             <textarea class="form-control{{ $errors->has('content') ? ' is_invalid' : '' }}" name="content" id="content" rows="5" placeholder="{{ __('log.content') }}">{{ old('content', $item->content) }}</textarea>
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="updated_at" class="col-sm-3 col-form-label">{{ __('log.updated_at') }}</label>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="input-group datepicker">
-                                    <input type="text" name="updated_at" id="updated_at" class="form-control{{ $errors->has('updated_at']) ? ' is_invalid' : '' }}" placeholder="{{ __('log.updated_at') }}" value="{{ old('updated_at', $item->updated_at) }}">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card-foot">

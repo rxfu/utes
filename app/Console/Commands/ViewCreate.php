@@ -105,9 +105,9 @@ class ViewCreate extends Command
     protected function getPaths($name)
     {
         return [
-            // 'index' => resource_path('views/' . $name . '/index.blade.php'),
-            // 'show' => resource_path('views/' . $name . '/show.blade.php'),
-            // 'create' => resource_path('views/' . $name . '/create.blade.php'),
+            'index' => resource_path('views/' . $name . '/index.blade.php'),
+            'show' => resource_path('views/' . $name . '/show.blade.php'),
+            'create' => resource_path('views/' . $name . '/create.blade.php'),
             'edit' => resource_path('views/' . $name . '/edit.blade.php'),
         ];
     }

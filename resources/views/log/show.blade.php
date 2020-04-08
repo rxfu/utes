@@ -15,63 +15,63 @@
                 <div class="form-group row">
                     <label for="user_id" class="col-sm-3 col-form-label">{{ __('log.user_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.user_id') }}" id="{{ __('log.user_id') }}" value="{{ $item->user_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ $item->user_id }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="ip" class="col-sm-3 col-form-label">{{ __('log.ip') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.ip') }}" id="{{ __('log.ip') }}" value="{{ $item->ip }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="ip" id="ip" value="{{ $item->ip }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="level" class="col-sm-3 col-form-label">{{ __('log.level') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.level') }}" id="{{ __('log.level') }}" value="{{ $item->level }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="level" id="level" value="{{ $item->level }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="path" class="col-sm-3 col-form-label">{{ __('log.path') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.path') }}" id="{{ __('log.path') }}" value="{{ $item->path }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="path" id="path" value="{{ $item->path }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="method" class="col-sm-3 col-form-label">{{ __('log.method') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.method') }}" id="{{ __('log.method') }}" value="{{ $item->method }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="method" id="method" value="{{ $item->method }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="action" class="col-sm-3 col-form-label">{{ __('log.action') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.action') }}" id="{{ __('log.action') }}" value="{{ $item->action }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="action" id="action" value="{{ $item->action }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="model" class="col-sm-3 col-form-label">{{ __('log.model') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.model') }}" id="{{ __('log.model') }}" value="{{ $item->model }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="model" id="model" value="{{ $item->model }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="model_id" class="col-sm-3 col-form-label">{{ __('log.model_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.model_id') }}" id="{{ __('log.model_id') }}" value="{{ $item->model_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="model_id" id="model_id" value="{{ $item->model_id }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="content" class="col-sm-3 col-form-label">{{ __('log.content') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __('log.content') }}" id="{{ __('log.content') }}" value="{{ $item->content }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="content" id="content" value="{{ $item->content }}" readonly>
                     </div>
                 </div>
             </div>

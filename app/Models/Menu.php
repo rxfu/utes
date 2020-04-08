@@ -33,7 +33,7 @@ class Menu extends Model
 
     public function activeItems()
     {
-        return $this->hasMany('App\Models\Menuitem')->whereIsEnable(true);
+        return $this->hasMany('App\Models\Menuitem')->whereIsEnable(true)->orderBy('order');
     }
 
     public function scopeIsActive($query, $uid)
