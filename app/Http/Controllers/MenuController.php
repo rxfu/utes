@@ -1,21 +1,21 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers;
 
-use {{ namespaceService }};
+use App\Services\MenuService;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class MenuController extends Controller
 {
     /**
      * Create a new controller instance.
      *
-     * @param \{{ namespaceService }}  ${{ serviceVariable }}
+     * @param \App\Services\MenuService  $menuService
      * @return void
      */
-    public function __construct({{ service }} ${{ serviceVariable }})
+    public function __construct(MenuService $menuService)
     {
-        $this->service = ${{ serviceVariable }};
+        $this->service = $menuService;
     }
 
     /**
@@ -27,7 +27,7 @@ class {{ class }} extends Controller
     {
         $items = $this->service->getAll();
 
-        return view('{{ collection }}.index', compact('items'));
+        return view('menus.index', compact('items'));
     }
 
     /**
@@ -37,7 +37,7 @@ class {{ class }} extends Controller
      */
     public function create()
     {
-        return view('{{ collection }}.create');
+        return view('menus.create');
     }
 
     /**
@@ -51,11 +51,9 @@ class {{ class }} extends Controller
         if ($request->isMethod('post'))
         {
             $item = $this->service->store($request->all());
-
-            return redirect()->route('{{ collection }}.show', $item->id);
         }
 
-        return back()->withDanger('提交方法错误');
+        return redirect()->route('menus.show', $item->id);
     }
 
     /**
@@ -68,7 +66,7 @@ class {{ class }} extends Controller
     {
         $item = $this->service->get($id);
 
-        return view('{{ collection }}.show', compact('item'));
+        return view('menus.show', compact('item'));
     }
 
     /**
@@ -81,7 +79,7 @@ class {{ class }} extends Controller
     {
         $item = $this->service->get($id);
 
-        return view('{{ collection }}.edit', compact('item'))->withSuccess('保存数据成功');
+        return view('menus.edit', compact('item'))->withSuccess('保存数据成功');
     }
 
     /**
@@ -96,11 +94,9 @@ class {{ class }} extends Controller
         if ($request->isMethod('put'))
         {
             $this->service->update($id, $request->all());
-
-            return redirect()->route('{{ collection }}.show', $id)->withSuccess('更新数据成功');
         }
-        
-        return back()->withDanger('提交方法错误');
+
+        return redirect()->route('menus.show', $id)->withSuccess('更新数据成功');
     }
 
     /**
@@ -113,6 +109,6 @@ class {{ class }} extends Controller
     {
         $this->service->delete($id);
 
-        return redirect()->route('{{ collection }}.index')->withSuccess('删除数据成功');
+        return redirect()->route('menus.index')->withSuccess('删除数据成功');
     }
 }

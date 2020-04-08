@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use {{ namespacedRepository }};
+use App\Repositories\MenuRepository;
 
 class MenuService extends Service
 {
-    public function __construct({{ repository }} ${{ repositoryVariable }})
+    public function __construct(MenuRepository $menus)
     {
-        $this->repository = ${{ repositoryVariable }};
+        $this->repository = $menus;
     }
 }

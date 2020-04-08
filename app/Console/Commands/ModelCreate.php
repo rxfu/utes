@@ -86,19 +86,10 @@ class ModelCreate extends GeneratorCommand
      * @return string
      */
     protected function buildClass($name)
-    {/* 
-        $controllerNamespace = $this->getNamespace($name);
-
-        $replace = [];
-
-        if ($this->option('model')) {
-            $replace = $this->buildModelReplacements($replace);
-        }
-
-        $replace["use {$controllerNamespace}\Controller;\n"] = ''; */
-
-        $columns = Schema::getColumnListing(Str::plural(Str::lower(Str::afterLast($name, '\\'))));
-        $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
+    {
+        $table = Str::plural(Str::lower(Str::afterLast($name, '\\')));
+        $columns = Schema::getColumnListing($table);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
         $replace = [
             '{{ attributes }}' => "'" . implode("', '", $columns) . "'",
         ];

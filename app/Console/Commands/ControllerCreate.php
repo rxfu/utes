@@ -51,16 +51,39 @@ class ControllerCreate extends GeneratorCommand
     }
 
     /**
-     * Parse the class name and format according to the root namespace.
+     * Execute the console command.
      *
-     * @param  string  $name
-     * @return string
+     * @return bool|null
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    protected function qualifyClass($name)
+    public function handle()
     {
-        $name = Str::ucfirst($name) . 'Controller';
-        
-        dd(parent::qualifyClass($name));
+        $controller = Str::ucfirst($this->getNameInput()) . 'Controller';
+        $name = $this->qualifyClass($controller);
+
+        $path = $this->getPath($name);
+
+        // First we will check to see if the class already exists. If it does, we don't want
+        // to create the class and overwrite the user's code. So, we will bail out so the
+        // code is untouched. Otherwise, we will continue generating this class' files.
+        if ((!$this->hasOption('force') ||
+                !$this->option('force')) &&
+            $this->alreadyExists($controller)
+        ) {
+            $this->error($this->type . ' already exists!');
+
+            return false;
+        }
+
+        // Next, we will generate the path to the location where this class' file should get
+        // written. Then, we will build the class and make the proper replacements on the
+        // stub files so that it gets the correctly formatted namespace and class name.
+        $this->makeDirectory($path);
+
+        $this->files->put($path, $this->sortImports($this->buildClass($name)));
+
+        $this->info($this->type . ' created successfully.');
     }
 
     /**
@@ -100,7 +123,7 @@ class ControllerCreate extends GeneratorCommand
 
         if (!class_exists($serviceClass)) {
             if ($this->confirm("A {$serviceClass} service does not exist. Do you want to generate it?", true)) {
-                $this->call('create:service', ['name' => $serviceClass]);
+                $this->call('create:service', ['name' => $model]);
             }
         }
 

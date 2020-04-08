@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class ServiceCreate extends GeneratorCommand
 {
@@ -31,16 +30,6 @@ class ServiceCreate extends GeneratorCommand
     protected $type = 'Service';
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        parent::handle();
-    }
-
-    /**
      * Get the stub file for the generator.
      *
      * @return string
@@ -62,6 +51,42 @@ class ServiceCreate extends GeneratorCommand
     }
 
     /**
+     * Execute the console command.
+     *
+     * @return bool|null
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function handle()
+    {
+        $service = Str::ucfirst($this->getNameInput()) . 'Service';
+        $name = $this->qualifyClass($service);
+
+        $path = $this->getPath($name);
+
+        // First we will check to see if the class already exists. If it does, we don't want
+        // to create the class and overwrite the user's code. So, we will bail out so the
+        // code is untouched. Otherwise, we will continue generating this class' files.
+        if ((!$this->hasOption('force') ||
+                !$this->option('force')) &&
+            $this->alreadyExists($service)
+        ) {
+            $this->error($this->type . ' already exists!');
+
+            return false;
+        }
+
+        // Next, we will generate the path to the location where this class' file should get
+        // written. Then, we will build the class and make the proper replacements on the
+        // stub files so that it gets the correctly formatted namespace and class name.
+        $this->makeDirectory($path);
+
+        $this->files->put($path, $this->sortImports($this->buildClass($name)));
+
+        $this->info($this->type . ' created successfully.');
+    }
+
+    /**
      * Build the class with the given name.
      *
      * Remove the base repository import if we are already in base namespace.
@@ -71,31 +96,30 @@ class ServiceCreate extends GeneratorCommand
      */
     protected function buildClass($name)
     {
+        $model = Str::ucfirst($this->getNameInput());
         $serviceNamespace = $this->getNamespace($name);
 
         $replace = [];
 
-        if ($this->option('repository')) {
-            $repositoryClass = $this->parseRepository($this->option('repository'));
+        $repositoryClass = $this->parseRepository($model);
 
-            if (!class_exists($repositoryClass)) {
-                if ($this->confirm("A {$repositoryClass} repository does not exist. Do you want to generate it?", true)) {
-                    $this->call('create:repository', ['name' => $repositoryClass]);
-                }
+        if (!class_exists($repositoryClass)) {
+            if ($this->confirm("A {$repositoryClass} repository does not exist. Do you want to generate it?", true)) {
+                $this->call('create:repository', ['name' => $model]);
             }
-
-            $replace = array_merge($replace, [
-                'DummyFullRepositoryClass' => $repositoryClass,
-                '{{ namespacedRepository }}' => $repositoryClass,
-                '{{namespacedRepository}}' => $repositoryClass,
-                'DummyRepositoryClass' => class_basename($repositoryClass),
-                '{{ repository }}' => class_basename($repositoryClass),
-                '{{repository}}' => class_basename($repositoryClass),
-                'DummyRepositoryVariable' => lcfirst(class_basename($repositoryClass)),
-                '{{ repositoryVariable }}' => lcfirst(Str::plural($this->option('repository'))),
-                '{{repositoryVariable}}' => lcfirst(Str::plural($this->option('repository'))),
-            ]);
         }
+
+        $replace = array_merge($replace, [
+            'DummyFullRepositoryClass' => $repositoryClass,
+            '{{ namespacedRepository }}' => $repositoryClass,
+            '{{namespacedRepository}}' => $repositoryClass,
+            'DummyRepositoryClass' => class_basename($repositoryClass),
+            '{{ repository }}' => class_basename($repositoryClass),
+            '{{repository}}' => class_basename($repositoryClass),
+            'DummyRepositoryVariable' => lcfirst(class_basename($repositoryClass)),
+            '{{ repositoryVariable }}' => lcfirst(Str::plural($model)),
+            '{{repositoryVariable}}' => lcfirst(Str::plural($model)),
+        ]);
 
         $replace["use {$serviceNamespace}\Service;\n"] = '';
 
@@ -128,17 +152,5 @@ class ServiceCreate extends GeneratorCommand
         }
 
         return $repository;
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['repository', 'm', InputOption::VALUE_OPTIONAL, 'Generate a service for the given repository.'],
-        ];
     }
 }

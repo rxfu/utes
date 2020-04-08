@@ -49,6 +49,7 @@ class RouteAdd extends Command
      */
     public function handle()
     {
+        $routeFile = base_path('routes/web.php');
         $modelName = $this->argument('name');
         $replace = [
             '{{ model }}' => ucfirst($modelName),
@@ -57,9 +58,11 @@ class RouteAdd extends Command
 
         $stub = $this->files->get($this->getStub());
         $stub = str_replace(array_keys($replace), array_values($replace), $stub);
+        $content = $this->files->get($routeFile);
+        $content = str_replace('// route_here', $stub, $content);
 
-
-        $this->files->append(base_path('routes/web.php'), $stub);
+        $this->files->put($routeFile);
+        // $this->files->append(base_path('routes/web.php'), $stub);
 
         $this->info($modelName . ' resource routes added successfully.');
     }

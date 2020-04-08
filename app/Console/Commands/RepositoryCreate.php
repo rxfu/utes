@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class RepositoryCreate extends GeneratorCommand
 {
@@ -31,16 +30,6 @@ class RepositoryCreate extends GeneratorCommand
     protected $type = 'Repository';
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        parent::handle();
-    }
-
-    /**
      * Get the stub file for the generator.
      *
      * @return string
@@ -62,6 +51,42 @@ class RepositoryCreate extends GeneratorCommand
     }
 
     /**
+     * Execute the console command.
+     *
+     * @return bool|null
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function handle()
+    {
+        $repository = Str::ucfirst($this->getNameInput()) . 'Repository';
+        $name = $this->qualifyClass($repository);
+
+        $path = $this->getPath($name);
+
+        // First we will check to see if the class already exists. If it does, we don't want
+        // to create the class and overwrite the user's code. So, we will bail out so the
+        // code is untouched. Otherwise, we will continue generating this class' files.
+        if ((!$this->hasOption('force') ||
+                !$this->option('force')) &&
+            $this->alreadyExists($repository)
+        ) {
+            $this->error($this->type . ' already exists!');
+
+            return false;
+        }
+
+        // Next, we will generate the path to the location where this class' file should get
+        // written. Then, we will build the class and make the proper replacements on the
+        // stub files so that it gets the correctly formatted namespace and class name.
+        $this->makeDirectory($path);
+
+        $this->files->put($path, $this->sortImports($this->buildClass($name)));
+
+        $this->info($this->type . ' created successfully.');
+    }
+
+    /**
      * Build the class with the given name.
      *
      * Remove the base repository import if we are already in base namespace.
@@ -71,31 +96,30 @@ class RepositoryCreate extends GeneratorCommand
      */
     protected function buildClass($name)
     {
+        $model = Str::ucfirst($this->getNameInput());
         $repositoryNamespace = $this->getNamespace($name);
 
         $replace = [];
 
-        if ($this->option('model')) {
-            $modelClass = $this->parseModel($this->option('model'));
+        $modelClass = $this->parseModel($model);
 
-            if (!class_exists($modelClass)) {
-                if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
-                    $this->call('make:model', ['name' => $modelClass]);
-                }
+        if (!class_exists($modelClass)) {
+            if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
+                $this->call('create:model', ['name' => $model]);
             }
-
-            $replace = array_merge($replace, [
-                'DummyFullModelClass' => $modelClass,
-                '{{ namespacedModel }}' => $modelClass,
-                '{{namespacedModel}}' => $modelClass,
-                'DummyModelClass' => class_basename($modelClass),
-                '{{ model }}' => class_basename($modelClass),
-                '{{model}}' => class_basename($modelClass),
-                'DummyModelVariable' => lcfirst(class_basename($modelClass)),
-                '{{ modelVariable }}' => lcfirst(class_basename($modelClass)),
-                '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
-            ]);
         }
+
+        $replace = array_merge($replace, [
+            'DummyFullModelClass' => $modelClass,
+            '{{ namespacedModel }}' => $modelClass,
+            '{{namespacedModel}}' => $modelClass,
+            'DummyModelClass' => class_basename($modelClass),
+            '{{ model }}' => class_basename($modelClass),
+            '{{model}}' => class_basename($modelClass),
+            'DummyModelVariable' => lcfirst(class_basename($modelClass)),
+            '{{ modelVariable }}' => lcfirst(class_basename($modelClass)),
+            '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
+        ]);
 
         $replace["use {$repositoryNamespace}\Repository;\n"] = '';
 
@@ -128,17 +152,5 @@ class RepositoryCreate extends GeneratorCommand
         }
 
         return $model;
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate a repository for the given model.'],
-        ];
     }
 }
