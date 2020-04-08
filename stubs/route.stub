@@ -1,3 +1,2 @@
-
 Route::resource('{{ collection }}', '{{ model }}Controller');
-// route_here
+    // route_here

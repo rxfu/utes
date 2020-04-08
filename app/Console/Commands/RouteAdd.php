@@ -61,8 +61,7 @@ class RouteAdd extends Command
         $content = $this->files->get($routeFile);
         $content = str_replace('// route_here', $stub, $content);
 
-        $this->files->put($routeFile);
-        // $this->files->append(base_path('routes/web.php'), $stub);
+        $this->files->put($routeFile, $content);
 
         $this->info($modelName . ' resource routes added successfully.');
     }
