@@ -1,0 +1,31 @@
+@extend('layouts.app')
+
+@section('title', "编辑{{ __('DummyModel.module') }}")
+
+@section('content')
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">编辑{{ __('DummyModel.module') }}{{ $item->id }}</h3>
+            </div>
+
+		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route('DummyCollection.update', $item->getKey()) }}">
+                @csrf
+                @method('put')
+                <div class="card-body">
+                    {{ attributes }}
+                </div>
+
+                <div class="card-foot">
+                    <div class="row justify-content-sm-center">
+                        <button type="submit" class="btn btn-info">
+                            <i class="icon fa fa-save"></i> 保存
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

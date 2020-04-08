@@ -107,8 +107,8 @@ class ViewCreate extends Command
         return [
             // 'index' => resource_path('views/' . $name . '/index.blade.php'),
             // 'show' => resource_path('views/' . $name . '/show.blade.php'),
-            'create' => resource_path('views/' . $name . '/create.blade.php'),
-            // 'edit' => resource_path('views/' . $name . '/edit.blade.php'),
+            // 'create' => resource_path('views/' . $name . '/create.blade.php'),
+            'edit' => resource_path('views/' . $name . '/edit.blade.php'),
         ];
     }
 
@@ -131,6 +131,9 @@ class ViewCreate extends Command
 
             case 'create':
                 return $this->_replaceCreate($table, $replace);
+
+            case 'edit':
+                return $this->_replaceEdit($table, $replace);
 
             default:
                 return $this->_replaceIndex($table, $replace);
@@ -225,6 +228,67 @@ class ViewCreate extends Command
 
                 default:
                     $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">';
+                    break;
+            }
+
+            $attribute .=  '
+                        </div>
+                    </div>';
+
+            return $attribute;
+        }, $columns);
+
+        return array_merge($replace, [
+            '{{ attributes }}' => implode(PHP_EOL, $attributes),
+        ]);
+    }
+
+    private function _replaceEdit($table, $replace)
+    {
+
+        $columns = Schema::getColumnListing($table);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
+        $attributes = array_map(function ($v) use ($table) {
+            $type = Schema::getColumnType($table, $v);
+            $table = Str::singular($table);
+
+            $attribute = '
+                    <div class="form-group row">
+                        <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
+                        <div class="col-sm-9">
+                            ';
+
+            switch ($type) {
+                case 'text':
+                    $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}">{{ old(\'' . $v . '\', $item->' . $v . ') }}</textarea>';
+                    break;
+
+                case 'boolean':
+                    $attribute .= '<div class="form-check form-check-inline">
+                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $v . '\', $item->' . $v .') === 1 ? \' checked\' : \'\' }}>
+                                <label class="form-check-label" for="' . $v . '1">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $v . '\', $item->' . $v .') === 0 ? \' checked\' : \'\' }}>
+                                <label class="form-check-label" for="' . $v . '0">否</label>
+                            </div>';
+                    break;
+
+                case 'datetime':
+                    $attribute .= '<div class="form-group">
+                                <div class="input-group datepicker">
+                                    <input type="text" name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\', $item->' . $v . ') }}">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                    break;
+
+                default:
+                    $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\', $item->' . $v . ') }}">';
                     break;
             }
 
