@@ -59,15 +59,19 @@ class ViewCreate extends Command
         $paths = $this->getPaths(Str::lower($name));
 
         foreach ($paths as $method => $path) {
-            $this->makeDirectory($path);
+            if ($this->files->exists($path)) {
+                $this->error(Str::ucfirst($method) . $this->type . ' already exists!');
+            } else {
+                $this->makeDirectory($path);
 
-            $stub = $this->files->get($this->getStub($method));
-            $replace = $this->replaceAttributes($name, $replace, $method);
-            $stub = str_replace(array_keys($replace), array_values($replace), $stub);
+                $stub = $this->files->get($this->getStub($method));
+                $replace = $this->replaceAttributes($name, $replace, $method);
+                $stub = str_replace(array_keys($replace), array_values($replace), $stub);
 
-            $this->files->put($path, $stub);
+                $this->files->put($path, $stub);
 
-            $this->info(Str::ucfirst($method) . $this->type . ' created successfully.');
+                $this->info(Str::ucfirst($method) . $this->type . ' created successfully.');
+            }
         }
     }
 
@@ -265,11 +269,11 @@ class ViewCreate extends Command
 
                 case 'boolean':
                     $attribute .= '<div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $v . '\', $item->' . $v .') === 1 ? \' checked\' : \'\' }}>
+                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $v . '\', $item->' . $v . ') === 1 ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $v . '1">是</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $v . '\', $item->' . $v .') === 0 ? \' checked\' : \'\' }}>
+                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $v . '\', $item->' . $v . ') === 0 ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $v . '0">否</label>
                             </div>';
                     break;
