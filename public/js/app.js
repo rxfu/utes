@@ -22,4 +22,41 @@ $(function(){
 			}
 		});
 	// });
+
+	$('.datatable').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': true,
+        'language': {
+            'url': "/laradmin/plugins/datatables/lang/Chinese.json",
+            'buttons': {
+                'excel': '导出Excel',
+                'pdf': '导出PDF',
+                'print': '打印',
+                'colvis': '隐藏列'
+            }
+        },
+        'responsive': {
+            'details': {
+                'type': "column",
+                'target': 0
+            }
+        },
+        'columnDefs': [{
+        	'orderable': false,
+        	'targets': 1
+        }, {
+            'className': 'control',
+            'orderable': false,
+            'targets': 0
+        }],
+        'order': [],
+        'dom': 'Bfrtip',
+        'buttons': ['excel', 'pdf', 'print', 'colvis'],
+	});
+	
+	$('.datepicker').daterangepicker();
 });

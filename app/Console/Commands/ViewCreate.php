@@ -167,7 +167,7 @@ class ViewCreate extends Command
                 <div class="form-group row">
                     <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __(\'' . $table . '.' . $v . '\') }}" id="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ $item->' . $v . ' }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="' . $v . '" id="' . $v . '" value="{{ $item->' . $v . ' }}" readonly>
                     </div>
                 </div>';
 
@@ -183,19 +183,54 @@ class ViewCreate extends Command
     {
 
         $columns = Schema::getColumnListing($table);
-        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'update_at']);
         $attributes = array_map(function ($v) use ($table) {
             $type = Schema::getColumnType($table, $v);
-            dd($type);
             $table = Str::singular($table);
 
             $attribute = '
-                <div class="form-group row">
-                    <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="{{ __(\'' . $table . '.' . $v . '\') }}" id="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ $item->' . $v . ' }}" readonly>
-                    </div>
-                </div>';
+                    <div class="form-group row">
+                        <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
+                        <div class="col-sm-9">
+                            ';
+
+            switch ($type) {
+                case 'text':
+                    $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}">{{ old(\'' . $v . '\') }}</textarea>';
+                    break;
+
+                case 'boolean':
+                    $attribute .= '<div class="form-check form-check-inline">
+                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
+                                <label class="form-check-label" for="' . $v . '1">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0">
+                                <label class="form-check-label" for="' . $v . '0">否</label>
+                            </div>';
+                    break;
+
+                case 'datetime':
+                    $attribute .= '<div class="form-group">
+                                <div class="input-group datepicker">
+                                    <input type="text" name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                    break;
+
+                default:
+                    $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">';
+                    break;
+            }
+
+            $attribute .=  '
+                        </div>
+                    </div>';
 
             return $attribute;
         }, $columns);
