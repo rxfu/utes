@@ -63,7 +63,7 @@ class RouteAdd extends Command
 
         $this->files->put($routeFile, $content);
 
-        $this->info($modelName . ' resource routes added successfully.');
+        $this->info($modelName . ' routes added successfully.');
     }
 
     /**

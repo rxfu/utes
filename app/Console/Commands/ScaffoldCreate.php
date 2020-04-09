@@ -18,7 +18,7 @@ class ScaffoldCreate extends Command
      *
      * @var string
      */
-    protected $description = 'Create some new classes';
+    protected $description = 'Create a new scaffold';
 
     /**
      * Create a new command instance.
