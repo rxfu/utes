@@ -15,11 +15,13 @@ class MenusTableSeeder extends Seeder
         Menu::create([
             'uid' => 'navigation',
             'name' => '导航菜单',
+            'forbidden_delete' => true,
         ]);
 
         Menu::create([
             'uid' => 'main',
             'name' => '主菜单',
+            'forbidden_delete' => true,
         ]);
 
         $menu = Menu::find(1);
@@ -48,6 +50,7 @@ class MenusTableSeeder extends Seeder
                 'uid' => 'item4',
                 'name' => '菜单管理',
                 'icon' => 'tachometer-alt',
+                'forbidden_delete' => true,
             ],
             [
                 'uid' => 'item5',
@@ -55,6 +58,7 @@ class MenusTableSeeder extends Seeder
                 'route' => 'menus.index',
                 'icon' => 'tachometer-alt',
                 'parent_id' => 4,
+                'forbidden_delete' => true,
             ],
             [
                 'uid' => 'item6',
@@ -62,17 +66,20 @@ class MenusTableSeeder extends Seeder
                 'route' => 'menus.index',
                 'icon' => 'tachometer-alt',
                 'parent_id' => 4,
+                'forbidden_delete' => true,
             ],
             [
                 'uid' => 'item7',
                 'name' => '系统管理',
                 'icon' => 'tachometer-alt',
+                'forbidden_delete' => true,
             ],
             [
                 'uid' => 'item8',
                 'name' => '修改密码',
                 'icon' => 'shield-alt',
                 'parent_id' => 7,
+                'forbidden_delete' => true,
             ],
         ]);
     }

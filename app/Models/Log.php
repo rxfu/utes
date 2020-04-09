@@ -13,7 +13,7 @@ class Log extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'ip', 'level', 'path', 'method', 'action', 'model', 'model_id', 'content',
+        'user_id', 'ip', 'code', 'path', 'method', 'action', 'model', 'model_id', 'content',
     ];
 
     public function getIpAttribute($value)
@@ -24,11 +24,6 @@ class Log extends Model
     public function setIpAttribute($value)
     {
         $this->attributes['ip'] = ip2long($value);
-    }
-
-    public function setLevelAttribute($value)
-    {
-        $this->attributes['level'] = Str::lower($value);
     }
 
     public function setActionAttribute($value)

@@ -21,7 +21,7 @@ class CreateLogsTable extends Migration
                 ->onUpdate('cascade')
                 ->comment('用户ID');
             $table->unsignedInteger('ip')->default(0)->comment('IP地址');
-            $table->string('level', 10)->comment('级别');
+            $table->unsignedInteger('code')->comment('代码');
             $table->string('path', 128)->comment('路径');
             $table->string('method', 10)->comment('方法');
             $table->string('action', 10)->comment('动作');

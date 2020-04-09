@@ -18,7 +18,7 @@ abstract class Repository
 
     public function getModel()
     {
-        return class_basename($this->model);
+        return $this->model;
     }
 
     public function find($id, $trashed = false)
@@ -30,38 +30,38 @@ abstract class Repository
 
             return $this->model->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new InternalException($e);
+            throw new InternalException($e, $this->getModel(), 'find');
         }
     }
 
-    public function getAll($order = 'id', $direction = 'asc')
+    public function findAll($order = 'id', $direction = 'asc')
     {
-        return $this->object->orderBy($order, $direction)->get();
+        return $this->model->orderBy($order, $direction)->get();
     }
 
-    public function store($attributes)
+    public function save($attributes)
     {
         try {
             $attributes = is_array($attributes) ? $attributes : [$attributes];
-            $object = $this->object->create($attributes);
+            $object = $this->model->create($attributes);
 
             if (!$object) {
-                throw new InvalidRequestException($this->getModel() . ' 对象创建失败', $this->getObject(), 'store');
+                throw new InvalidRequestException(400001, $this->getModel(), 'save');
             } else {
                 return $object;
             }
         } catch (QueryException $e) {
-            throw new InternalException($this->getModel() . ' 对象创建错误', $this->getObject(), 'store', $e);
+            throw new InternalException($e, $this->getModel(), 'save');
         }
     }
 
     public function update($id, $attributes)
     {
-        $object = $this->get($id);
+        $object = $this->find($id);
         $attributes = is_array($attributes) ? $attributes : [$attributes];
 
         if (false === $object->update($attributes)) {
-            throw new InvalidRequestException($this->getModel() . ': ' . $id . ' 对象更新失败', $this->getObject(), 'update');
+            throw new InvalidRequestException(400002, $this->getModel(), 'update');
         }
 
         return $object;
@@ -69,21 +69,28 @@ abstract class Repository
 
     public function delete($id, $force = false)
     {
-        $object = $this->get($id);
+        $object = $this->find($id);
         $success =  $force ? $object->forceDelete() : $object->delete();
 
         if (is_null($success) || (false === $success)) {
-            throw new InvalidRequestException($this->getModel() . ': ' . $id . ' 对象删除失败', $this->getObject(), 'delete');
+            throw new InvalidRequestException(400003, $this->getModel(), 'delete');
         }
+
+        return $success;
     }
 
     public function deleteAll($ids, $force = false)
     {
         $ids = is_array($ids) ? $ids : [$ids];
+        $count = 0;
 
         foreach ($ids as $id) {
-            $this->delete($id, $force);
+            if ($this->delete($id, $force)) {
+                $count++;
+            }
         }
+
+        return $count;
     }
 
     public static function __callStatic($method, $arguments)
