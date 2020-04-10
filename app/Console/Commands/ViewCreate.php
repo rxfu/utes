@@ -147,7 +147,7 @@ class ViewCreate extends Command
     private function _replaceIndex($table, $replace)
     {
         $columns = Schema::getColumnListing($table);
-        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
+        $columns = array_diff($columns, ['remember_token', 'created_at', 'updated_at']);
         $attributeNames = array_map(function ($v) use ($table) {
             $table = Str::singular($table);
             return "<th>{{ __('$table.$v') }}</th>";
@@ -166,7 +166,7 @@ class ViewCreate extends Command
     {
 
         $columns = Schema::getColumnListing($table);
-        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
+        $columns = array_diff($columns, ['remember_token', 'created_at', 'updated_at']);
         $attributes = array_map(function ($v) use ($table) {
             $table = Str::singular($table);
 
@@ -269,11 +269,11 @@ class ViewCreate extends Command
 
                 case 'boolean':
                     $attribute .= '<div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $v . '\', $item->' . $v . ') === 1 ? \' checked\' : \'\' }}>
+                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $v . '\', $item->' . $v . ') === true ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $v . '1">是</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $v . '\', $item->' . $v . ') === 0 ? \' checked\' : \'\' }}>
+                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $v . '\', $item->' . $v . ') === false ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $v . '0">否</label>
                             </div>';
                     break;

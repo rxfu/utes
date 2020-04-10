@@ -27,6 +27,7 @@ class Menuitem extends Model
      */
     protected $casts = [
         'is_enable' => 'boolean',
+        'forbidden_delete' => 'boolean',
     ];
 
     public $timestamps = false;

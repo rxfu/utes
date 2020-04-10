@@ -16,10 +16,10 @@
                     {{ attributes }}
                 </div>
 
-                <div class="card-foot">
+                <div class="card-footer">
                     <div class="row justify-content-sm-center">
                         <button type="submit" class="btn btn-success">
-                            <i class="icon fa fa-save"></i> 创建
+                            <i class="fas fa-save"></i> 创建
                         </button>
                     </div>
                 </div>

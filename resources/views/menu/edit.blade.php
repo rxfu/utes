@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">编辑{{ __('menu.module') }}{{ $item->id }}</h3>
+                <h3 class="card-title">编辑{{ __('menu.module') }}: {{ $item->getKey() }}</h3>
             </div>
 
 		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route('menus.update', $item->getKey()) }}">
@@ -40,21 +40,35 @@
                         <label for="is_enable" class="col-sm-3 col-form-label">{{ __('menu.is_enable') }}</label>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="is_enable" id="is_enable" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1"{{ old('is_enable', $item->is_enable) === 1 ? ' checked' : '' }}>
+                                <input type="radio" name="is_enable" id="is_enable" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1"{{ old('is_enable', $item->is_enable) === true ? ' checked' : '' }}>
                                 <label class="form-check-label" for="is_enable1">是</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0"{{ old('is_enable', $item->is_enable) === 0 ? ' checked' : '' }}>
+                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0"{{ old('is_enable', $item->is_enable) === false ? ' checked' : '' }}>
                                 <label class="form-check-label" for="is_enable0">否</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="forbidden_delete" class="col-sm-3 col-form-label">{{ __('menu.forbidden_delete') }}</label>
+                        <div class="col-sm-9">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="forbidden_delete" id="forbidden_delete" class="form-check-input{{ $errors->has('forbidden_delete') ? ' is_invalid' : '' }}" value="1"{{ old('forbidden_delete', $item->forbidden_delete) === true ? ' checked' : '' }}>
+                                <label class="form-check-label" for="forbidden_delete1">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="forbidden_delete" id="forbidden_delete0" class="form-check-input{{ $errors->has('forbidden_delete') ? ' is_invalid' : '' }}" value="0"{{ old('forbidden_delete', $item->forbidden_delete) === false ? ' checked' : '' }}>
+                                <label class="form-check-label" for="forbidden_delete0">否</label>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-foot">
+                <div class="card-footer">
                     <div class="row justify-content-sm-center">
                         <button type="submit" class="btn btn-info">
-                            <i class="icon fa fa-save"></i> 保存
+                            <i class="fas fa-save"></i> 保存
                         </button>
                     </div>
                 </div>
