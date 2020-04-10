@@ -73,6 +73,8 @@ class ViewCreate extends Command
                 $this->info(Str::ucfirst($method) . $this->type . ' created successfully.');
             }
         }
+
+        $this->call('create:translation', compact('name'));
     }
 
     /**
@@ -124,7 +126,7 @@ class ViewCreate extends Command
      */
     protected function replaceAttributes($name, $replace, $method)
     {
-        $table = Str::plural(Str::lower($name, '\\'));
+        $table = Str::plural(Str::lower($name));
 
         switch ($method) {
             case 'index':

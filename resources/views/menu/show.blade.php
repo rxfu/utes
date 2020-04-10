@@ -48,9 +48,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="forbidden_delete" class="col-sm-3 col-form-label">{{ __('menu.forbidden_delete') }}</label>
+                    <label for="is_system" class="col-sm-3 col-form-label">{{ __('menu.is_system') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="forbidden_delete" id="forbidden_delete" value="{{ $item->forbidden_delete }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_system" id="is_system" value="{{ $item->is_system }}" readonly>
                     </div>
                 </div>
             </div>

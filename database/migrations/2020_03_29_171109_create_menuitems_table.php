@@ -28,7 +28,7 @@ class CreateMenuitemsTable extends Migration
             $table->text('description')->nullable()->comment('描述');
             $table->boolean('is_enable')->default(true)->comment('是否启用，0-未启用，1-启用');
             $table->integer('order')->default(0)->comment('排序');
-            $table->boolean('forbidden_delete')->default(0)->comment('是否禁止删除，0-允许删除，1-禁止删除');
+            $table->boolean('is_system')->default(0)->comment('是否系统菜单，0-否，1-是');
         });
     }
 

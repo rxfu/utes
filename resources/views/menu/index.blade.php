@@ -24,7 +24,7 @@
 							<th>{{ __('menu.name') }}</th>
 							<th>{{ __('menu.description') }}</th>
 							<th>{{ __('menu.is_enable') }}</th>
-							<th>{{ __('menu.forbidden_delete') }}</th>
+							<th>{{ __('menu.is_system') }}</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -36,7 +36,7 @@
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->description }}</td>
 								<td>{{ $item->is_enable }}</td>
-								<td>{{ $item->forbidden_delete }}</td>
+								<td>{{ $item->is_system }}</td>
                                 <td>
                                     <a href="{{ route('menus.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
                                         <i class="fas fa-folder"></i> 显示
@@ -58,7 +58,7 @@
 							<th>{{ __('menu.name') }}</th>
 							<th>{{ __('menu.description') }}</th>
 							<th>{{ __('menu.is_enable') }}</th>
-							<th>{{ __('menu.forbidden_delete') }}</th>
+							<th>{{ __('menu.is_system') }}</th>
                             <th>操作</th>
                         </tr>
                     </thead>
