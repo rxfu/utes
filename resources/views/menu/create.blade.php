@@ -1,6 +1,6 @@
-@extend('layouts.app')
+@extends('layouts.app')
 
-@section('title', "创建{{ __('menu.module') }}")
+@section('title', '创建' . __('menu.module'))
 
 @section('content')
 <div class="row">

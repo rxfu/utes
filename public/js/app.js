@@ -13,8 +13,8 @@ $(function(){
 		$('.nav-sidebar a').each(function() {
 			if(this.href === window.location.href) {
 				$(this).addClass('active')
-				.closet('.has-treeview').addClass('.menu-open')
-				.closet('.nav-link').addClass('active');
+				.closest('.has-treeview').addClass('.menu-open')
+				.closest('.nav-link').addClass('active');
 				/* 
 				$(this).parent().addClass('active')
 						.closest('.treeview-menu').addClass('.menu-open')

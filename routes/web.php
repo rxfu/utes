@@ -29,5 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact', 'HomeController@contact')->name('contact');
 
     Route::resource('menus', 'MenuController');
+    Route::resource('menuitems', 'MenuitemController');
     // route_here
 });

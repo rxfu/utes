@@ -157,8 +157,8 @@ class ViewCreate extends Command
         }, $columns);
 
         return array_merge($replace, [
-            '{{ attributeNames }}' => implode(PHP_EOL . "\t\t\t\t\t\t", $attributeNames),
-            '{{ attributes }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t", $attributes),
+            '{{ attributeNames }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t", $attributeNames),
+            '{{ attributes }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t\t", $attributes),
         ]);
     }
 

@@ -1,6 +1,6 @@
-@extend('layouts.app')
+@extends('layouts.app')
 
-@section('title', "{{ __('DummyModel.module') }}列表")
+@section('title', __('DummyModel.module') . '列表')
 
 @section('content')
 <div class="row">
@@ -11,29 +11,31 @@
             </div>
 
             <div class="card-body">
-                <table id="{{ modelVariable }}-table" class="table table-bordered table-striped datatable">
-                    <tr>
-                        {{ attributeNames }}
-                        <th colspan="2">操作</th>
-                    </tr>
-                </table>
-                <tbody>
-                    @foreach ($items as $item)
+                <table id="DummyCollection-table" class="table table-bordered table-striped datatable">
+                    <thead>
                         <tr>
-                            {{ attributes }}
-                            <td>
-                                <a href="{{ route('DummyCollection.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
-                                    <i class="icon fa fa-edit"></i> 编辑
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ route('DummyCollection.delete', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').action='{{ route('DummyCollection.delete', $item->getKey()) }}';document.getElementById('delete-form').submit();">
-                                    <i class="icon fa fa-trash"></i> 删除
-                                </a>
-                            </td>
+                            {{ attributeNames }}
+                            <th colspan="2">操作</th>
                         </tr>
-                    @endforeach
-                </tbody>
+                    </thead>
+                    <tbody>
+                        @foreach ($items as $item)
+                            <tr>
+                                {{ attributes }}
+                                <td>
+                                    <a href="{{ route('DummyCollection.edit', $item->getKey()) }}" class="btn btn-info btn-flat btn-sm" title="编辑">
+                                        <i class="icon fa fa-edit"></i> 编辑
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('DummyCollection.destroy', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').action='{{ route('DummyCollection.destroy', $item->getKey()) }}';document.getElementById('delete-form').submit();">
+                                        <i class="icon fa fa-trash"></i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
             <form id="delete-form" method="POST" style="display: none;">
                 @csrf
@@ -41,9 +43,13 @@
             </form>
 
             <div class="card-foot">
-                <a href="{{ route('DummyCollection.create') }}" title="创建" class="btn btn-success">
-                    <i class="icon fa fa-plus"></i> 创建{{ __('DummyModel.module') }}
-                </a>
+                <div class="row">
+                    <div class="col text-right">
+                        <a href="{{ route('DummyCollection.create') }}" title="创建" class="btn btn-success">
+                            <i class="icon fa fa-plus"></i> 创建{{ __('DummyModel.module') }}
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
-@extend('layouts.app')
+@extends('layouts.app')
 
-@section('title', "显示{{ __('DummyModel.module') }}")
+@section('title', '显示' . __('DummyModel.module'))
 
 @section('content')
 <div class="row">
@@ -18,11 +18,11 @@
                 <a href="{{ route('DummyCollection.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
                     <i class="icon fa fa-edit"></i> 编辑
                 </a>
-                <a href="{{ route('DummyCollection.delete', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                <a href="{{ route('DummyCollection.destroy', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
                     <i class="icon fa fa-trash"></i> 删除
                 </a>
             </div>
-            <form id="delete-form" action="{{ route('DummyCollection.delete', $item->getKey()) }}" method="POST" style="display: none;">
+            <form id="delete-form" action="{{ route('DummyCollection.destroy', $item->getKey()) }}" method="POST" style="display: none;">
                 @csrf
                 @method('delete')
             </form>

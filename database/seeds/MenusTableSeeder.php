@@ -63,7 +63,7 @@ class MenusTableSeeder extends Seeder
             [
                 'uid' => 'item6',
                 'name' => '菜单项管理',
-                'route' => 'menus.index',
+                'route' => 'menuitems.index',
                 'icon' => 'tachometer-alt',
                 'parent_id' => 4,
                 'forbidden_delete' => true,

@@ -1,6 +1,6 @@
-@extend('layouts.app')
+@extends('layouts.app')
 
-@section('title', "显示{{ __('menu.module') }}")
+@section('title', '显示' . __('menu.module'))
 
 @section('content')
 <div class="row">
@@ -45,11 +45,11 @@
                 <a href="{{ route('menus.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
                     <i class="icon fa fa-edit"></i> 编辑
                 </a>
-                <a href="{{ route('menus.delete', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                <a href="{{ route('menus.destroy', $item->getKey()) }}" class="btn btn-danger btn-flat btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
                     <i class="icon fa fa-trash"></i> 删除
                 </a>
             </div>
-            <form id="delete-form" action="{{ route('menus.delete', $item->getKey()) }}" method="POST" style="display: none;">
+            <form id="delete-form" action="{{ route('menus.destroy', $item->getKey()) }}" method="POST" style="display: none;">
                 @csrf
                 @method('delete')
             </form>

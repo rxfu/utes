@@ -1,6 +1,6 @@
-@extend('layouts.app')
+@extends('layouts.app')
 
-@section('title', "编辑{{ __('DummyModel.module') }}")
+@section('title', '编辑' . __('DummyModel.module'))
 
 @section('content')
 <div class="row">
