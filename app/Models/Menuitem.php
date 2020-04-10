@@ -17,7 +17,7 @@ class Menuitem extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'path', 'icon', 'menuitem_id', 'menu_id'
+        'uid', 'name', 'route', 'icon', 'parent_id', 'menu_id', 'description', 'order', 'is_enable', 'is_system',
     ];
 
     /**
@@ -27,7 +27,7 @@ class Menuitem extends Model
      */
     protected $casts = [
         'is_enable' => 'boolean',
-        'forbidden_delete' => 'boolean',
+        'is_system' => 'boolean',
     ];
 
     public $timestamps = false;

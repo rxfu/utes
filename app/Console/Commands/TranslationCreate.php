@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Schema;
 
@@ -59,8 +60,9 @@ class TranslationCreate extends Command
         } else {
             $columns = Schema::getColumnListing($table);
             $columns = array_diff($columns, ['remember_token', 'created_at', 'updated_at']);
-            $translations = array_map(function ($v) use ($name) {
-                return "'$v' => '" . Str::upper($v) . "',";
+            $schema = DB::getDoctrineSchemaManager()->listTableDetails($table);
+            $translations = array_map(function ($v) use ($schema) {
+                return "'$v' => '" . ($schema->getColumn($v)->getComment() ?: Str::upper($v)) . "',";
             }, $columns);
 
             $replace = [

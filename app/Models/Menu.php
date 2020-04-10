@@ -12,7 +12,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name',
+        'uid', 'name', 'description', 'is_enable', 'is_system',
     ];
 
     /**
@@ -22,7 +22,7 @@ class Menu extends Model
      */
     protected $casts = [
         'is_enable' => 'boolean',
-        'forbidden_delete' => 'boolean',
+        'is_system' => 'boolean',
     ];
 
     public $timestamps = false;
