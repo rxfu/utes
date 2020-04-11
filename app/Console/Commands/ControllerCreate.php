@@ -129,6 +129,7 @@ class ControllerCreate extends GeneratorCommand
 
         return array_merge($replace, [
             '{{ collection }}' => lcfirst(class_basename($model)),
+            '{{ collections }}' => Str::plural(lcfirst(class_basename($model))),
             '{{ namespaceService }}' => $serviceClass,
             '{{namespaceService}}' => $serviceClass,
             '{{ service }}' => class_basename($serviceClass),

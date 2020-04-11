@@ -43,33 +43,28 @@
                 <div class="form-group row">
                     <label for="is_enable" class="col-sm-3 col-form-label">{{ __('menu.is_enable') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->is_enable }}" readonly>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="is_system" class="col-sm-3 col-form-label">{{ __('menu.is_system') }}</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_system" id="is_system" value="{{ $item->is_system }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->present()->isEnable }}" readonly>
                     </div>
                 </div>
             </div>
-
-            <div class="card-footer">
-                <div class="row justify-content-sm-center">
-                    <a href="{{ route('menus.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
-                        <i class="fas fa-pencil-alt"></i> 编辑
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="{{ route('menus.destroy', $item->getKey()) }}" class="btn btn-danger" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
-                        <i class="fas fa-trash"></i> 删除
-                    </a>
+            
+            @unless($item->is_system)
+                <div class="card-footer">
+                    <div class="row justify-content-sm-center">
+                        <a href="{{ route('menus.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
+                            <i class="fas fa-pencil-alt"></i> 编辑
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="{{ route('menus.destroy', $item->getKey()) }}" class="btn btn-danger delete" title="删除">
+                            <i class="fas fa-trash"></i> 删除
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <form id="delete-form" action="{{ route('menus.destroy', $item->getKey()) }}" method="POST" style="display: none;">
-                @csrf
-                @method('delete')
-            </form>
+                <form id="delete-form" action="{{ route('menus.destroy', $item->getKey()) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('delete')
+                </form>
+            @endunless
         </div>
     </div>
 </div>

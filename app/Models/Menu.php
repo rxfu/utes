@@ -3,16 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 class Menu extends Model
 {
+    use PresentableTrait;
+
+    protected $presenter = 'App\Presenters\MenuPresenter';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'description', 'is_enable', 'is_system',
+        'uid', 'name', 'description', 'is_enable',
     ];
 
     /**

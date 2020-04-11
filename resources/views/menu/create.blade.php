@@ -48,20 +48,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="is_system" class="col-sm-3 col-form-label">{{ __('menu.is_system') }}</label>
-                        <div class="col-sm-9">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="is_system" id="is_system" class="form-check-input{{ $errors->has('is_system') ? ' is_invalid' : '' }}" value="1" checked>
-                                <label class="form-check-label" for="is_system1">是</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="is_system" id="is_system0" class="form-check-input{{ $errors->has('is_system') ? ' is_invalid' : '' }}" value="0">
-                                <label class="form-check-label" for="is_system0">否</label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card-footer">

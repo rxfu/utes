@@ -11,9 +11,9 @@ $(function(){
 
 	// $(window).on('load', function() {
 		$('.nav-sidebar a').each(function() {
-			if(this.href === window.location.href) {
-				$(this).addClass('active').closest('.has-treeview').addClass('menu-open');
-				$(this).closest('.has-treeview').closest('.nav-link').addClass('active');
+			if(window.location.href.indexOf(this.href) == 0) {
+				$(this).addClass('active').closest('.has-treeview').addClass('menu-open')
+				.children('a.nav-link').addClass('active');
 				/* 
 				$(this).parent().addClass('active')
 						.closest('.treeview-menu').addClass('.menu-open')
@@ -21,6 +21,17 @@ $(function(){
 			}
 		});
 	// });
+
+	$('.delete').click(function () {
+		event.preventDefault();
+
+		if (confirm('记录删除后不可恢复，请问确定删除该条记录吗？')) {
+			var href = $(this).attr('href');
+			$('#delete-form').attr('action', href).submit();
+
+			return false;
+		}
+	})
 
 	$('.datepicker').daterangepicker();
 });

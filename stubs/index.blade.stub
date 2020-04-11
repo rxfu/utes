@@ -34,7 +34,7 @@
                                     <a href="{{ route('DummyCollection.edit', $item->getKey()) }}" class="btn btn-info btn-sm" title="编辑">
                                         <i class="fas fa-pencil-alt"></i> 编辑
                                     </a>
-                                    <a href="{{ route('DummyCollection.destroy', $item->getKey()) }}" class="btn btn-danger btn-sm" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').action='{{ route('DummyCollection.destroy', $item->getKey()) }}';document.getElementById('delete-form').submit();">
+                                    <a href="{{ route('DummyCollection.destroy', $item->getKey()) }}" class="btn btn-danger btn-sm delete" title="删除">
                                         <i class="fas fa-trash"></i> 删除
                                     </a>
                                 </td>

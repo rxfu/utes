@@ -20,7 +20,7 @@
                         <i class="fas fa-pencil-alt"></i> 编辑
                     </a>
                     &nbsp;&nbsp;
-                    <a href="{{ route('DummyCollection.destroy', $item->getKey()) }}" class="btn btn-danger" title="删除" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                    <a href="{{ route('DummyCollection.destroy', $item->getKey()) }}" class="btn btn-danger delete" title="删除">
                         <i class="fas fa-trash"></i> 删除
                     </a>
                 </div>
