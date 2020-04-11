@@ -11,4 +11,9 @@ class MenuitemPresenter extends Presenter
     {
         return Str::of($this->route)->trim()->isEmpty() ? '#' : route($this->route);
     }
+
+    public function isEnable()
+    {
+        return $this->is_enable ? '是' : '否';
+    }
 }

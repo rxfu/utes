@@ -52,7 +52,7 @@ class MenuitemController extends Controller
         {
             $item = $this->service->store($request->all());
 
-            return redirect()->route('menuitem.show', $item->id);
+            return redirect()->route('menuitems.show', $item->id);
         }
 
         return back()->withDanger('提交方法错误');
@@ -97,7 +97,7 @@ class MenuitemController extends Controller
         {
             $this->service->update($id, $request->all());
 
-            return redirect()->route('menuitem.show', $id)->withSuccess('更新数据成功');
+            return redirect()->route('menuitems.show', $id)->withSuccess('更新数据成功');
         }
         
         return back()->withDanger('提交方法错误');
@@ -113,6 +113,6 @@ class MenuitemController extends Controller
     {
         $this->service->delete($id);
 
-        return redirect()->route('menuitem.index')->withSuccess('删除数据成功');
+        return redirect()->route('menuitems.index')->withSuccess('删除数据成功');
     }
 }
