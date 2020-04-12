@@ -45,14 +45,22 @@
                     <div class="form-group row">
                         <label for="parent_id" class="col-sm-3 col-form-label">{{ __('menuitem.parent_id') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}" name="parent_id" id="parent_id" placeholder="{{ __('menuitem.parent_id') }}" value="{{ old('parent_id') }}">
+                            <select name="parent_id" id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
+                                @foreach ($parents as $collection)
+                                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="menu_id" class="col-sm-3 col-form-label">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}" name="menu_id" id="menu_id" placeholder="{{ __('menuitem.menu_id') }}" value="{{ old('menu_id') }}">
+                            <select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+                                @foreach ($menus as $collection)
+                                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -80,7 +88,21 @@
                     <div class="form-group row">
                         <label for="order" class="col-sm-3 col-form-label">{{ __('menuitem.order') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order', 0) }}">
+                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="is_system" class="col-sm-3 col-form-label">{{ __('menuitem.is_system') }}</label>
+                        <div class="col-sm-9">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="is_system" id="is_system" class="form-check-input{{ $errors->has('is_system') ? ' is_invalid' : '' }}" value="1" checked>
+                                <label class="form-check-label" for="is_system1">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="is_system" id="is_system0" class="form-check-input{{ $errors->has('is_system') ? ' is_invalid' : '' }}" value="0">
+                                <label class="form-check-label" for="is_system0">否</label>
+                            </div>
                         </div>
                     </div>
                 </div>
