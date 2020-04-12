@@ -203,13 +203,20 @@ class ViewCreate extends Command
                         <div class="col-sm-9">
                             ';
 
-            switch ($type) {
-                case 'text':
-                    $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}">{{ old(\'' . $v . '\') }}</textarea>';
-                    break;
+            if (substr($v, -3) === '_id') {
+                $attribute .= '<select name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}">
+                        @foreach ($' . Str::plural($v) . ' as $collection)
+                            <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                        @endforeach
+                    </select>';
+            } else {
+                switch ($type) {
+                    case 'text':
+                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}">{{ old(\'' . $v . '\') }}</textarea>';
+                        break;
 
-                case 'boolean':
-                    $attribute .= '<div class="form-check form-check-inline">
+                    case 'boolean':
+                        $attribute .= '<div class="form-check form-check-inline">
                                 <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
                                 <label class="form-check-label" for="' . $v . '1">是</label>
                             </div>
@@ -217,10 +224,10 @@ class ViewCreate extends Command
                                 <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0">
                                 <label class="form-check-label" for="' . $v . '0">否</label>
                             </div>';
-                    break;
+                        break;
 
-                case 'datetime':
-                    $attribute .= '<div class="form-group">
+                    case 'datetime':
+                        $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
                                     <input type="text" name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">
                                     <div class="input-group-append">
@@ -230,11 +237,12 @@ class ViewCreate extends Command
                                     </div>
                                 </div>
                             </div>';
-                    break;
+                        break;
 
-                default:
-                    $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">';
-                    break;
+                    default:
+                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">';
+                        break;
+                }
             }
 
             $attribute .=  '
