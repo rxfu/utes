@@ -1,2 +1,2 @@
-Route::resource('{{ collection }}', '{{ model }}Controller');
+Route::resource('{{ collection }}', '{{ class }}');
     // route_here

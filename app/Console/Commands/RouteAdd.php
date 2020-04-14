@@ -50,10 +50,10 @@ class RouteAdd extends Command
     public function handle()
     {
         $routeFile = base_path('routes/web.php');
-        $modelName = $this->argument('name');
+        $model = $this->argument('name');
         $replace = [
-            '{{ model }}' => ucfirst($modelName),
-            '{{ collection }}' => Str::plural(Str::lower($modelName)),
+            '{{ class }}' => Str::studly($model),
+            '{{ collection }}' => Str::plural(Str::lower($model)),
         ];
 
         $stub = $this->files->get($this->getStub());
@@ -63,7 +63,7 @@ class RouteAdd extends Command
 
         $this->files->put($routeFile, $content);
 
-        $this->info($modelName . ' routes added successfully.');
+        $this->info($this->type . ' added successfully.');
     }
 
     /**
