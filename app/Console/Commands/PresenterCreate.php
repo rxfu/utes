@@ -58,7 +58,7 @@ class PresenterCreate extends GeneratorCommand
      */
     public function handle()
     {
-        $repository = Str::ucfirst($this->getNameInput()) . 'Presenter';
+        $repository = Str::studly($this->getNameInput()) . 'Presenter';
         $name = $this->qualifyClass($repository);
 
         $path = $this->getPath($name);

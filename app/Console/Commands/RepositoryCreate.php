@@ -59,7 +59,7 @@ class RepositoryCreate extends GeneratorCommand
      */
     public function handle()
     {
-        $repository = Str::ucfirst($this->getNameInput()) . 'Repository';
+        $repository = Str::studly($this->getNameInput()) . 'Repository';
         $name = $this->qualifyClass($repository);
 
         $path = $this->getPath($name);
@@ -96,7 +96,7 @@ class RepositoryCreate extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        $model = Str::ucfirst($this->getNameInput());
+        $model = Str::studly($this->getNameInput());
         $repositoryNamespace = $this->getNamespace($name);
 
         $replace = [];
@@ -110,15 +110,9 @@ class RepositoryCreate extends GeneratorCommand
         }
 
         $replace = array_merge($replace, [
-            'DummyFullModelClass' => $modelClass,
             '{{ namespacedModel }}' => $modelClass,
-            '{{namespacedModel}}' => $modelClass,
-            'DummyModelClass' => class_basename($modelClass),
             '{{ model }}' => class_basename($modelClass),
-            '{{model}}' => class_basename($modelClass),
-            'DummyModelVariable' => lcfirst(class_basename($modelClass)),
             '{{ modelVariable }}' => lcfirst(class_basename($modelClass)),
-            '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
         ]);
 
         $replace["use {$repositoryNamespace}\Repository;\n"] = '';

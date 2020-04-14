@@ -59,7 +59,7 @@ class ServiceCreate extends GeneratorCommand
      */
     public function handle()
     {
-        $service = Str::ucfirst($this->getNameInput()) . 'Service';
+        $service = Str::studly($this->getNameInput()) . 'Service';
         $name = $this->qualifyClass($service);
 
         $path = $this->getPath($name);
@@ -96,7 +96,7 @@ class ServiceCreate extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        $model = Str::ucfirst($this->getNameInput());
+        $model = Str::studly($this->getNameInput());
         $serviceNamespace = $this->getNamespace($name);
 
         $replace = [];
@@ -110,15 +110,9 @@ class ServiceCreate extends GeneratorCommand
         }
 
         $replace = array_merge($replace, [
-            'DummyFullRepositoryClass' => $repositoryClass,
             '{{ namespacedRepository }}' => $repositoryClass,
-            '{{namespacedRepository}}' => $repositoryClass,
-            'DummyRepositoryClass' => class_basename($repositoryClass),
             '{{ repository }}' => class_basename($repositoryClass),
-            '{{repository}}' => class_basename($repositoryClass),
-            'DummyRepositoryVariable' => lcfirst(class_basename($repositoryClass)),
             '{{ repositoryVariable }}' => lcfirst(Str::plural($model)),
-            '{{repositoryVariable}}' => lcfirst(Str::plural($model)),
         ]);
 
         $replace["use {$serviceNamespace}\Service;\n"] = '';
