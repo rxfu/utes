@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'module' => '{{ modelName }}',
-    {{ collection }}
+    'module' => '{{ model }}',
+    {{ attribute }}
 ];

@@ -52,22 +52,22 @@ class TranslationCreate extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $table = Str::plural(Str::lower($name));
+        $table = Str::plural(Str::snake($name));
         $stub = $this->files->get($this->getStub());
-        $path = resource_path('lang/zh-cn/' . Str::lower($name) . '.php');
+        $path = resource_path('lang/zh-cn/' . Str::snake($name) . '.php');
         if ($this->files->exists($path)) {
             $this->error($this->type . ' already exists!');
         } else {
             $columns = Schema::getColumnListing($table);
             $columns = array_diff($columns, ['remember_token', 'created_at', 'updated_at']);
             $schema = DB::getDoctrineSchemaManager()->listTableDetails($table);
-            $translations = array_map(function ($v) use ($schema) {
-                return "'$v' => '" . ($schema->getColumn($v)->getComment() ?: Str::upper($v)) . "',";
+            $attributes = array_map(function ($column) use ($schema) {
+                return "'$column' => '" . ($schema->getColumn($column)->getComment() ?: Str::upper($column)) . "',";
             }, $columns);
 
             $replace = [
-                '{{ modelName }}' => Str::ucfirst($name),
-                '{{ collection }}' => implode(PHP_EOL . "\t", $translations),
+                '{{ model }}' => Str::studly($name),
+                '{{ attribute }}' => implode(PHP_EOL . "\t", $attributes),
             ];
             $stub = str_replace(array_keys($replace), array_values($replace), $stub);
 
