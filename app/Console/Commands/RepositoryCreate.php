@@ -67,10 +67,7 @@ class RepositoryCreate extends GeneratorCommand
         // First we will check to see if the class already exists. If it does, we don't want
         // to create the class and overwrite the user's code. So, we will bail out so the
         // code is untouched. Otherwise, we will continue generating this class' files.
-        if ((!$this->hasOption('force') ||
-                !$this->option('force')) &&
-            $this->alreadyExists($repository)
-        ) {
+        if ((!$this->hasOption('force') || !$this->option('force')) && $this->alreadyExists($repository)) {
             $this->error($this->type . ' already exists!');
 
             return false;
@@ -112,7 +109,7 @@ class RepositoryCreate extends GeneratorCommand
         $replace = array_merge($replace, [
             '{{ namespacedModel }}' => $modelClass,
             '{{ model }}' => class_basename($modelClass),
-            '{{ modelVariable }}' => lcfirst(class_basename($modelClass)),
+            '{{ modelVariable }}' => Str::camel(class_basename($modelClass)),
         ]);
 
         $replace["use {$repositoryNamespace}\Repository;\n"] = '';

@@ -12,6 +12,6 @@ class {{ class }} extends Model
      * @var array
      */
     protected $fillable = [
-        {{ attributes }}
+        {{ attribute }}
     ];
 }

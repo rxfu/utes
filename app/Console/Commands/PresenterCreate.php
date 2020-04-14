@@ -58,18 +58,15 @@ class PresenterCreate extends GeneratorCommand
      */
     public function handle()
     {
-        $repository = Str::studly($this->getNameInput()) . 'Presenter';
-        $name = $this->qualifyClass($repository);
+        $presenter = Str::studly($this->getNameInput()) . 'Presenter';
+        $name = $this->qualifyClass($presenter);
 
         $path = $this->getPath($name);
 
         // First we will check to see if the class already exists. If it does, we don't want
         // to create the class and overwrite the user's code. So, we will bail out so the
         // code is untouched. Otherwise, we will continue generating this class' files.
-        if ((!$this->hasOption('force') ||
-                !$this->option('force')) &&
-            $this->alreadyExists($repository)
-        ) {
+        if ((!$this->hasOption('force') || !$this->option('force')) && $this->alreadyExists($presenter)) {
             $this->error($this->type . ' already exists!');
 
             return false;

@@ -19,14 +19,14 @@
                 <table id="DummyCollection-table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            {{ attributeNames }}
+                            {{ attributeName }}
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
                             <tr>
-                                {{ attributes }}
+                                {{ attribute }}
                                 <td>
                                     <a href="{{ route('DummyCollection.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
                                         <i class="fas fa-folder"></i> 显示
@@ -43,7 +43,7 @@
                     </tbody>
                     <thead>
                         <tr>
-                            {{ attributeNames }}
+                            {{ attributeName }}
                             <th>操作</th>
                         </tr>
                     </thead>

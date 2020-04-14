@@ -52,8 +52,8 @@ class RouteAdd extends Command
         $routeFile = base_path('routes/web.php');
         $model = $this->argument('name');
         $replace = [
-            '{{ class }}' => Str::studly($model),
-            '{{ collection }}' => Str::plural(Str::lower($model)),
+            '{{ class }}' => Str::studly($model) . 'Controller',
+            '{{ collection }}' => Str::kebab(Str::pluralStudly($model)),
         ];
 
         $stub = $this->files->get($this->getStub());

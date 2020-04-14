@@ -52,7 +52,7 @@ class TranslationCreate extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $table = Str::plural(Str::snake($name));
+        $table = Str::snake(Str::pluralStudly($name));
         $stub = $this->files->get($this->getStub());
         $path = resource_path('lang/zh-cn/' . Str::snake($name) . '.php');
         if ($this->files->exists($path)) {

@@ -51,12 +51,13 @@ class ViewCreate extends Command
     public function handle()
     {
         $name = $this->argument('name');
+        $model = Str::snake($name);
         $replace = [
-            'DummyModel' => Str::lower($name),
-            'DummyCollection' => Str::plural(Str::lower($name)),
+            'DummyModel' => $model,
+            'DummyCollection' => Str::kebab(Str::pluralStudly($name)),
         ];
 
-        $paths = $this->getPaths(Str::lower($name));
+        $paths = $this->getPaths($model);
 
         foreach ($paths as $method => $path) {
             if ($this->files->exists($path)) {
@@ -126,8 +127,11 @@ class ViewCreate extends Command
      */
     protected function replaceAttributes($name, $replace, $method)
     {
-        $table = Str::plural(Str::lower($name));
+        $table = Str::snake(Str::pluralStudly($name));
+        $replaceMethod = '_replace' . ucfirst($method);
 
+        return $this->$replaceMethod($table, $replace);
+        /* 
         switch ($method) {
             case 'index':
                 return $this->_replaceIndex($table, $replace);
@@ -143,24 +147,27 @@ class ViewCreate extends Command
 
             default:
                 return $this->_replaceIndex($table, $replace);
-        }
+        } */
     }
 
     private function _replaceIndex($table, $replace)
     {
         $columns = Schema::getColumnListing($table);
         $columns = array_diff($columns, ['remember_token', 'created_at', 'updated_at']);
-        $attributeNames = array_map(function ($v) use ($table) {
+
+        $attributeNames = array_map(function ($column) use ($table) {
             $table = Str::singular($table);
-            return "<th>{{ __('$table.$v') }}</th>";
+
+            return "<th>{{ __('$table.$column') }}</th>";
         }, $columns);
-        $attributes = array_map(function ($v) {
-            return '<td>{{ $item->' . $v . ' }}</td>';
+
+        $attributes = array_map(function ($column) {
+            return '<td>{{ $item->' . $column . ' }}</td>';
         }, $columns);
 
         return array_merge($replace, [
-            '{{ attributeNames }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t", $attributeNames),
-            '{{ attributes }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t\t", $attributes),
+            '{{ attributeName }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t", $attributeNames),
+            '{{ attribute }}' => implode(PHP_EOL . "\t\t\t\t\t\t\t\t", $attributes),
         ]);
     }
 
@@ -168,14 +175,15 @@ class ViewCreate extends Command
     {
         $columns = Schema::getColumnListing($table);
         $columns = array_diff($columns, ['remember_token', 'created_at', 'updated_at']);
-        $attributes = array_map(function ($v) use ($table) {
+
+        $attributes = array_map(function ($column) use ($table) {
             $table = Str::singular($table);
 
             $attribute = '
                 <div class="form-group row">
-                    <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
+                    <label for="' . $column . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="' . $v . '" id="' . $v . '" value="{{ $item->' . $v . ' }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="' . $column . '" id="' . $column . '" value="{{ $item->' . $column . ' }}" readonly>
                     </div>
                 </div>';
 
@@ -183,7 +191,7 @@ class ViewCreate extends Command
         }, $columns);
 
         return array_merge($replace, [
-            '{{ attributes }}' => implode(PHP_EOL, $attributes),
+            '{{ attribute }}' => implode(PHP_EOL, $attributes),
         ]);
     }
 
@@ -191,44 +199,45 @@ class ViewCreate extends Command
     {
         $columns = Schema::getColumnListing($table);
         $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'update_at']);
-        $attributes = array_map(function ($v) use ($table) {
-            $type = Schema::getColumnType($table, $v);
+
+        $attributes = array_map(function ($column) use ($table) {
+            $type = Schema::getColumnType($table, $column);
             $table = Str::singular($table);
 
             $attribute = '
                     <div class="form-group row">
-                        <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
+                        <label for="' . $column . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                         <div class="col-sm-9">
                             ';
 
-            if (substr($v, -3) === '_id') {
-                $collection = substr($v, 0, -3);
-                $attribute .= '<select name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}">
-                                @foreach ($' . Str::plural($collection) . ' as $collection)
+            if (substr($column, -3) === '_id') {
+                $model = substr($column, 0, -3);
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
+                                @foreach ($' . Str::camel(Str::plural($model)) . ' as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>';
             } else {
                 switch ($type) {
                     case 'text':
-                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}">{{ old(\'' . $v . '\') }}</textarea>';
+                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}">{{ old(\'' . $column . '\') }}</textarea>';
                         break;
 
                     case 'boolean':
                         $attribute .= '<div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
-                                <label class="form-check-label" for="' . $v . '1">是</label>
+                                <input type="radio" name="' . $column . '" id="' . $column . '" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
+                                <label class="form-check-label" for="' . $column . '1">是</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0">
-                                <label class="form-check-label" for="' . $v . '0">否</label>
+                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0">
+                                <label class="form-check-label" for="' . $column . '0">否</label>
                             </div>';
                         break;
 
                     case 'datetime':
                         $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
-                                    <input type="text" name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">
+                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -239,7 +248,7 @@ class ViewCreate extends Command
                         break;
 
                     default:
-                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\') }}">';
+                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">';
                         break;
                 }
             }
@@ -252,7 +261,7 @@ class ViewCreate extends Command
         }, $columns);
 
         return array_merge($replace, [
-            '{{ attributes }}' => implode(PHP_EOL, $attributes),
+            '{{ attribute }}' => implode(PHP_EOL, $attributes),
         ]);
     }
 
@@ -260,44 +269,45 @@ class ViewCreate extends Command
     {
         $columns = Schema::getColumnListing($table);
         $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
-        $attributes = array_map(function ($v) use ($table) {
-            $type = Schema::getColumnType($table, $v);
+
+        $attributes = array_map(function ($column) use ($table) {
+            $type = Schema::getColumnType($table, $column);
             $table = Str::singular($table);
 
             $attribute = '
                     <div class="form-group row">
-                        <label for="' . $v . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $v . '\') }}</label>
+                        <label for="' . $column . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                         <div class="col-sm-9">
                             ';
 
-            if (substr($v, -3) === '_id') {
-                $collection = substr($v, 0, -3);
-                $attribute .= '<select name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}">
-                                @foreach ($' . Str::plural($collection) . ' as $collection)
-                                    <option value="{{ $collection->getKey() }}"{{ old(\'' . $v . '\', $item->' . $v . ') === $collection->getKey() ? \' selected\' : \'\' }}>{{ $collection->name }}</option>
+            if (substr($column, -3) === '_id') {
+                $model = substr($column, 0, -3);
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
+                                @foreach ($' . Str::camel(Str::plural($model)) . ' as $collection)
+                                    <option value="{{ $collection->getKey() }}"{{ old(\'' . $column . '\', $item->' . $column . ') === $collection->getKey() ? \' selected\' : \'\' }}>{{ $collection->name }}</option>
                                 @endforeach
                             </select>';
             } else {
                 switch ($type) {
                     case 'text':
-                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}">{{ old(\'' . $v . '\', $item->' . $v . ') }}</textarea>';
+                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}">{{ old(\'' . $column . '\', $item->' . $column . ') }}</textarea>';
                         break;
 
                     case 'boolean':
                         $attribute .= '<div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $v . '\', $item->' . $v . ') === true ? \' checked\' : \'\' }}>
-                                <label class="form-check-label" for="' . $v . '1">是</label>
+                                <input type="radio" name="' . $column . '" id="' . $column . '" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $column . '\', $item->' . $column . ') === true ? \' checked\' : \'\' }}>
+                                <label class="form-check-label" for="' . $column . '1">是</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="' . $v . '" id="' . $v . '0" class="form-check-input{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $v . '\', $item->' . $v . ') === false ? \' checked\' : \'\' }}>
-                                <label class="form-check-label" for="' . $v . '0">否</label>
+                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $column . '\', $item->' . $column . ') === false ? \' checked\' : \'\' }}>
+                                <label class="form-check-label" for="' . $column . '0">否</label>
                             </div>';
                         break;
 
                     case 'datetime':
                         $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
-                                    <input type="text" name="' . $v . '" id="' . $v . '" class="form-control{{ $errors->has(\'' . $v . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\', $item->' . $v . ') }}">
+                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -308,7 +318,7 @@ class ViewCreate extends Command
                         break;
 
                     default:
-                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $v . '\') ? \' is_invalid\' : \'\' }}" name="' . $v . '" id="' . $v . '" placeholder="{{ __(\'' . $table . '.' . $v . '\') }}" value="{{ old(\'' . $v . '\', $item->' . $v . ') }}">';
+                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">';
                         break;
                 }
             }
@@ -321,7 +331,7 @@ class ViewCreate extends Command
         }, $columns);
 
         return array_merge($replace, [
-            '{{ attributes }}' => implode(PHP_EOL, $attributes),
+            '{{ attribute }}' => implode(PHP_EOL, $attributes),
         ]);
     }
 }

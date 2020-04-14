@@ -11,7 +11,7 @@
             </div>
 
             <div class="card-body">
-                {{ attributes }}
+                {{ attribute }}
             </div>
 
             <div class="card-footer">

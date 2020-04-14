@@ -13,7 +13,7 @@
 		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route('DummyCollection.store') }}">
                 @csrf
                 <div class="card-body">
-                    {{ attributes }}
+                    {{ attribute }}
                 </div>
 
                 <div class="card-footer">

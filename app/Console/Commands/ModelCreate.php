@@ -80,18 +80,16 @@ class ModelCreate extends GeneratorCommand
     /**
      * Build the class with the given name.
      *
-     * Remove the base controller import if we are already in base namespace.
-     *
      * @param  string  $name
      * @return string
      */
     protected function buildClass($name)
     {
-        $table = Str::plural(Str::lower(Str::afterLast($name, '\\')));
+        $table = Str::snake(Str::pluralStudly(class_basename($name)));
         $columns = Schema::getColumnListing($table);
         $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
         $replace = [
-            '{{ attributes }}' => "'" . implode("', '", $columns) . "'",
+            '{{ attribute }}' => "'" . implode("', '", $columns) . "', ",
         ];
 
         return str_replace(

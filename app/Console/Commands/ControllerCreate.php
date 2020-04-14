@@ -59,7 +59,7 @@ class ControllerCreate extends GeneratorCommand
      */
     public function handle()
     {
-        $controller = Str::ucfirst($this->getNameInput()) . 'Controller';
+        $controller = Str::studly($this->getNameInput()) . 'Controller';
         $name = $this->qualifyClass($controller);
 
         $path = $this->getPath($name);
@@ -67,10 +67,7 @@ class ControllerCreate extends GeneratorCommand
         // First we will check to see if the class already exists. If it does, we don't want
         // to create the class and overwrite the user's code. So, we will bail out so the
         // code is untouched. Otherwise, we will continue generating this class' files.
-        if ((!$this->hasOption('force') ||
-                !$this->option('force')) &&
-            $this->alreadyExists($controller)
-        ) {
+        if ((!$this->hasOption('force') || !$this->option('force')) && $this->alreadyExists($controller)) {
             $this->error($this->type . ' already exists!');
 
             return false;
@@ -99,7 +96,7 @@ class ControllerCreate extends GeneratorCommand
         $controllerNamespace = $this->getNamespace($name);
 
         $replace = [];
-        $replace = $this->buildModelReplacements($replace);
+        $replace = $this->buildServiceReplacements($replace);
 
         $replace["use {$controllerNamespace}\Controller;\n"] = '';
 
@@ -111,14 +108,14 @@ class ControllerCreate extends GeneratorCommand
     }
 
     /**
-     * Build the model replacement values.
+     * Build the service replacement values.
      *
      * @param  array  $replace
      * @return array
      */
-    protected function buildModelReplacements(array $replace)
+    protected function buildServiceReplacements(array $replace)
     {
-        $model = Str::ucfirst($this->getNameInput());
+        $model = Str::studly($this->getNameInput());
         $serviceClass = $this->parseService($model);
 
         if (!class_exists($serviceClass)) {
@@ -128,14 +125,11 @@ class ControllerCreate extends GeneratorCommand
         }
 
         return array_merge($replace, [
-            '{{ collection }}' => lcfirst(class_basename($model)),
-            '{{ collections }}' => Str::plural(lcfirst(class_basename($model))),
+            '{{ model }}' => Str::snake($model),
+            '{{ collection }}' => Str::kebab(Str::pluralStudly($model)),
             '{{ namespaceService }}' => $serviceClass,
-            '{{namespaceService}}' => $serviceClass,
             '{{ service }}' => class_basename($serviceClass),
-            '{{service}}' => class_basename($serviceClass),
-            '{{ serviceVariable }}' => lcfirst(class_basename($serviceClass)),
-            '{{servicevariable}}' => lcfirst(class_basename($serviceClass)),
+            '{{ serviceVariable }}' => Str::camel(class_basename($serviceClass)),
         ]);
     }
 

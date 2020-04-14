@@ -67,10 +67,7 @@ class ServiceCreate extends GeneratorCommand
         // First we will check to see if the class already exists. If it does, we don't want
         // to create the class and overwrite the user's code. So, we will bail out so the
         // code is untouched. Otherwise, we will continue generating this class' files.
-        if ((!$this->hasOption('force') ||
-                !$this->option('force')) &&
-            $this->alreadyExists($service)
-        ) {
+        if ((!$this->hasOption('force') || !$this->option('force')) && $this->alreadyExists($service)) {
             $this->error($this->type . ' already exists!');
 
             return false;
@@ -89,7 +86,7 @@ class ServiceCreate extends GeneratorCommand
     /**
      * Build the class with the given name.
      *
-     * Remove the base repository import if we are already in base namespace.
+     * Remove the base service import if we are already in base namespace.
      *
      * @param  string  $name
      * @return string
@@ -112,7 +109,7 @@ class ServiceCreate extends GeneratorCommand
         $replace = array_merge($replace, [
             '{{ namespacedRepository }}' => $repositoryClass,
             '{{ repository }}' => class_basename($repositoryClass),
-            '{{ repositoryVariable }}' => lcfirst(Str::plural($model)),
+            '{{ repositoryVariable }}' => Str::camel(Str::plural($model)),
         ]);
 
         $replace["use {$serviceNamespace}\Service;\n"] = '';
