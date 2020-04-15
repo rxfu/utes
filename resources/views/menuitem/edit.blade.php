@@ -46,8 +46,9 @@
                     <div class="form-group row">
                         <label for="parent_id" class="col-sm-3 col-form-label">{{ __('menuitem.parent_id') }}</label>
                         <div class="col-sm-9">
-                            <select name="parent_id" id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
-                                @foreach ($parents as $collection)
+                            @inject('parents', 'App\\Services\ParentService')
+							<select name="parent_id" id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
+                                @foreach ($parents->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('parent_id', $item->parent_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                                 @endforeach
                             </select>
@@ -57,8 +58,9 @@
                     <div class="form-group row">
                         <label for="menu_id" class="col-sm-3 col-form-label">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
-                            <select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
-                                @foreach ($menus as $collection)
+                            @inject('menus', 'App\\Services\MenuService')
+							<select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+                                @foreach ($menus->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('menu_id', $item->menu_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                                 @endforeach
                             </select>
@@ -94,15 +96,15 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="is_system" class="col-sm-3 col-form-label">{{ __('menuitem.is_system') }}</label>
+                        <label for="forbidden_delete" class="col-sm-3 col-form-label">{{ __('menuitem.forbidden_delete') }}</label>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="is_system" id="is_system" class="form-check-input{{ $errors->has('is_system') ? ' is_invalid' : '' }}" value="1"{{ old('is_system', $item->is_system) === true ? ' checked' : '' }}>
-                                <label class="form-check-label" for="is_system1">是</label>
+                                <input type="radio" name="forbidden_delete" id="forbidden_delete" class="form-check-input{{ $errors->has('forbidden_delete') ? ' is_invalid' : '' }}" value="1"{{ old('forbidden_delete', $item->forbidden_delete) === true ? ' checked' : '' }}>
+                                <label class="form-check-label" for="forbidden_delete1">是</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="is_system" id="is_system0" class="form-check-input{{ $errors->has('is_system') ? ' is_invalid' : '' }}" value="0"{{ old('is_system', $item->is_system) === false ? ' checked' : '' }}>
-                                <label class="form-check-label" for="is_system0">否</label>
+                                <input type="radio" name="forbidden_delete" id="forbidden_delete0" class="form-check-input{{ $errors->has('forbidden_delete') ? ' is_invalid' : '' }}" value="0"{{ old('forbidden_delete', $item->forbidden_delete) === false ? ' checked' : '' }}>
+                                <label class="form-check-label" for="forbidden_delete0">否</label>
                             </div>
                         </div>
                     </div>

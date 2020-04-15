@@ -89,6 +89,17 @@ class ViewCreate extends Command
     }
 
     /**
+     * Get the service namespace for the class.
+     *
+     * @param  string  $rootNamespace
+     * @return string
+     */
+    protected function getServiceNamespace()
+    {
+        return $this->laravel->getNamespace() . '\Services';
+    }
+
+    /**
      * Build the directory for the view if necessary.
      *
      * @param  string  $path
@@ -131,23 +142,6 @@ class ViewCreate extends Command
         $replaceMethod = '_replace' . ucfirst($method);
 
         return $this->$replaceMethod($table, $replace);
-        /* 
-        switch ($method) {
-            case 'index':
-                return $this->_replaceIndex($table, $replace);
-
-            case 'show':
-                return $this->_replaceShow($table, $replace);
-
-            case 'create':
-                return $this->_replaceCreate($table, $replace);
-
-            case 'edit':
-                return $this->_replaceEdit($table, $replace);
-
-            default:
-                return $this->_replaceIndex($table, $replace);
-        } */
     }
 
     private function _replaceIndex($table, $replace)
@@ -212,8 +206,10 @@ class ViewCreate extends Command
 
             if (substr($column, -3) === '_id') {
                 $model = substr($column, 0, -3);
+                $collection = Str::camel(Str::plural($model));
+                $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
                 $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
-                                @foreach ($' . Str::camel(Str::plural($model)) . ' as $collection)
+                                @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>';
@@ -282,8 +278,10 @@ class ViewCreate extends Command
 
             if (substr($column, -3) === '_id') {
                 $model = substr($column, 0, -3);
+                $collection = Str::camel(Str::plural($model));
+                $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
                 $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
-                                @foreach ($' . Str::camel(Str::plural($model)) . ' as $collection)
+                                @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old(\'' . $column . '\', $item->' . $column . ') === $collection->getKey() ? \' selected\' : \'\' }}>{{ $collection->name }}</option>
                                 @endforeach
                             </select>';
