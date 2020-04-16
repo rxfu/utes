@@ -39,7 +39,10 @@ class Menu extends Model
 
     public function activeItems()
     {
-        return $this->hasMany('App\Models\Menuitem')->whereIsEnable(true)->orderBy('order');
+        return $this->hasMany('App\Models\Menuitem')
+            ->with('parent', 'children')
+            ->whereIsEnable(true)
+            ->orderBy('order');
     }
 
     public function scopeIsActive($query, $uid)

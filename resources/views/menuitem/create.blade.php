@@ -47,7 +47,8 @@
                         <div class="col-sm-9">
                             @inject('menuitems', 'App\Services\MenuitemService')
 							<select name="parent_id" id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
-                                @foreach ($menuitems->getAll() as $collection)
+                                <option value="">无</option>
+                                @foreach ($menuitems->getLevel1Items() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>
@@ -58,7 +59,7 @@
                         <label for="menu_id" class="col-sm-3 col-form-label">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menus', 'App\Services\MenuService')
-							<select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+                            <select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
                                 @foreach ($menus->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -90,7 +91,7 @@
                     <div class="form-group row">
                         <label for="order" class="col-sm-3 col-form-label">{{ __('menuitem.order') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order') }}">
+                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order', 0) }}">
                         </div>
                     </div>
                 </div>

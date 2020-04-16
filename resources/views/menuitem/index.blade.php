@@ -43,12 +43,14 @@
                                     <a href="{{ route('menuitems.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
                                         <i class="fas fa-folder"></i> 显示
                                     </a>
-                                    <a href="{{ route('menuitems.edit', $item->getKey()) }}" class="btn btn-info btn-sm" title="编辑">
-                                        <i class="fas fa-pencil-alt"></i> 编辑
-                                    </a>
-                                    <a href="{{ route('menuitems.destroy', $item->getKey()) }}" class="btn btn-danger btn-sm delete" title="删除">
-                                        <i class="fas fa-trash"></i> 删除
-                                    </a>
+                                    @unless($item->is_system)
+                                        <a href="{{ route('menuitems.edit', $item->getKey()) }}" class="btn btn-info btn-sm" title="编辑">
+                                            <i class="fas fa-pencil-alt"></i> 编辑
+                                        </a>
+                                        <a href="{{ route('menuitems.destroy', $item->getKey()) }}" class="btn btn-danger btn-sm delete" title="删除">
+                                            <i class="fas fa-trash"></i> 删除
+                                        </a>
+                                    @endunless
                                 </td>
                             </tr>
                         @endforeach

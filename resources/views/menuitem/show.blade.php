@@ -82,22 +82,23 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card-footer">
-                <div class="row justify-content-sm-center">
-                    <a href="{{ route('menuitems.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
-                        <i class="fas fa-pencil-alt"></i> 编辑
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="{{ route('menuitems.destroy', $item->getKey()) }}" class="btn btn-danger delete" title="删除">
-                        <i class="fas fa-trash"></i> 删除
-                    </a>
+            @unless($item->is_system)
+                <div class="card-footer">
+                    <div class="row justify-content-sm-center">
+                        <a href="{{ route('menuitems.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
+                            <i class="fas fa-pencil-alt"></i> 编辑
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="{{ route('menuitems.destroy', $item->getKey()) }}" class="btn btn-danger delete" title="删除">
+                            <i class="fas fa-trash"></i> 删除
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <form id="delete-form" action="{{ route('menuitems.destroy', $item->getKey()) }}" method="POST" style="display: none;">
-                @csrf
-                @method('delete')
-            </form>
+                <form id="delete-form" action="{{ route('menuitems.destroy', $item->getKey()) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('delete')
+                </form>
+            @endunless
         </div>
     </div>
 </div>

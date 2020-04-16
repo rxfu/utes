@@ -18,7 +18,7 @@ class MenuRepository extends Repository
         try {
             return $this->model->isActive($uid)->first()->activeItems()->get();
         } catch (QueryException $e) {
-            throw new InternalException($e);
+            throw new InternalException($e, $this->getModel(), 'getActiveItems');
         }
     }
 }

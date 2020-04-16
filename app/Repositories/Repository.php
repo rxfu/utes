@@ -34,9 +34,27 @@ abstract class Repository
         }
     }
 
-    public function findAll($order = 'id', $direction = 'asc')
+    public function findAll($order = 'id', $direction = 'asc', $trashed = false)
     {
-        return $this->model->orderBy($order, $direction)->get();
+        $query = $this->model->orderBy($order, $direction);
+
+        if ($trashed) {
+            $query = $query->withTrashed();
+        }
+
+        return $query->get();
+    }
+
+    public function findWith($relations, $order = 'id', $direction = 'asc', $trashed = false) {
+        $relations = is_array($relations) ? $relations : array($relations);
+        
+        $query = $this->model->with($relations)->orderBy($order, $direction);
+
+        if ($trashed) {
+            $query = $query->withTrashed();
+        }
+
+        return $query->get();
     }
 
     public function save($attributes)
