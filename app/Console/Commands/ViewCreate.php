@@ -96,7 +96,8 @@ class ViewCreate extends Command
      */
     protected function getServiceNamespace()
     {
-        return $this->laravel->getNamespace() . '\Services';
+        return 'App\Services';
+        // return $this->laravel->getNamespace() . '\Services';
     }
 
     /**

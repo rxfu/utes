@@ -23,13 +23,9 @@
 							<th>{{ __('menuitem.uid') }}</th>
 							<th>{{ __('menuitem.name') }}</th>
 							<th>{{ __('menuitem.route') }}</th>
-							<th>{{ __('menuitem.icon') }}</th>
 							<th>{{ __('menuitem.parent_id') }}</th>
 							<th>{{ __('menuitem.menu_id') }}</th>
-							<th>{{ __('menuitem.description') }}</th>
 							<th>{{ __('menuitem.is_enable') }}</th>
-							<th>{{ __('menuitem.order') }}</th>
-							<th>{{ __('menuitem.is_system') }}</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -40,13 +36,9 @@
 								<td>{{ $item->uid }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->route }}</td>
-								<td>{{ $item->icon }}</td>
-								<td>{{ $item->parent_id }}</td>
-								<td>{{ $item->menu_id }}</td>
-								<td>{{ $item->description }}</td>
-								<td>{{ $item->is_enable }}</td>
-								<td>{{ $item->order }}</td>
-								<td>{{ $item->is_system }}</td>
+								<td>{{ optional($item->parent)->name }}</td>
+								<td>{{ optional($item->menu)->name }}</td>
+								<td>{{ $item->present()->isEnable }}</td>
                                 <td>
                                     <a href="{{ route('menuitems.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
                                         <i class="fas fa-folder"></i> 显示
@@ -67,13 +59,9 @@
 							<th>{{ __('menuitem.uid') }}</th>
 							<th>{{ __('menuitem.name') }}</th>
 							<th>{{ __('menuitem.route') }}</th>
-							<th>{{ __('menuitem.icon') }}</th>
 							<th>{{ __('menuitem.parent_id') }}</th>
 							<th>{{ __('menuitem.menu_id') }}</th>
-							<th>{{ __('menuitem.description') }}</th>
 							<th>{{ __('menuitem.is_enable') }}</th>
-							<th>{{ __('menuitem.order') }}</th>
-							<th>{{ __('menuitem.is_system') }}</th>
                             <th>操作</th>
                         </tr>
                     </thead>

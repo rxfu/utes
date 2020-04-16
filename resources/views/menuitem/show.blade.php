@@ -50,14 +50,14 @@
                 <div class="form-group row">
                     <label for="parent_id" class="col-sm-3 col-form-label">{{ __('menuitem.parent_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="parent_id" id="parent_id" value="{{ $item->parent_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="parent_id" id="parent_id" value="{{ optional($item->parent)->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="menu_id" class="col-sm-3 col-form-label">{{ __('menuitem.menu_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="menu_id" id="menu_id" value="{{ $item->menu_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="menu_id" id="menu_id" value="{{ optional($item->menu)->name }}" readonly>
                     </div>
                 </div>
 
@@ -71,7 +71,7 @@
                 <div class="form-group row">
                     <label for="is_enable" class="col-sm-3 col-form-label">{{ __('menuitem.is_enable') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->is_enable }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->present()->isEnable }}" readonly>
                     </div>
                 </div>
 
@@ -79,13 +79,6 @@
                     <label for="order" class="col-sm-3 col-form-label">{{ __('menuitem.order') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="order" id="order" value="{{ $item->order }}" readonly>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="is_system" class="col-sm-3 col-form-label">{{ __('menuitem.is_system') }}</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_system" id="is_system" value="{{ $item->is_system }}" readonly>
                     </div>
                 </div>
             </div>
