@@ -76,6 +76,14 @@ class MenusTableSeeder extends Seeder
             ],
             [
                 'uid' => 'item8',
+                'name' => '日志管理',
+                'icon' => 'shield-alt',
+                'parent_id' => 7,
+                'is_system' => true,
+            ],
+            ],
+            [
+                'uid' => 'item9',
                 'name' => '修改密码',
                 'icon' => 'shield-alt',
                 'parent_id' => 7,
