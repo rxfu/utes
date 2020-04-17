@@ -32,12 +32,7 @@ class InternalException extends Exception
      */
     public function report(LogService $log)
     {
-        $content = [
-            'exception' => class_basename($this->exception),
-            'message' => $this->getMessage(),
-        ];
-
-        $log->log($content, $this->model, $this->action, $this->getCode());
+        $log->logException($this->exception, $this->model, $this->action);
     }
 
     /**

@@ -28,4 +28,14 @@ class LogService extends Service
 
         $this->repository->write($content, $model, $action, $code);
     }
+
+    public function logException($exception, $model, $action) {
+        $content = [
+            'code' => $exception->getCode(),
+            'message' => $exception->getMessage(),
+            'exception' => class_basename($exception),
+        ];
+
+        $this->repository->write($content, $model, $action, $exception->getCode());
+    }
 }

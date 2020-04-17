@@ -28,11 +28,7 @@ class InvalidRequestException extends Exception
      */
     public function report(LogService $log)
     {
-        $content = [
-            'message' => $this->getMessage(),
-        ];
-
-        $log->log($content, $this->model, $this->action, $this->getCode());
+        $log->log($this->getCode(), $this->model, $this->action);
     }
 
     /**
