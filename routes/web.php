@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
+    Route::resource('logs', 'LogController');
     // route_here
 });
