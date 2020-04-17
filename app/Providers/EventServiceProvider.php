@@ -27,8 +27,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->listen = array_merge($this->listen, config('event.listeners'));
+        
         parent::boot();
-
-        //
     }
 }

@@ -46,7 +46,7 @@ abstract class Repository
     }
 
     public function findWith($relations, $order = 'id', $direction = 'asc', $trashed = false) {
-        $relations = is_array($relations) ? $relations : array($relations);
+        $relations = is_array($relations) ? $relations : [$relations];
         
         $query = $this->model->with($relations)->orderBy($order, $direction);
 

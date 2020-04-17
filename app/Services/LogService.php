@@ -13,28 +13,19 @@ class LogService extends Service
         $this->repository = $logs;
     }
 
-    public function log($content, $model, $action, $code)
+    public function log($code, $model, $action, $data = null)
     {
-        $modelName = class_basename($model);
-        $modelId = $model->getKey() ?: '';
-        $content = is_array($content) ? $content : [$content];
-
-        $data = [
-            'user_id' => Auth::id(),
-            'ip' => request()->ip(),
+        $content = [
             'code' => $code,
-            'path' => request()->path(),
-            'method' => request()->method(),
-            'action' => $action,
-            'model' => $modelName,
-            'model_id' => $modelId,
-            'content' => $content,
+            'message' => config('setting.code')[(int) $code],
         ];
 
-        if ($object = $this->repository->create($data)) {
-            return $object;
-        } else {
-            throw new Exception('日志记录错误');
+        if (!is_null($data)) {
+            $content = array_merge($content, [
+                'data' => $data,
+            ]);
         }
+
+        $this->repository->write($content, $model, $action, $code);
     }
 }

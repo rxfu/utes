@@ -24,7 +24,7 @@ class CreateLogsTable extends Migration
             $table->unsignedInteger('code')->comment('代码');
             $table->string('path', 128)->comment('路径');
             $table->string('method', 10)->comment('方法');
-            $table->string('action', 10)->comment('动作');
+            $table->string('action', 50)->comment('动作');
             $table->string('model', 50)->comment('模型');
             $table->string('model_id', 50)->comment('模型ID');
             $table->text('content')->comment('内容');
