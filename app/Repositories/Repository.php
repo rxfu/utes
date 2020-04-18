@@ -30,7 +30,7 @@ abstract class Repository
 
             return $this->model->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new InternalException($e, $this->getModel(), 'find');
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
 
@@ -45,9 +45,10 @@ abstract class Repository
         return $query->get();
     }
 
-    public function findWith($relations, $order = 'id', $direction = 'asc', $trashed = false) {
+    public function findWith($relations, $order = 'id', $direction = 'asc', $trashed = false)
+    {
         $relations = is_array($relations) ? $relations : [$relations];
-        
+
         $query = $this->model->with($relations)->orderBy($order, $direction);
 
         if ($trashed) {
@@ -64,25 +65,29 @@ abstract class Repository
             $object = $this->model->create($attributes);
 
             if (!$object) {
-                throw new InvalidRequestException(400001, $this->getModel(), 'save');
+                throw new InvalidRequestException(500001, $this->getModel(), __FUNCTION__);
             } else {
                 return $object;
             }
         } catch (QueryException $e) {
-            throw new InternalException($e, $this->getModel(), 'save');
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
 
     public function update($id, $attributes)
     {
-        $object = $this->find($id);
-        $attributes = is_array($attributes) ? $attributes : [$attributes];
+        try {
+            $object = $this->find($id);
+            $attributes = is_array($attributes) ? $attributes : [$attributes];
 
-        if (false === $object->update($attributes)) {
-            throw new InvalidRequestException(400002, $this->getModel(), 'update');
+            if (false === $object->update($attributes)) {
+                throw new InvalidRequestException(500002, $this->getModel(), __FUNCTION__);
+            }
+
+            return $object;
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
-
-        return $object;
     }
 
     public function delete($id, $force = false)
@@ -91,7 +96,7 @@ abstract class Repository
         $success =  $force ? $object->forceDelete() : $object->delete();
 
         if (is_null($success) || (false === $success)) {
-            throw new InvalidRequestException(400003, $this->getModel(), 'delete');
+            throw new InvalidRequestException(500003, $this->getModel(), __FUNCTION__);
         }
 
         return $success;

@@ -3,10 +3,13 @@
 namespace App\Exceptions;
 
 use App\Services\LogService;
+use App\Traits\Flash;
 use Exception;
 
 class InvalidRequestException extends Exception
 {
+    use Flash;
+
     protected $model;
 
     protected $action;
@@ -39,8 +42,8 @@ class InvalidRequestException extends Exception
      */
     public function render($request)
     {
-        $message = '[' . $this->getCode() . '] ' . $this->getMessage();
+        $this->error($this->getCode());
 
-        return back()->withDanger($message)->withInput();
+        return back()->withInput();
     }
 }

@@ -3,9 +3,12 @@
 namespace App\Observers;
 
 use App\Services\LogService;
+use App\Traits\Flash;
 
 class ModelObserver
 {
+    use Flash;
+
     protected $service;
 
     public function __construct(LogService $service)
@@ -22,6 +25,8 @@ class ModelObserver
     public function created($model)
     {
         $this->service->log(200001, $model, __FUNCTION__, $model->getAttributes());
+
+        $this->success(200001);
     }
 
     /**
@@ -33,6 +38,8 @@ class ModelObserver
     public function updating($model)
     {
         $this->service->log(200004, $model, __FUNCTION__, $model->getOriginal());
+
+        $this->info(100001);
     }
 
     /**
@@ -44,6 +51,8 @@ class ModelObserver
     public function updated($model)
     {
         $this->service->log(200002, $model, __FUNCTION__, $model->getAttributes());
+
+        $this->success(200002);
     }
 
     /**
@@ -55,5 +64,7 @@ class ModelObserver
     public function deleting($model)
     {
         $this->service->log(200003, $model, __FUNCTION__, $model->getAttributes());
+
+        $this->success(200003);
     }
 }

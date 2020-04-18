@@ -29,4 +29,17 @@ class LogController extends Controller
 
         return view('log.index', compact('items'));
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $item = $this->service->get($id);
+
+        return view('log.show', compact('item'));
+    }
 }

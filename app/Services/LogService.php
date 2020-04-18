@@ -29,7 +29,8 @@ class LogService extends Service
         $this->repository->write($content, $model, $action, $code);
     }
 
-    public function logException($exception, $model, $action) {
+    public function logException($exception, $model, $action)
+    {
         $content = [
             'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
@@ -37,5 +38,10 @@ class LogService extends Service
         ];
 
         $this->repository->write($content, $model, $action, $exception->getCode());
+    }
+
+    public function getAll()
+    {
+        return $this->repository->findAll('created_at', 'desc');
     }
 }

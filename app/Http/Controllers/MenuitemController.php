@@ -48,8 +48,7 @@ class MenuitemController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $item = $this->service->store($request->all());
 
             return redirect()->route('menuitems.show', $item->id);
@@ -81,7 +80,7 @@ class MenuitemController extends Controller
     {
         $item = $this->service->get($id);
 
-        return view('menuitem.edit', compact('item'))->withSuccess('保存数据成功');
+        return view('menuitem.edit', compact('item'));
     }
 
     /**
@@ -93,13 +92,12 @@ class MenuitemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->isMethod('put'))
-        {
+        if ($request->isMethod('put')) {
             $this->service->update($id, $request->all());
 
-            return redirect()->route('menuitems.show', $id)->withSuccess('更新数据成功');
+            return redirect()->route('menuitems.show', $id);
         }
-        
+
         return back()->withDanger('提交方法错误');
     }
 
@@ -113,6 +111,6 @@ class MenuitemController extends Controller
     {
         $this->service->delete($id);
 
-        return redirect()->route('menuitems.index')->withSuccess('删除数据成功');
+        return redirect()->route('menuitems.index');
     }
 }

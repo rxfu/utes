@@ -13,18 +13,18 @@ class MenusTableSeeder extends Seeder
     public function run()
     {
         Menu::create([
-            'uid' => 'navigation',
-            'name' => '导航菜单',
-            'is_system' => true,
-        ]);
-
-        Menu::create([
             'uid' => 'main',
             'name' => '主菜单',
             'is_system' => true,
         ]);
 
-        $menu = Menu::find(1);
+        Menu::create([
+            'uid' => 'navigation',
+            'name' => '导航菜单',
+            'is_system' => true,
+        ]);
+
+        $menu = Menu::find(2);
         $menu->items()->createMany([
             [
                 'uid' => 'item1',
@@ -38,7 +38,7 @@ class MenusTableSeeder extends Seeder
             ],
         ]);
 
-        $menu = Menu::find(2);
+        $menu = Menu::find(1);
         $menu->items()->createMany([
             [
                 'uid' => 'item3',
@@ -77,10 +77,10 @@ class MenusTableSeeder extends Seeder
             [
                 'uid' => 'item8',
                 'name' => '日志管理',
+                'route' => 'logs.index',
                 'icon' => 'shield-alt',
                 'parent_id' => 7,
                 'is_system' => true,
-            ],
             ],
             [
                 'uid' => 'item9',

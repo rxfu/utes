@@ -2,10 +2,13 @@
 
 namespace App\Listeners;
 
+use App\Traits\Flash;
 use App\Services\LogService;
 
 class LogSuccessfulLogin
 {
+    use Flash;
+
     private $_service;
 
     /**
@@ -27,6 +30,8 @@ class LogSuccessfulLogin
      */
     public function handle($event)
     {
-        $this->_service->log(200005, $event->user, 'login');
+        $this->_service->log(200004, $event->user, 'login');
+
+        $this->success(200004);
     }
 }

@@ -20,6 +20,13 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="created_at" class="col-sm-3 col-form-label">{{ __('log.created_at') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="created_at" id="created_at" value="{{ $item->created_at }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="user_id" class="col-sm-3 col-form-label">{{ __('log.user_id') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ $item->user->username }}" readonly>

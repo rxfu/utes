@@ -81,7 +81,7 @@ class {{ class }} extends Controller
     {
         $item = $this->service->get($id);
 
-        return view('{{ model }}.edit', compact('item'))->withSuccess('保存数据成功');
+        return view('{{ model }}.edit', compact('item'));
     }
 
     /**
@@ -97,7 +97,7 @@ class {{ class }} extends Controller
         {
             $this->service->update($id, $request->all());
 
-            return redirect()->route('{{ collection }}.show', $id)->withSuccess('更新数据成功');
+            return redirect()->route('{{ collection }}.show', $id);
         }
         
         return back()->withDanger('提交方法错误');
@@ -113,6 +113,6 @@ class {{ class }} extends Controller
     {
         $this->service->delete($id);
 
-        return redirect()->route('{{ collection }}.index')->withSuccess('删除数据成功');
+        return redirect()->route('{{ collection }}.index');
     }
 }

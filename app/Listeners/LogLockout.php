@@ -3,11 +3,14 @@
 namespace App\Listeners;
 
 use App\Services\LogService;
+use App\Traits\Flash;
 
 class LogLockout
 {
+    use Flash;
+
     private $_service;
-    
+
     /**
      * Create the event listener.
      *
@@ -28,5 +31,7 @@ class LogLockout
     public function handle($event)
     {
         $this->_service->log(401002, $event->user, 'lockout');
+
+        $this->warning(401002);
     }
 }

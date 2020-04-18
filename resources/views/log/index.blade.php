@@ -15,11 +15,11 @@
                     <thead>
                         <tr>
                             <th>{{ __('log.id') }}</th>
+                            <th>{{ __('log.created_at') }}</th>
 							<th>{{ __('log.user_id') }}</th>
 							<th>{{ __('log.ip') }}</th>
 							<th>{{ __('log.code') }}</th>
 							<th>{{ __('log.path') }}</th>
-							<th>{{ __('log.method') }}</th>
 							<th>{{ __('log.action') }}</th>
 							<th>{{ __('log.model') }}</th>
 							<th>{{ __('log.model_id') }}</th>
@@ -30,11 +30,11 @@
                         @foreach ($items as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
+                                <td>{{ $item->created_at }}</td>
 								<td>{{ $item->user->username }}</td>
 								<td>{{ $item->ip }}</td>
 								<td>{{ $item->code }}</td>
 								<td>{{ $item->path }}</td>
-								<td>{{ $item->method }}</td>
 								<td>{{ $item->action }}</td>
 								<td>{{ $item->model }}</td>
 								<td>{{ $item->model_id }}</td>
@@ -49,11 +49,11 @@
                     <thead>
                         <tr>
                             <th>{{ __('log.id') }}</th>
+                            <th>{{ __('log.created_at') }}</th>
 							<th>{{ __('log.user_id') }}</th>
 							<th>{{ __('log.ip') }}</th>
 							<th>{{ __('log.code') }}</th>
 							<th>{{ __('log.path') }}</th>
-							<th>{{ __('log.method') }}</th>
 							<th>{{ __('log.action') }}</th>
 							<th>{{ __('log.model') }}</th>
 							<th>{{ __('log.model_id') }}</th>

@@ -3,9 +3,12 @@
 namespace App\Listeners;
 
 use App\Services\LogService;
+use App\Traits\Flash;
 
 class LogSuccessfulLogout
 {
+    use Flash;
+
     private $_service;
 
     /**
@@ -27,6 +30,8 @@ class LogSuccessfulLogout
      */
     public function handle($event)
     {
-        $this->_service->log(200006, $event->user, 'logout');
+        $this->_service->log(200005, $event->user, 'logout');
+
+        $this->success(200005);
     }
 }
