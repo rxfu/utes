@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\PasswordService;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
@@ -11,12 +11,12 @@ class PasswordController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param \App\Services\PasswordService  $passwordService
+     * @param \App\Services\UserService  $userService
      * @return void
      */
-    public function __construct(PasswordService $passwordService)
+    public function __construct(UserService $userService)
     {
-        $this->service = $passwordService;
+        $this->service = $userService;
     }
 
     /**
@@ -49,8 +49,7 @@ class PasswordController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $item = $this->service->store($request->all());
 
             return redirect()->route('passwords.show', $item->id);
@@ -75,11 +74,12 @@ class PasswordController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        $item = $this->service->get(Auth::id());
+        $item = $this->service->get($id);
 
         return view('password.edit', compact('item'));
     }
@@ -88,17 +88,17 @@ class PasswordController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        if ($request->isMethod('put'))
-        {
-            $this->service->update($request->all());
+        if ($request->isMethod('put')) {
+            $this->service->update($id, $request->all());
 
-            return redirect()->route('passwords.edit');
+            return redirect()->route('passwords.show', $id);
         }
-        
+
         return back()->withDanger('提交方法错误');
     }
 

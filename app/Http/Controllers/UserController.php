@@ -48,8 +48,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $item = $this->service->store($request->all());
 
             return redirect()->route('users.show', $item->id);
@@ -93,13 +92,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->isMethod('put'))
-        {
+        if ($request->isMethod('put')) {
             $this->service->update($id, $request->all());
 
             return redirect()->route('users.show', $id);
         }
-        
+
         return back()->withDanger('提交方法错误');
     }
 
