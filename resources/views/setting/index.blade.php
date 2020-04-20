@@ -58,7 +58,7 @@
                     </thead>
                 </table>
             </div>
-            <form id="delete-form" method="POST" style="display: none;">
+            <form id="delete-form" method="post" style="display: none;">
                 @csrf
                 @method('delete')
             </form>

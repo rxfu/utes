@@ -15,39 +15,38 @@
                 <div class="card-body">
                     
                     <div class="form-group row">
-                        <label for="uid" class="col-sm-3 col-form-label">{{ __('role.uid') }}</label>
+                        <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('role.uid') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('uid') ? ' is_invalid' : '' }}" name="uid" id="uid" placeholder="{{ __('role.uid') }}" value="{{ old('uid') }}">
+                            @if ($errors->has('uid'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('uid') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label">{{ __('role.name') }}</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('role.name') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('name') ? ' is_invalid' : '' }}" name="name" id="name" placeholder="{{ __('role.name') }}" value="{{ old('name') }}">
+                            @if ($errors->has('name'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-sm-3 col-form-label">{{ __('role.description') }}</label>
+                        <label for="description" class="col-sm-3 col-form-label text-right">{{ __('role.description') }}</label>
                         <div class="col-sm-9">
                             <textarea class="form-control{{ $errors->has('description') ? ' is_invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('role.description') }}">{{ old('description') }}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="updated_at" class="col-sm-3 col-form-label">{{ __('role.updated_at') }}</label>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="input-group datepicker">
-                                    <input type="text" name="updated_at" id="updated_at" class="form-control{{ $errors->has('updated_at']) ? ' is_invalid' : '' }}" placeholder="{{ __('role.updated_at') }}" value="{{ old('updated_at') }}">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </div>
-                                    </div>
+                            @if ($errors->has('description'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('description') }}</strong>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

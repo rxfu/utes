@@ -104,7 +104,7 @@ class MenusTableSeeder extends Seeder
             [
                 'uid' => 'item12',
                 'name' => '修改密码',
-                'icon' => 'shield-alt',
+                'route' => 'passwords.edit',
                 'parent_id' => 11,
                 'is_system' => true,
             ],

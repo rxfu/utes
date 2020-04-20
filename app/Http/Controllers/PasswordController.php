@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PasswordService;
 use Illuminate\Http\Request;
+use App\Services\PasswordService;
+use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
 {
@@ -74,12 +75,11 @@ class PasswordController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get(Auth::id());
 
         return view('password.edit', compact('item'));
     }
@@ -88,16 +88,15 @@ class PasswordController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if ($request->isMethod('put'))
         {
-            $this->service->update($id, $request->all());
+            $this->service->update($request->all());
 
-            return redirect()->route('passwords.show', $id);
+            return redirect()->route('passwords.edit');
         }
         
         return back()->withDanger('提交方法错误');

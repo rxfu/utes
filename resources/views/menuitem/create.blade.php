@@ -15,35 +15,55 @@
                 <div class="card-body">
                     
                     <div class="form-group row">
-                        <label for="uid" class="col-sm-3 col-form-label">{{ __('menuitem.uid') }}</label>
+                        <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('menuitem.uid') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('uid') ? ' is_invalid' : '' }}" name="uid" id="uid" placeholder="{{ __('menuitem.uid') }}" value="{{ old('uid') }}">
+                            @if ($errors->has('uid'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('uid') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label">{{ __('menuitem.name') }}</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('menuitem.name') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('name') ? ' is_invalid' : '' }}" name="name" id="name" placeholder="{{ __('menuitem.name') }}" value="{{ old('name') }}">
+                            @if ($errors->has('name'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="route" class="col-sm-3 col-form-label">{{ __('menuitem.route') }}</label>
+                        <label for="route" class="col-sm-3 col-form-label text-right">{{ __('menuitem.route') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('route') ? ' is_invalid' : '' }}" name="route" id="route" placeholder="{{ __('menuitem.route') }}" value="{{ old('route') }}">
+                            @if ($errors->has('route'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('route') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="icon" class="col-sm-3 col-form-label">{{ __('menuitem.icon') }}</label>
+                        <label for="icon" class="col-sm-3 col-form-label text-right">{{ __('menuitem.icon') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('icon') ? ' is_invalid' : '' }}" name="icon" id="icon" placeholder="{{ __('menuitem.icon') }}" value="{{ old('icon') }}">
+                            @if ($errors->has('icon'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('icon') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="parent_id" class="col-sm-3 col-form-label">{{ __('menuitem.parent_id') }}</label>
+                        <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.parent_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menuitems', 'App\Services\MenuitemService')
 							<select name="parent_id" id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
@@ -52,30 +72,45 @@
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>
+                            @if ($errors->has('parent_id'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('parent_id') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="menu_id" class="col-sm-3 col-form-label">{{ __('menuitem.menu_id') }}</label>
+                        <label for="menu_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menus', 'App\Services\MenuService')
-                            <select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+							<select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
                                 @foreach ($menus->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>
+                            @if ($errors->has('menu_id'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('menu_id') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-sm-3 col-form-label">{{ __('menuitem.description') }}</label>
+                        <label for="description" class="col-sm-3 col-form-label text-right">{{ __('menuitem.description') }}</label>
                         <div class="col-sm-9">
                             <textarea class="form-control{{ $errors->has('description') ? ' is_invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('menuitem.description') }}">{{ old('description') }}</textarea>
+                            @if ($errors->has('description'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('description') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="is_enable" class="col-sm-3 col-form-label">{{ __('menuitem.is_enable') }}</label>
+                        <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('menuitem.is_enable') }}</label>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
                                 <input type="radio" name="is_enable" id="is_enable" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1" checked>
@@ -85,13 +120,23 @@
                                 <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0">
                                 <label class="form-check-label" for="is_enable0">否</label>
                             </div>
+                            @if ($errors->has('is_enable'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('is_enable') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="order" class="col-sm-3 col-form-label">{{ __('menuitem.order') }}</label>
+                        <label for="order" class="col-sm-3 col-form-label text-right">{{ __('menuitem.order') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order', 0) }}">
+                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order') }}">
+                            @if ($errors->has('order'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('order') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -16,23 +16,38 @@
                 <div class="card-body">
                     
                     <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label">{{ __('setting.name') }}</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('setting.name') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('name') ? ' is_invalid' : '' }}" name="name" id="name" placeholder="{{ __('setting.name') }}" value="{{ old('name', $item->name) }}">
+                            @if ($errors->has('name'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="value" class="col-sm-3 col-form-label">{{ __('setting.value') }}</label>
+                        <label for="value" class="col-sm-3 col-form-label text-right">{{ __('setting.value') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('value') ? ' is_invalid' : '' }}" name="value" id="value" placeholder="{{ __('setting.value') }}" value="{{ old('value', $item->value) }}">
+                            @if ($errors->has('value'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('value') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-sm-3 col-form-label">{{ __('setting.description') }}</label>
+                        <label for="description" class="col-sm-3 col-form-label text-right">{{ __('setting.description') }}</label>
                         <div class="col-sm-9">
                             <textarea class="form-control{{ $errors->has('description') ? ' is_invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('setting.description') }}">{{ old('description', $item->description) }}</textarea>
+                            @if ($errors->has('description'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('description') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

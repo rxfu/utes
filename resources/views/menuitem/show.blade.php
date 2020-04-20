@@ -13,75 +13,76 @@
             <div class="card-body">
                 
                 <div class="form-group row">
-                    <label for="id" class="col-sm-3 col-form-label">{{ __('menuitem.id') }}</label>
+                    <label for="id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.id') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="id" id="id" value="{{ $item->id }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="uid" class="col-sm-3 col-form-label">{{ __('menuitem.uid') }}</label>
+                    <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('menuitem.uid') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="uid" id="uid" value="{{ $item->uid }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">{{ __('menuitem.name') }}</label>
+                    <label for="name" class="col-sm-3 col-form-label text-right">{{ __('menuitem.name') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="name" id="name" value="{{ $item->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="route" class="col-sm-3 col-form-label">{{ __('menuitem.route') }}</label>
+                    <label for="route" class="col-sm-3 col-form-label text-right">{{ __('menuitem.route') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="route" id="route" value="{{ $item->route }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="icon" class="col-sm-3 col-form-label">{{ __('menuitem.icon') }}</label>
+                    <label for="icon" class="col-sm-3 col-form-label text-right">{{ __('menuitem.icon') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="icon" id="icon" value="{{ $item->icon }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="parent_id" class="col-sm-3 col-form-label">{{ __('menuitem.parent_id') }}</label>
+                    <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.parent_id') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="parent_id" id="parent_id" value="{{ optional($item->parent)->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="menu_id" class="col-sm-3 col-form-label">{{ __('menuitem.menu_id') }}</label>
+                    <label for="menu_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.menu_id') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="menu_id" id="menu_id" value="{{ optional($item->menu)->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="description" class="col-sm-3 col-form-label">{{ __('menuitem.description') }}</label>
+                    <label for="description" class="col-sm-3 col-form-label text-right">{{ __('menuitem.description') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="description" id="description" value="{{ $item->description }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="is_enable" class="col-sm-3 col-form-label">{{ __('menuitem.is_enable') }}</label>
+                    <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('menuitem.is_enable') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->present()->isEnable }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="order" class="col-sm-3 col-form-label">{{ __('menuitem.order') }}</label>
+                    <label for="order" class="col-sm-3 col-form-label text-right">{{ __('menuitem.order') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="order" id="order" value="{{ $item->order }}" readonly>
                     </div>
                 </div>
             </div>
+
             @unless($item->is_system)
                 <div class="card-footer">
                     <div class="row justify-content-sm-center">
@@ -94,7 +95,7 @@
                         </a>
                     </div>
                 </div>
-                <form id="delete-form" action="{{ route('menuitems.destroy', $item->getKey()) }}" method="POST" style="display: none;">
+                <form id="delete-form" action="{{ route('menuitems.destroy', $item->getKey()) }}" method="post" style="display: none;">
                     @csrf
                     @method('delete')
                 </form>

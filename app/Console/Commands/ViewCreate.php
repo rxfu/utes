@@ -176,7 +176,7 @@ class ViewCreate extends Command
 
             $attribute = '
                 <div class="form-group row">
-                    <label for="' . $column . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $column . '\') }}</label>
+                    <label for="' . $column . '" class="col-sm-3 col-form-label text-right">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="' . $column . '" id="' . $column . '" value="{{ $item->' . $column . ' }}" readonly>
                     </div>
@@ -193,7 +193,7 @@ class ViewCreate extends Command
     private function _replaceCreate($table, $replace)
     {
         $columns = Schema::getColumnListing($table);
-        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'update_at']);
+        $columns = array_diff($columns, ['id', 'remember_token', 'created_at', 'updated_at']);
 
         $attributes = array_map(function ($column) use ($table) {
             $type = Schema::getColumnType($table, $column);
@@ -201,7 +201,7 @@ class ViewCreate extends Command
 
             $attribute = '
                     <div class="form-group row">
-                        <label for="' . $column . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $column . '\') }}</label>
+                        <label for="' . $column . '" class="col-sm-3 col-form-label text-right">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                         <div class="col-sm-9">
                             ';
 
@@ -234,7 +234,7 @@ class ViewCreate extends Command
                     case 'datetime':
                         $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
-                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">
+                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -251,6 +251,11 @@ class ViewCreate extends Command
             }
 
             $attribute .=  '
+                            @if ($errors->has(\'' . $column . '\'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first(\'' . $column . '\') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>';
 
@@ -273,7 +278,7 @@ class ViewCreate extends Command
 
             $attribute = '
                     <div class="form-group row">
-                        <label for="' . $column . '" class="col-sm-3 col-form-label">{{ __(\'' . $table . '.' . $column . '\') }}</label>
+                        <label for="' . $column . '" class="col-sm-3 col-form-label text-right">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                         <div class="col-sm-9">
                             ';
 
@@ -306,7 +311,7 @@ class ViewCreate extends Command
                     case 'datetime':
                         $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
-                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\']) ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">
+                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -323,6 +328,11 @@ class ViewCreate extends Command
             }
 
             $attribute .=  '
+                            @if ($errors->has(\'' . $column . '\'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first(\'' . $column . '\') }}</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>';
 

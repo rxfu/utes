@@ -28,16 +28,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/contact', 'HomeController@contact')->name('contact');
 
+    Route::name('passwords.')->group(function () {
+        Route::get('passwords', 'PasswordController@edit')->name('edit');
+        Route::put('passwords', 'PasswordController@update')->name('update');
+    });
+
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
-    Route::resource('logs', 'LogController');
+    Route::resource('logs', 'LogController')->only(['index', 'show']);
+    Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
     Route::resource('permissions', 'PermissionController');
-    Route::resource('settings', 'SettingController');
-    Route::resource('passwords', 'PasswordController');
-    Route::resource('users', 'UserController');
-    Route::resource('users', 'UserController');
-    Route::resource('settings', 'SettingController');
     Route::resource('settings', 'SettingController');
     // route_here
 });

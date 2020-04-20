@@ -13,28 +13,28 @@
             <div class="card-body">
                 
                 <div class="form-group row">
-                    <label for="id" class="col-sm-3 col-form-label">{{ __('role.id') }}</label>
+                    <label for="id" class="col-sm-3 col-form-label text-right">{{ __('role.id') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="id" id="id" value="{{ $item->id }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="uid" class="col-sm-3 col-form-label">{{ __('role.uid') }}</label>
+                    <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('role.uid') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="uid" id="uid" value="{{ $item->uid }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">{{ __('role.name') }}</label>
+                    <label for="name" class="col-sm-3 col-form-label text-right">{{ __('role.name') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="name" id="name" value="{{ $item->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="description" class="col-sm-3 col-form-label">{{ __('role.description') }}</label>
+                    <label for="description" class="col-sm-3 col-form-label text-right">{{ __('role.description') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="description" id="description" value="{{ $item->description }}" readonly>
                     </div>
@@ -52,7 +52,7 @@
                     </a>
                 </div>
             </div>
-            <form id="delete-form" action="{{ route('roles.destroy', $item->getKey()) }}" method="POST" style="display: none;">
+            <form id="delete-form" action="{{ route('roles.destroy', $item->getKey()) }}" method="post" style="display: none;">
                 @csrf
                 @method('delete')
             </form>
