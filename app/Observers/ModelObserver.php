@@ -39,7 +39,7 @@ class ModelObserver
     {
         $this->service->log(200004, $model, __FUNCTION__, $model->getOriginal());
 
-        $this->info(100001);
+        // $this->info(100001);
     }
 
     /**

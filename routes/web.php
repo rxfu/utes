@@ -31,5 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
     Route::resource('logs', 'LogController');
+    Route::resource('roles', 'RoleController');
+    Route::resource('permissions', 'PermissionController');
+    Route::resource('settings', 'SettingController');
+    Route::resource('passwords', 'PasswordController');
+    Route::resource('users', 'UserController');
+    Route::resource('users', 'UserController');
+    Route::resource('settings', 'SettingController');
+    Route::resource('settings', 'SettingController');
     // route_here
 });
