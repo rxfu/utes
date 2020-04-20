@@ -57,7 +57,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <thead>
+                    <tfoot>
                         <tr>
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
@@ -70,7 +70,7 @@
 							<th>{{ __('user.last_login_at') }}</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
+                    </tfoot>
                 </table>
             </div>
             <form id="delete-form" method="post" style="display: none;">

@@ -47,7 +47,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <thead>
+                    <tfoot>
                         <tr>
                             <th>{{ __('permission.id') }}</th>
 							<th>{{ __('permission.uid') }}</th>
@@ -55,7 +55,7 @@
 							<th>{{ __('permission.description') }}</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
+                    </tfoot>
                 </table>
             </div>
             <form id="delete-form" method="post" style="display: none;">

@@ -49,7 +49,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <thead>
+                    <tfoot>
                         <tr>
                             <th>{{ __('menu.id') }}</th>
 							<th>{{ __('menu.uid') }}</th>
@@ -57,7 +57,7 @@
 							<th>{{ __('menu.is_enable') }}</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
+                    </tfoot>
                 </table>
             </div>
             <form id="delete-form" method="post" style="display: none;">

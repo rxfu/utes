@@ -47,7 +47,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <thead>
+                    <tfoot>
                         <tr>
                             <th>{{ __('setting.id') }}</th>
 							<th>{{ __('setting.name') }}</th>
@@ -55,7 +55,7 @@
 							<th>{{ __('setting.description') }}</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
+                    </tfoot>
                 </table>
             </div>
             <form id="delete-form" method="post" style="display: none;">

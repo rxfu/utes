@@ -47,7 +47,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <thead>
+                    <tfoot>
                         <tr>
                             <th>{{ __('role.id') }}</th>
 							<th>{{ __('role.uid') }}</th>
@@ -55,7 +55,7 @@
 							<th>{{ __('role.description') }}</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
+                    </tfoot>
                 </table>
             </div>
             <form id="delete-form" method="post" style="display: none;">
