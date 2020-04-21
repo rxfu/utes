@@ -13,17 +13,17 @@ class UserService extends Service
         $this->repository = $users;
     }
 
-    public function changePassword($oldPassword, $newPassword, $confirmedPassword)
+    public function changePassword($user, $oldPassword, $newPassword, $confirmedPassword)
     {
         $credentials = [
-            'username' => Auth::user()->username,
+            'username' => $user->username,
             'password' => $oldPassword,
         ];
 
         if (Auth::attempt($credentials)) {
             if ($newPassword === $confirmedPassword) {
                 try {
-                    $this->repository->update(Auth::id(), ['password' => $newPassword]);
+                    $this->repository->update($user->id, ['password' => $newPassword]);
                 } catch (InvalidRequestException $e) {
                     throw new InvalidRequestException('修改密码失败', $this->repository->getObject(), 'update');
                 }

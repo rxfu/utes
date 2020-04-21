@@ -48,13 +48,11 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $item = $this->service->store($request->all());
+        parent::store($request);
+    
+        $item = $this->service->store($request->all());
 
-            return redirect()->route('{{ collection }}.show', $item->id);
-        }
-
-        return back()->withDanger('提交方法错误');
+        return redirect()->route('{{ collection }}.show', $item->id);
     }
 
     /**
@@ -92,23 +90,24 @@ class {{ class }} extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->isMethod('put')) {
-            $this->service->update($id, $request->all());
+        parent::update($request, $id);
+    
+        $this->service->update($id, $request->all());
 
-            return redirect()->route('{{ collection }}.show', $id);
-        }
-        
-        return back()->withDanger('提交方法错误');
+        return redirect()->route('{{ collection }}.show', $id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        parent::delete($id);
+
         $this->service->delete($id);
 
         return redirect()->route('{{ collection }}.index');
