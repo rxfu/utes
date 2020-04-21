@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PasswordChangeRequest;
 
 class PasswordController extends Controller
 {
@@ -44,15 +45,15 @@ class PasswordController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PasswordChangeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PasswordChangeRequest $request)
     {
         if ($request->isMethod('post')) {
-            $item = $this->service->store($request->all());
+            $this->service->update(Auth::id(), $request->all());
 
-            return redirect()->route('passwords.show', $item->id);
+            return redirect()->route('passwords.create');
         }
 
         return back()->withDanger('提交方法错误');

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\MenuService;
-use Illuminate\Http\Request;
+use App\Http\Requests\MenuStoreRequest;
+use App\Http\Requests\MenuUpdateRequest;
 
 class MenuController extends Controller
 {
@@ -43,10 +44,10 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\MenuStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuStoreRequest $request)
     {
         if ($request->isMethod('post')) {
             $item = $this->service->store($request->all());
@@ -86,11 +87,11 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\MenuUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuUpdateRequest $request, $id)
     {
         if ($request->isMethod('put')) {
             $this->service->update($id, $request->all());
