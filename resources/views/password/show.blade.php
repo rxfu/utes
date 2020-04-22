@@ -25,7 +25,7 @@
                     </a>
                 </div>
             </div>
-            <form id="delete-form" action="{{ route('passwords.destroy', $item->getKey()) }}" method="POST" style="display: none;">
+            <form id="delete-form" action="{{ route('passwords.destroy', $item->getKey()) }}" method="post" style="display: none;">
                 @csrf
                 @method('delete')
             </form>

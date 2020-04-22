@@ -2,6 +2,7 @@
 
 namespace {{ namespace }};
 
+use {{ namespaceModel }};
 use {{ namespaceService }};
 use Illuminate\Http\Request;
 
@@ -116,9 +117,9 @@ class {{ class }} extends Controller
      */
     public function destroy(Request $request, {{ model }} ${{ object }})
     {
-        if ($request->isMethod('delete)) {
+        if ($request->isMethod('delete')) {
 
-            $this->service->delete($id);
+            $this->service->delete(${{ object }});
 
             return redirect()->route('{{ collection }}.index');
         }

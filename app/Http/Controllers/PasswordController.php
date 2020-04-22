@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PasswordChangeRequest;
 
 class PasswordController extends Controller
@@ -29,7 +29,7 @@ class PasswordController extends Controller
     {
         $items = $this->service->getAll();
 
-        return view('password.index', compact('items'));
+        return view('user.index', compact('items'));
     }
 
     /**
@@ -51,68 +51,86 @@ class PasswordController extends Controller
     public function store(PasswordChangeRequest $request)
     {
         if ($request->isMethod('post')) {
-            $this->service->update(Auth::id(), $request->all());
 
-            return redirect()->route('passwords.create');
+            list($old, $new, $confirmed) = array_values($request->only('old_password', 'password', 'password_confirmation'));
+
+            $this->service->changePassword($request->user(), $old, $new, $confirmed);
+
+            $this->success(200006);
+
+            return back();
         }
 
-        return back()->withDanger('提交方法错误');
+        $this->error(405001);
+
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($user);
 
-        return view('password.show', compact('item'));
+        return view('user.show', compact('item'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($user);
 
-        return view('password.edit', compact('item'));
+        return view('user.edit', compact('item'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         if ($request->isMethod('put')) {
-            $this->service->update($id, $request->all());
 
-            return redirect()->route('passwords.show', $id);
+            $this->service->update($user, $request->all());
+
+            return redirect()->route('users.show', $id);
         }
 
-        return back()->withDanger('提交方法错误');
+        $this->error(405001);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, User $user)
     {
-        $this->service->delete($id);
+        if ($request->isMethod('delete')) {
 
-        return redirect()->route('passwords.index');
+            $this->service->delete($user);
+
+            return redirect()->route('users.index');
+        }
+
+        $this->error(405001);
+
+        return back();
     }
 }

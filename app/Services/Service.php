@@ -2,8 +2,12 @@
 
 namespace App\Services;
 
+use App\Traits\Flash;
+
 class Service
 {
+    use Flash;
+
     protected $repository;
 
     public function get($model)

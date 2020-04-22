@@ -117,6 +117,7 @@ class ControllerCreate extends GeneratorCommand
     {
         $model = Str::studly($this->getNameInput());
         $serviceClass = $this->parseService($model);
+        $modelClass = $this->parseModel($model);
 
         if (!class_exists($serviceClass)) {
             if ($this->confirm("A {$serviceClass} service does not exist. Do you want to generate it?", true)) {
@@ -128,6 +129,7 @@ class ControllerCreate extends GeneratorCommand
             '{{ model }}' => $model,
             '{{ object }}' => Str::snake($model),
             '{{ collection }}' => Str::kebab(Str::pluralStudly($model)),
+            '{{ namespaceModel }}' => $modelClass,
             '{{ namespaceService }}' => $serviceClass,
             '{{ service }}' => class_basename($serviceClass),
             '{{ serviceVariable }}' => Str::camel(class_basename($serviceClass)),
@@ -156,5 +158,29 @@ class ControllerCreate extends GeneratorCommand
         }
 
         return $service;
+    }
+
+    /**
+     * Get the fully-qualified model class name.
+     *
+     * @param  string  $model
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function parseModel($model)
+    {
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
+            throw new InvalidArgumentException('Model name contains invalid characters.');
+        }
+
+        $model = trim(str_replace('/', '\\', $model), '\\');
+        $model = 'Models\\' . $model;
+
+        if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
+            $model = $rootNamespace . $model;
+        }
+
+        return $model;
     }
 }

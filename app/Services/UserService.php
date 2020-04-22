@@ -23,15 +23,15 @@ class UserService extends Service
         if (Auth::attempt($credentials)) {
             if ($newPassword === $confirmedPassword) {
                 try {
-                    $this->repository->update($user->id, ['password' => $newPassword]);
+                    $this->repository->update($user->getKey(), ['password' => $newPassword]);
                 } catch (InvalidRequestException $e) {
-                    throw new InvalidRequestException('修改密码失败', $this->repository->getObject(), 'update');
+                    throw new InvalidRequestException(403002, $this->repository->getModel(), __FUNCTION__);
                 }
             } else {
-                throw new InvalidRequestException('确认密码与新密码不一致，请重新输入', $this->repository->getObject(), 'update');
+                throw new InvalidRequestException(403004, $this->repository->getModel(), __FUNCTION__);
             }
         } else {
-            throw new InvalidRequestException('旧密码错误，请重新输入', $this->repository->getObject(), 'update');
+            throw new InvalidRequestException(403003, $this->repository->getModel(), __FUNCTION__);
         }
     }
 

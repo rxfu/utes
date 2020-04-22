@@ -19,7 +19,7 @@ class InternalException extends Exception
         $this->model = $model;
         $this->action = $action;
         $message = '系统内部错误：' . $this->exception->getMessage();
-        $code = $this->exception->getCode();
+        $code = (int) $this->exception->getCode();
 
         parent::__construct($message, $code);
     }

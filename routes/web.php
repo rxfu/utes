@@ -31,10 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
     Route::resource('logs', 'LogController')->only(['index', 'show']);
+    Route::resource('passwords', 'PasswordController');
     Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
     Route::resource('permissions', 'PermissionController');
-    Route::resource('passwords', 'PasswordController');
     Route::resource('settings', 'SettingController');
     // route_here
 });
