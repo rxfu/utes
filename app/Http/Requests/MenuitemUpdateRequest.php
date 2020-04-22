@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MenuStoreRequest extends FormRequest
+class MenuitemUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class MenuStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'uid' => 'required|max:50|unique:menus',
+            'uid' => 'required|max:50|unique:menuitems,uid,' . $this->route('menuitem')->id,
             'name' => 'required',
             'is_enable' => 'required',
+            'menu_id' => 'required',
         ];
     }
 }

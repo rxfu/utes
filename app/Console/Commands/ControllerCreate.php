@@ -125,7 +125,8 @@ class ControllerCreate extends GeneratorCommand
         }
 
         return array_merge($replace, [
-            '{{ model }}' => Str::snake($model),
+            '{{ model }}' => $model,
+            '{{ object }}' => Str::snake($model),
             '{{ collection }}' => Str::kebab(Str::pluralStudly($model)),
             '{{ namespaceService }}' => $serviceClass,
             '{{ service }}' => class_basename($serviceClass),

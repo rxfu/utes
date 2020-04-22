@@ -14,8 +14,8 @@ return [
     ],
 
     'observers' => [
-        // App\Models\User::class,
-        // App\Models\Menu::class,
-        // App\Models\Menuitem::class,
+        App\Models\User::class,
+        App\Models\Menu::class,
+        App\Models\Menuitem::class,
     ],
 ];

@@ -66,7 +66,7 @@
                         <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.parent_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menuitems', 'App\Services\MenuitemService')
-							<select name="parent_id" id="parent_id" class="form-control select2{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
+							<select name="parent_id" id="parent_id" class="form-control select2 select2-success{{ $errors->has('parent_id') ? ' is_invalid' : '' }}" data-dropdown-css-class="select2-success">
                                 <option value="">无</option>
                                 @foreach ($menuitems->getLevel1Items() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
@@ -84,7 +84,7 @@
                         <label for="menu_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menus', 'App\Services\MenuService')
-							<select name="menu_id" id="menu_id" class="form-control select2{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+							<select name="menu_id" id="menu_id" class="form-control select2 select2-success{{ $errors->has('menu_id') ? ' is_invalid' : '' }}" data-dropdown-css-class="select2-success">
                                 @foreach ($menus->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -131,7 +131,7 @@
                     <div class="form-group row">
                         <label for="order" class="col-sm-3 col-form-label text-right">{{ __('menuitem.order') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order') }}">
+                            <input type="text" class="form-control{{ $errors->has('order') ? ' is_invalid' : '' }}" name="order" id="order" placeholder="{{ __('menuitem.order') }}" value="{{ old('order', 0) }}">
                             @if ($errors->has('order'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('order') }}</strong>

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MenuitemService;
+use App\Models\Menuitem;
 use Illuminate\Http\Request;
+use App\Services\MenuitemService;
+use App\Http\Requests\MenuitemStoreRequest;
+use App\Http\Requests\MenuitemUpdateRequest;
 
 class MenuitemController extends Controller
 {
@@ -43,29 +46,32 @@ class MenuitemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\MenuitemStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuitemStoreRequest $request)
     {
         if ($request->isMethod('post')) {
+
             $item = $this->service->store($request->all());
 
-            return redirect()->route('menuitems.show', $item->id);
+            return redirect()->route('menuitems.show', $item);
         }
 
-        return back()->withDanger('提交方法错误');
+        $this->error(405001);
+
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Menuitem  $menuitem
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Menuitem $menuitem)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($menuitem);
 
         return view('menuitem.show', compact('item'));
     }
@@ -73,12 +79,12 @@ class MenuitemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Menuitem  $menuitem
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menuitem $menuitem)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($menuitem);
 
         return view('menuitem.edit', compact('item'));
     }
@@ -86,31 +92,42 @@ class MenuitemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\MenuitemUpdateRequest  $request
+     * @param  Menuitem  $menuitem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuitemUpdateRequest $request, Menuitem $menuitem)
     {
         if ($request->isMethod('put')) {
-            $this->service->update($id, $request->all());
 
-            return redirect()->route('menuitems.show', $id);
+            $this->service->update($menuitem, $request->all());
+
+            return redirect()->route('menuitems.show', $menuitem);
         }
 
-        return back()->withDanger('提交方法错误');
+        $this->error(405001);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Menuitem  $menuitem
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Menuitem $menuitem)
     {
-        $this->service->delete($id);
+        if ($request->isMethod('delete')) {
 
-        return redirect()->route('menuitems.index');
+            $this->service->delete($menuitem);
+
+            return redirect()->route('menuitems.index');
+        }
+
+        $this->error(405001);
+
+        return back();
     }
 }

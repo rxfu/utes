@@ -55,7 +55,7 @@ class MenuController extends Controller
 
             $item = $this->service->store($request->all());
 
-            return redirect()->route('menus.show', $item->id);
+            return redirect()->route('menus.show', $item);
         }
 
         $this->error(405001);

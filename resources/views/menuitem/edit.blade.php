@@ -67,7 +67,7 @@
                         <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.parent_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menuitems', 'App\Services\MenuitemService')
-							<select name="parent_id" id="parent_id" class="form-control select2{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
+							<select name="parent_id" id="parent_id" class="form-control select2 select2-info{{ $errors->has('parent_id') ? ' is_invalid' : '' }}" data-dropdown-css-class="select2-info">
                                 <option value=""{{ old('parent_id', $item->parent_id) === '' ? ' selected' : '' }}>无</option>
                                 @foreach ($menuitems->getLevel1Items() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('parent_id', $item->parent_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
@@ -85,7 +85,7 @@
                         <label for="menu_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menus', 'App\Services\MenuService')
-							<select name="menu_id" id="menu_id" class="form-control select2{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+							<select name="menu_id" id="menu_id" class="form-control select2 select2-info{{ $errors->has('menu_id') ? ' is_invalid' : '' }}" data-dropdown-css-class="select2-info">
                                 @foreach ($menus->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('menu_id', $item->menu_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                                 @endforeach

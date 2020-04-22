@@ -209,7 +209,7 @@ class ViewCreate extends Command
                 $model = substr($column, 0, -3);
                 $collection = Str::camel(Str::plural($model));
                 $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
-                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2 select2-success{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" data-dropdown-css-class="select2-success">
                                 @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -286,7 +286,7 @@ class ViewCreate extends Command
                 $model = substr($column, 0, -3);
                 $collection = Str::camel(Str::plural($model));
                 $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
-                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2 select2-info{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" data-dropdown-css-class="select2-info">
                                 @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old(\'' . $column . '\', $item->' . $column . ') === $collection->getKey() ? \' selected\' : \'\' }}>{{ $collection->name }}</option>
                                 @endforeach
