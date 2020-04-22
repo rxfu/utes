@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
+use Illuminate\Http\Request;
 use App\Services\MenuService;
 use App\Http\Requests\MenuStoreRequest;
 use App\Http\Requests\MenuUpdateRequest;
@@ -50,23 +52,26 @@ class MenuController extends Controller
     public function store(MenuStoreRequest $request)
     {
         if ($request->isMethod('post')) {
+
             $item = $this->service->store($request->all());
 
             return redirect()->route('menus.show', $item->id);
         }
 
-        return back()->withDanger('提交方法错误');
+        $this->error(405001);
+
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Menu $menu
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Menu $menu)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($menu);
 
         return view('menu.show', compact('item'));
     }
@@ -74,12 +79,12 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Menu $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($menu);
 
         return view('menu.edit', compact('item'));
     }
@@ -88,30 +93,41 @@ class MenuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\MenuUpdateRequest  $request
-     * @param  int  $id
+     * @param  Menu $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(MenuUpdateRequest $request, $id)
+    public function update(MenuUpdateRequest $request, Menu $menu)
     {
         if ($request->isMethod('put')) {
-            $this->service->update($id, $request->all());
 
-            return redirect()->route('menus.show', $id);
+            $this->service->update($menu, $request->all());
+
+            return redirect()->route('menus.show', $menu);
         }
 
-        return back()->withDanger('提交方法错误');
+        $this->error(405001);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Menu $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Menu $menu)
     {
-        $this->service->delete($id);
+        if ($request->isMethod('delete')) {
 
-        return redirect()->route('menus.index');
+            $this->service->delete($menu);
+
+            return redirect()->route('menus.index');
+        }
+
+        $this->error(405001);
+
+        return back();
     }
 }

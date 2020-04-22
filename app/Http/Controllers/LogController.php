@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Services\LogService;
-use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
@@ -33,12 +33,12 @@ class LogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Log  $log
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Log $log)
     {
-        $item = $this->service->get($id);
+        $item = $this->service->get($log);
 
         return view('log.show', compact('item'));
     }

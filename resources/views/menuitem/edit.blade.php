@@ -67,7 +67,7 @@
                         <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.parent_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menuitems', 'App\Services\MenuitemService')
-							<select name="parent_id" id="parent_id" class="form-control{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
+							<select name="parent_id" id="parent_id" class="form-control select2{{ $errors->has('parent_id') ? ' is_invalid' : '' }}">
                                 <option value=""{{ old('parent_id', $item->parent_id) === '' ? ' selected' : '' }}>无</option>
                                 @foreach ($menuitems->getLevel1Items() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('parent_id', $item->parent_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
@@ -85,7 +85,7 @@
                         <label for="menu_id" class="col-sm-3 col-form-label text-right">{{ __('menuitem.menu_id') }}</label>
                         <div class="col-sm-9">
                             @inject('menus', 'App\Services\MenuService')
-							<select name="menu_id" id="menu_id" class="form-control{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
+							<select name="menu_id" id="menu_id" class="form-control select2{{ $errors->has('menu_id') ? ' is_invalid' : '' }}">
                                 @foreach ($menus->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('menu_id', $item->menu_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                                 @endforeach
@@ -113,12 +113,12 @@
                     <div class="form-group row">
                         <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('menuitem.is_enable') }}</label>
                         <div class="col-sm-9">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="is_enable" id="is_enable" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1"{{ old('is_enable', $item->is_enable) === true ? ' checked' : '' }}>
+                            <div class="icheck-info icheck-inline">
+                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1"{{ old('is_enable', $item->is_enable) == 1 ? ' checked' : '' }}>
                                 <label class="form-check-label" for="is_enable1">是</label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0"{{ old('is_enable', $item->is_enable) === false ? ' checked' : '' }}>
+                            <div class="icheck-info icheck-inline">
+                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0"{{ old('is_enable', $item->is_enable) == 0 ? ' checked' : '' }}>
                                 <label class="form-check-label" for="is_enable0">否</label>
                             </div>
                             @if ($errors->has('is_enable'))

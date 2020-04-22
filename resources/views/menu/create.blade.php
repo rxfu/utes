@@ -53,11 +53,11 @@
                     <div class="form-group row">
                         <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('menu.is_enable') }}</label>
                         <div class="col-sm-9">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="is_enable" id="is_enable" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1" checked>
+                            <div class="icheck-success icheck-inline">
+                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1" checked>
                                 <label class="form-check-label" for="is_enable1">是</label>
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div class="icheck-success icheck-inline">
                                 <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0">
                                 <label class="form-check-label" for="is_enable0">否</label>
                             </div>

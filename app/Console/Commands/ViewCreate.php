@@ -209,7 +209,7 @@ class ViewCreate extends Command
                 $model = substr($column, 0, -3);
                 $collection = Str::camel(Str::plural($model));
                 $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
-                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
                                 @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -221,11 +221,11 @@ class ViewCreate extends Command
                         break;
 
                     case 'boolean':
-                        $attribute .= '<div class="form-check form-check-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
+                        $attribute .= '<div class="icheck-success icheck-inline">
+                                <input type="radio" name="' . $column . '" id="' . $column . '1" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
                                 <label class="form-check-label" for="' . $column . '1">是</label>
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div class="icheck-success icheck-inline">
                                 <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0">
                                 <label class="form-check-label" for="' . $column . '0">否</label>
                             </div>';
@@ -286,7 +286,7 @@ class ViewCreate extends Command
                 $model = substr($column, 0, -3);
                 $collection = Str::camel(Str::plural($model));
                 $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
-                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}">
                                 @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old(\'' . $column . '\', $item->' . $column . ') === $collection->getKey() ? \' selected\' : \'\' }}>{{ $collection->name }}</option>
                                 @endforeach
@@ -298,12 +298,12 @@ class ViewCreate extends Command
                         break;
 
                     case 'boolean':
-                        $attribute .= '<div class="form-check form-check-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $column . '\', $item->' . $column . ') === true ? \' checked\' : \'\' }}>
+                        $attribute .= '<div class="icheck-info icheck-inline">
+                                <input type="radio" name="' . $column . '" id="' . $column . '1" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $column . '\', $item->' . $column . ') == 1 ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $column . '1">是</label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $column . '\', $item->' . $column . ') === false ? \' checked\' : \'\' }}>
+                            <div class="icheck-info icheck-inline">
+                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $column . '\', $item->' . $column . ') == 0 ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $column . '0">否</label>
                             </div>';
                         break;
