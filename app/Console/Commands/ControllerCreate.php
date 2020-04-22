@@ -118,6 +118,8 @@ class ControllerCreate extends GeneratorCommand
         $model = Str::studly($this->getNameInput());
         $serviceClass = $this->parseService($model);
         $modelClass = $this->parseModel($model);
+        $storeRequestClass = $this->parseRequest($model, 'store');
+        $updateRequestClass = $this->parseRequest($model, 'update');
 
         if (!class_exists($serviceClass)) {
             if ($this->confirm("A {$serviceClass} service does not exist. Do you want to generate it?", true)) {
@@ -125,14 +127,30 @@ class ControllerCreate extends GeneratorCommand
             }
         }
 
+        if (!class_exists($storeRequestClass)) {
+            if ($this->confirm("A {$storeRequestClass} request does not exist. Do you want to generate it?", true)) {
+                $this->call('make:request', ['name' => $storeRequestClass]);
+            }
+        }
+
+        if (!class_exists($updateRequestClass)) {
+            if ($this->confirm("A {$updateRequestClass} request does not exist. Do you want to generate it?", true)) {
+                $this->call('make:request', ['name' => $updateRequestClass]);
+            }
+        }
+
         return array_merge($replace, [
             '{{ model }}' => $model,
             '{{ object }}' => Str::snake($model),
             '{{ collection }}' => Str::kebab(Str::pluralStudly($model)),
+            '{{ namespaceStoreRequest }}' => $storeRequestClass,
+            '{{ namespaceUpdateRequest }}' => $updateRequestClass,
             '{{ namespaceModel }}' => $modelClass,
             '{{ namespaceService }}' => $serviceClass,
             '{{ service }}' => class_basename($serviceClass),
             '{{ serviceVariable }}' => Str::camel(class_basename($serviceClass)),
+            '{{ storeRequest }}' => class_basename($storeRequestClass),
+            '{{ updateRequest }}' => class_basename($updateRequestClass),
         ]);
     }
 
@@ -176,6 +194,30 @@ class ControllerCreate extends GeneratorCommand
 
         $model = trim(str_replace('/', '\\', $model), '\\');
         $model = 'Models\\' . $model;
+
+        if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
+            $model = $rootNamespace . $model;
+        }
+
+        return $model;
+    }
+
+    /**
+     * Get the fully-qualified request class name.
+     *
+     * @param  string  $model
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function parseRequest($model, $action)
+    {
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
+            throw new InvalidArgumentException('Model name contains invalid characters.');
+        }
+
+        $model = trim(str_replace('/', '\\', $model), '\\');
+        $model = 'Http\\Requests\\' . $model . Str::Studly($action) . 'Request';
 
         if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
             $model = $rootNamespace . $model;

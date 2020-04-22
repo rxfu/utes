@@ -2,6 +2,8 @@
 
 namespace {{ namespace }};
 
+use {{ namespaceStoreRequest }};
+use {{ namespaceUpdateRequest }};
 use {{ namespaceModel }};
 use {{ namespaceService }};
 use Illuminate\Http\Request;
@@ -44,10 +46,10 @@ class {{ class }} extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \{{ namespaceStoreRequest }}  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store({{ storeRequest }} $request)
     {
         if ($request->isMethod('post')) {
     
@@ -90,17 +92,17 @@ class {{ class }} extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \{{ namespaceUpdateRequest }}  $request
      * @param  {{ model }}  ${{ object }}
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ object }})
+    public function update({{ updateRequest }} $request, {{ model }} ${{ object }})
     {
         if ($request->isMethod('put')) {
     
             $this->service->update(${{ object }}, $request->all());
 
-            return redirect()->route('{{ collection }}.show', $id);
+            return redirect()->route('{{ collection }}.show', ${{ object }});
         }
 
         $this->error(405001);
