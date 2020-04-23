@@ -21,10 +21,8 @@
                         <tr>
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
-							<th>{{ __('user.password') }}</th>
 							<th>{{ __('user.name') }}</th>
 							<th>{{ __('user.email') }}</th>
-							<th>{{ __('user.email_verified_at') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>
 							<th>{{ __('user.last_login_at') }}</th>
@@ -36,12 +34,10 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->username }}</td>
-								<td>{{ $item->password }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->email }}</td>
-								<td>{{ $item->email_verified_at }}</td>
-								<td>{{ $item->is_enable }}</td>
-								<td>{{ $item->is_super }}</td>
+								<td>{{ $item->present()->isEnable }}</td>
+								<td>{{ $item->present()->isSuper }}</td>
 								<td>{{ $item->last_login_at }}</td>
                                 <td>
                                     <a href="{{ route('users.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
@@ -53,6 +49,9 @@
                                     <a href="{{ route('users.destroy', $item->getKey()) }}" class="btn btn-danger btn-sm delete" title="删除">
                                         <i class="fas fa-trash"></i> 删除
                                     </a>
+                                    <a href="{{ route('passwords.update', $item->getKey()) }}" class="btn btn-secondary btn-sm" title="重置密码">
+                                        <i class="fas fa-key"></i> 重置密码
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -61,10 +60,8 @@
                         <tr>
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
-							<th>{{ __('user.password') }}</th>
 							<th>{{ __('user.name') }}</th>
 							<th>{{ __('user.email') }}</th>
-							<th>{{ __('user.email_verified_at') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>
 							<th>{{ __('user.last_login_at') }}</th>

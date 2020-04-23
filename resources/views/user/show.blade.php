@@ -27,13 +27,6 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="password" class="col-sm-3 col-form-label text-right">{{ __('user.password') }}</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="password" id="password" value="{{ $item->password }}" readonly>
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <label for="name" class="col-sm-3 col-form-label text-right">{{ __('user.name') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="name" id="name" value="{{ $item->name }}" readonly>
@@ -57,14 +50,14 @@
                 <div class="form-group row">
                     <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('user.is_enable') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->is_enable }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_enable" id="is_enable" value="{{ $item->present()->isEnable }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="is_super" class="col-sm-3 col-form-label text-right">{{ __('user.is_super') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_super" id="is_super" value="{{ $item->is_super }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_super" id="is_super" value="{{ $item->present()->isSuper }}" readonly>
                     </div>
                 </div>
 

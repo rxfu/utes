@@ -29,7 +29,7 @@
                     <div class="form-group row">
                         <label for="password" class="col-sm-3 col-form-label text-right">{{ __('user.password') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('password') ? ' is_invalid' : '' }}" name="password" id="password" placeholder="{{ __('user.password') }}" value="{{ old('password') }}">
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is_invalid' : '' }}" name="password" id="password" placeholder="{{ __('user.password') }}" value="{{ old('password') }}">
                             @if ($errors->has('password'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
@@ -63,27 +63,6 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="email_verified_at" class="col-sm-3 col-form-label text-right">{{ __('user.email_verified_at') }}</label>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="input-group datepicker">
-                                    <input type="text" name="email_verified_at" id="email_verified_at" class="form-control{{ $errors->has('email_verified_at') ? ' is_invalid' : '' }}" placeholder="{{ __('user.email_verified_at') }}" value="{{ old('email_verified_at') }}">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($errors->has('email_verified_at'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email_verified_at') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('user.is_enable') }}</label>
                         <div class="col-sm-9">
                             <div class="icheck-success icheck-inline">
@@ -97,46 +76,6 @@
                             @if ($errors->has('is_enable'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('is_enable') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="is_super" class="col-sm-3 col-form-label text-right">{{ __('user.is_super') }}</label>
-                        <div class="col-sm-9">
-                            <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_super" id="is_super1" class="form-check-input{{ $errors->has('is_super') ? ' is_invalid' : '' }}" value="1" checked>
-                                <label class="form-check-label" for="is_super1">是</label>
-                            </div>
-                            <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_super" id="is_super0" class="form-check-input{{ $errors->has('is_super') ? ' is_invalid' : '' }}" value="0">
-                                <label class="form-check-label" for="is_super0">否</label>
-                            </div>
-                            @if ($errors->has('is_super'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('is_super') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="last_login_at" class="col-sm-3 col-form-label text-right">{{ __('user.last_login_at') }}</label>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="input-group datepicker">
-                                    <input type="text" name="last_login_at" id="last_login_at" class="form-control{{ $errors->has('last_login_at') ? ' is_invalid' : '' }}" placeholder="{{ __('user.last_login_at') }}" value="{{ old('last_login_at') }}">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($errors->has('last_login_at'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('last_login_at') }}</strong>
                                 </div>
                             @endif
                         </div>

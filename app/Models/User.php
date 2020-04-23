@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laracasts\Presenter\PresentableTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, PresentableTrait;
+
+    protected $presenter = 'App\Presenters\UserPresenter';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'email', 'password', 'is_enable', 'is_super',
+        'username', 'name', 'email', 'password', 'is_enable',
     ];
 
     /**
