@@ -40,3 +40,7 @@
     @include('shared.control')
     @include('shared.footer')
 @endsection
+
+@push('components')
+    @include('shared.dialog')
+@endpush

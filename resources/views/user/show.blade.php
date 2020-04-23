@@ -71,16 +71,16 @@
 
             <div class="card-footer">
                 <div class="row justify-content-sm-center">
-                    <a href="{{ route('users.edit', $item->getKey()) }}" title="编辑" class="btn btn-info">
+                    <a href="{{ route('users.edit', $item) }}" title="编辑" class="btn btn-info">
                         <i class="fas fa-pencil-alt"></i> 编辑
                     </a>
                     &nbsp;&nbsp;
-                    <a href="{{ route('users.destroy', $item->getKey()) }}" class="btn btn-danger delete" title="删除">
+                    <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger delete" title="删除" data-toggle="modal" data-target="#dialog" data-whatever="确认删除">
                         <i class="fas fa-trash"></i> 删除
                     </a>
                 </div>
             </div>
-            <form id="delete-form" action="{{ route('users.destroy', $item->getKey()) }}" method="post" style="display: none;">
+            <form id="delete-form" method="post" style="display: none;">
                 @csrf
                 @method('delete')
             </form>

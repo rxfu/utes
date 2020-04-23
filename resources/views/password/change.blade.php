@@ -32,7 +32,7 @@
 		                            <strong>{{ $errors->first('password') }}</strong>
 		                        </div>
 	                        @endif
-	                        <small class="form-text text-muted">密码至少6位</small>
+	                        <small class="form-text text-muted">密码至少8位</small>
 	                    </div>
 	                </div>
 	                <div class="form-group row">

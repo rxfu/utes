@@ -22,16 +22,60 @@ $(function () {
     });
     // });
 
-    $('.delete').click(function () {
-        event.preventDefault();
+    // $('.delete').click(function () {
+    //     event.preventDefault();
 
-        if (confirm('记录删除后不可恢复，请问确定删除该条记录吗？')) {
-            var href = $(this).attr('href');
-            $('#delete-form').attr('action', href).submit();
+    //     if (confirm('记录删除后不可恢复，请问确定删除该条记录吗？')) {
+    //         var href = $(this).attr('href');
+    //         $('#delete-form').attr('action', href).submit();
 
-            return false;
-        }
-    })
+    //         return false;
+    //     }
+    // })
+    $('#dialog').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var title = button.data('whatever');
+
+        $(this).find('.modal-title').text(title);
+    });
+
+    $('.delete').click(function (e) {
+        e.preventDefault();
+
+        var href = $(this).attr('href');
+        var $form = $('#delete-form').attr('action', href);
+
+        $('#dialog').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var title = button.data('whatever');
+            var message = '记录删除后不可恢复，请问确定删除该条记录吗？';
+            var modal = $(this);
+
+            modal.find('.modal-content').removeClass().addClass('modal-content bg-danger');
+            modal.find('.modal-title').text(title);
+            modal.find('.modal-body p').html(message);
+        }).on('click', '#btn-confirmed', function () {
+            $form.submit();
+        });
+    });
+
+    $('.reset').click(function (e) {
+        e.preventDefault();
+
+        var href = $(this).attr('href');
+
+        $('#dialog').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var title = button.data('whatever');
+            var modal = $(this);
+
+            modal.find('.modal-content').removeClass().addClass('modal-content bg-secondary');
+            modal.find('.modal-title').text(title);
+            modal.find('.modal-body').load(href);
+        }).on('click', '#btn-confirmed', function () {
+            $('#reset-form').submit();
+        });
+    });
 
     $('.datepicker').daterangepicker();
 

@@ -40,16 +40,16 @@
 								<td>{{ $item->present()->isSuper }}</td>
 								<td>{{ $item->last_login_at }}</td>
                                 <td>
-                                    <a href="{{ route('users.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
+                                    <a href="{{ route('users.show', $item) }}" class="btn btn-primary btn-sm" title="显示">
                                         <i class="fas fa-folder"></i> 显示
                                     </a>
-                                    <a href="{{ route('users.edit', $item->getKey()) }}" class="btn btn-info btn-sm" title="编辑">
+                                    <a href="{{ route('users.edit', $item) }}" class="btn btn-info btn-sm" title="编辑">
                                         <i class="fas fa-pencil-alt"></i> 编辑
                                     </a>
-                                    <a href="{{ route('users.destroy', $item->getKey()) }}" class="btn btn-danger btn-sm delete" title="删除">
+                                    <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="删除" data-toggle="modal" data-target="#dialog" data-whatever="确认删除">
                                         <i class="fas fa-trash"></i> 删除
                                     </a>
-                                    <a href="{{ route('passwords.update', $item->getKey()) }}" class="btn btn-secondary btn-sm" title="重置密码">
+                                    <a href="{{ route('passwords.edit', $item) }}" class="btn btn-secondary btn-sm reset" title="重置密码" data-toggle="modal" data-target="#dialog" data-whatever="重置密码">
                                         <i class="fas fa-key"></i> 重置密码
                                     </a>
                                 </td>

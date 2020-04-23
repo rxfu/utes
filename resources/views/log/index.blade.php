@@ -39,7 +39,7 @@
 								<td>{{ $item->model }}</td>
 								<td>{{ $item->model_id }}</td>
                                 <td>
-                                    <a href="{{ route('logs.show', $item->getKey()) }}" class="btn btn-primary btn-sm" title="显示">
+                                    <a href="{{ route('logs.show', $item) }}" class="btn btn-primary btn-sm" title="显示">
                                         <i class="fas fa-folder"></i> 显示
                                     </a>
                                 </td>

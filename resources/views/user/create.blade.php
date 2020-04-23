@@ -35,8 +35,21 @@
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </div>
                             @endif
+	                        <small class="form-text text-muted">密码至少8位</small>
                         </div>
                     </div>
+
+	                <div class="form-group row">
+	                    <label for="password_confirmation" class="col-sm-3 col-form-label text-right">{{ __('user.password_confirmation') }}</label>
+	                    <div class="col-md-9">
+	                    	<input type="password" name="password_confirmation" id="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" placeholder="{{ __('user.password_confirmation') }}" required>
+	                        @if ($errors->has('password_confirmation'))
+		                        <div class="invalid-feedback" role="alert">
+		                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+		                        </div>
+	                        @endif
+	                    </div>
+	                </div>
 
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label text-right">{{ __('user.name') }}</label>

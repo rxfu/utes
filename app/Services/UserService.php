@@ -35,12 +35,16 @@ class UserService extends Service
         }
     }
 
-    public function resetPassword($id)
+    public function resetPassword($user, $newPassword, $confirmedPassword)
     {
-        try {
-            $this->repository->update($id, ['password' => config('setting.password')]);
-        } catch (InvalidRequestException $e) {
-            throw new InvalidRequestException('重置密码失败', $this->repository->getObject(), 'update');
+        if ($newPassword === $confirmedPassword) {
+            try {
+                $this->repository->update($user->getKey(), ['password' => $newPassword]);
+            } catch (InvalidRequestException $e) {
+                throw new InvalidRequestException(403001, $this->repository->getModel(), __FUNCTION__);
+            }
+        } else {
+            throw new InvalidRequestException(403004, $this->repository->getModel(), __FUNCTION__);
         }
     }
 }

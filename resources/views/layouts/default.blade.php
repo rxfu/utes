@@ -45,6 +45,9 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- Custom components -->
+    @stack('components')
+
     <!-- Scripts -->
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

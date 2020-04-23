@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordChangeRequest;
 
 class PasswordController extends Controller
@@ -85,27 +86,29 @@ class PasswordController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $password)
     {
-        $item = $this->service->get($user);
+        $item = $this->service->get($password);
 
-        return view('user.edit', compact('item'));
+        return view('password.edit', compact('item'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PasswordResetRequest  $request
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(PasswordResetRequest $request, User $password)
     {
         if ($request->isMethod('put')) {
 
-            $this->service->update($user, $request->all());
+            list($new, $confirmed) = array_values($request->only('password', 'password_confirmation'));
 
-            return redirect()->route('users.show', $id);
+            $this->service->resetPassword($password, $new, $confirmed);
+
+            return redirect()->route('users.index');
         }
 
         $this->error(405001);

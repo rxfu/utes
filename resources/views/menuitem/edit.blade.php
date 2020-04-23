@@ -10,7 +10,7 @@
                 <h3 class="card-title">编辑{{ __('menuitem.module') }}: {{ $item->getKey() }}</h3>
             </div>
 
-		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route('menuitems.update', $item->getKey()) }}">
+		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route('menuitems.update', $item) }}">
                 @csrf
                 @method('put')
                 <div class="card-body">
