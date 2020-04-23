@@ -15,8 +15,8 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->string('uid', 50)->unique()->comment('唯一标识符');
-            $table->string('name')->comment('名称');
+            $table->string('slug', 20)->unique()->comment('唯一标识');
+            $table->string('name', 50)->comment('名称');
             $table->text('description')->nullable()->comment('描述');
             $table->boolean('is_enable')->default(true)->comment('是否启用，0-未启用，1-启用');
             $table->boolean('is_system')->default(false)->comment('是否系统菜单，0-否，1-是');

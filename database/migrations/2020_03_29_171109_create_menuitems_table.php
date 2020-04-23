@@ -15,9 +15,9 @@ class CreateMenuitemsTable extends Migration
     {
         Schema::create('menuitems', function (Blueprint $table) {
             $table->id();
-            $table->string('uid', 50)->unique()->comment('唯一标识符');
-            $table->string('name')->comment('名称');
-            $table->string('route')->nullable()->comment('路由名称');
+            $table->string('uid', 20)->unique()->comment('唯一标识');
+            $table->string('name', 50)->comment('名称');
+            $table->string('route')->nullable()->comment('路由');
             $table->string('icon')->nullable()->comment('图标');
             $table->unsignedBigInteger('parent_id')->nullable()->comment('父菜单项ID');
             $table->foreignId('menu_id')
