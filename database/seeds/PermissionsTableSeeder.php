@@ -17,7 +17,7 @@ class PermissionsTableSeeder extends Seeder
         ];
 
         $actions = [
-            'create', 'update', 'delete', 'index',
+            'create', 'edit', 'delete', 'show', 'index',
         ];
 
         foreach ($modules as $module) {
@@ -30,5 +30,19 @@ class PermissionsTableSeeder extends Seeder
                 ]);
             }
         }
+
+        Permission::create([
+            'slug' => 'user-change',
+            'name' => '修改密码',
+            'action' => 'change',
+            'module' => 'user',
+        ]);
+
+        Permission::create([
+            'slug' => 'user-reset',
+            'name' => '重置密码',
+            'action' => 'reset',
+            'module' => 'user',
+        ]);
     }
 }
