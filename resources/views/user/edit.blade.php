@@ -18,7 +18,7 @@
                     <div class="form-group row">
                         <label for="username" class="col-sm-3 col-form-label text-right">{{ __('user.username') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('username') ? ' is_invalid' : '' }}" name="username" id="username" placeholder="{{ __('user.username') }}" value="{{ old('username', $item->username) }}">
+                            <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" id="username" placeholder="{{ __('user.username') }}" value="{{ old('username', $item->username) }}" required>
                             @if ($errors->has('username'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('username') }}</strong>
@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label text-right">{{ __('user.name') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is_invalid' : '' }}" name="name" id="name" placeholder="{{ __('user.name') }}" value="{{ old('name', $item->name) }}">
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('user.name') }}" value="{{ old('name', $item->name) }}" required>
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('email') ? ' is_invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email', $item->email) }}">
+                            <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email', $item->email) }}">
                             @if ($errors->has('email'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -55,11 +55,11 @@
                         <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('user.is_enable') }}</label>
                         <div class="col-sm-9">
                             <div class="icheck-info icheck-inline">
-                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1"{{ old('is_enable', $item->is_enable) == 1 ? ' checked' : '' }}>
+                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is-invalid' : '' }}" value="1"{{ old('is_enable', $item->is_enable) == 1 ? ' checked' : '' }}>
                                 <label class="form-check-label" for="is_enable1">是</label>
                             </div>
                             <div class="icheck-info icheck-inline">
-                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0"{{ old('is_enable', $item->is_enable) == 0 ? ' checked' : '' }}>
+                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is-invalid' : '' }}" value="0"{{ old('is_enable', $item->is_enable) == 0 ? ' checked' : '' }}>
                                 <label class="form-check-label" for="is_enable0">否</label>
                             </div>
                             @if ($errors->has('is_enable'))

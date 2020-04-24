@@ -209,7 +209,7 @@ class ViewCreate extends Command
                 $model = substr($column, 0, -3);
                 $collection = Str::camel(Str::plural($model));
                 $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
-                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2 select2-success{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" data-dropdown-css-class="select2-success">
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2 select2-success{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" data-dropdown-css-class="select2-success">
                                 @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -217,16 +217,16 @@ class ViewCreate extends Command
             } else {
                 switch ($type) {
                     case 'text':
-                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}">{{ old(\'' . $column . '\') }}</textarea>';
+                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}">{{ old(\'' . $column . '\') }}</textarea>';
                         break;
 
                     case 'boolean':
                         $attribute .= '<div class="icheck-success icheck-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '1" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1" checked>
+                                <input type="radio" name="' . $column . '" id="' . $column . '1" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" value="1" checked>
                                 <label class="form-check-label" for="' . $column . '1">是</label>
                             </div>
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0">
+                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" value="0">
                                 <label class="form-check-label" for="' . $column . '0">否</label>
                             </div>';
                         break;
@@ -234,7 +234,7 @@ class ViewCreate extends Command
                     case 'datetime':
                         $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
-                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">
+                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -245,7 +245,7 @@ class ViewCreate extends Command
                         break;
 
                     default:
-                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">';
+                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\') }}">';
                         break;
                 }
             }
@@ -286,7 +286,7 @@ class ViewCreate extends Command
                 $model = substr($column, 0, -3);
                 $collection = Str::camel(Str::plural($model));
                 $attribute .= '@inject(\'' . $collection . '\', \'' . $this->getServiceNamespace() . '\\' . Str::studly($model) . 'Service\')' . PHP_EOL . "\t\t\t\t\t\t\t";
-                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2 select2-info{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" data-dropdown-css-class="select2-info">
+                $attribute .= '<select name="' . $column . '" id="' . $column . '" class="form-control select2 select2-info{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" data-dropdown-css-class="select2-info">
                                 @foreach ($' . Str::camel(Str::plural($model)) . '->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old(\'' . $column . '\', $item->' . $column . ') === $collection->getKey() ? \' selected\' : \'\' }}>{{ $collection->name }}</option>
                                 @endforeach
@@ -294,16 +294,16 @@ class ViewCreate extends Command
             } else {
                 switch ($type) {
                     case 'text':
-                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}">{{ old(\'' . $column . '\', $item->' . $column . ') }}</textarea>';
+                        $attribute .= '<textarea class="form-control{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" rows="5" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}">{{ old(\'' . $column . '\', $item->' . $column . ') }}</textarea>';
                         break;
 
                     case 'boolean':
                         $attribute .= '<div class="icheck-info icheck-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '1" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="1"{{ old(\'' . $column . '\', $item->' . $column . ') == 1 ? \' checked\' : \'\' }}>
+                                <input type="radio" name="' . $column . '" id="' . $column . '1" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" value="1"{{ old(\'' . $column . '\', $item->' . $column . ') == 1 ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $column . '1">是</label>
                             </div>
                             <div class="icheck-info icheck-inline">
-                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" value="0"{{ old(\'' . $column . '\', $item->' . $column . ') == 0 ? \' checked\' : \'\' }}>
+                                <input type="radio" name="' . $column . '" id="' . $column . '0" class="form-check-input{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" value="0"{{ old(\'' . $column . '\', $item->' . $column . ') == 0 ? \' checked\' : \'\' }}>
                                 <label class="form-check-label" for="' . $column . '0">否</label>
                             </div>';
                         break;
@@ -311,7 +311,7 @@ class ViewCreate extends Command
                     case 'datetime':
                         $attribute .= '<div class="form-group">
                                 <div class="input-group datepicker">
-                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">
+                                    <input type="text" name="' . $column . '" id="' . $column . '" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
@@ -322,7 +322,7 @@ class ViewCreate extends Command
                         break;
 
                     default:
-                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is_invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">';
+                        $attribute .= '<input type="text" class="form-control{{ $errors->has(\'' . $column . '\') ? \' is-invalid\' : \'\' }}" name="' . $column . '" id="' . $column . '" placeholder="{{ __(\'' . $table . '.' . $column . '\') }}" value="{{ old(\'' . $column . '\', $item->' . $column . ') }}">';
                         break;
                 }
             }

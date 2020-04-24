@@ -17,7 +17,7 @@
                     <div class="form-group row">
                         <label for="slug" class="col-sm-3 col-form-label text-right">{{ __('menu.slug') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('slug') ? ' is_invalid' : '' }}" name="slug" id="slug" placeholder="{{ __('menu.slug') }}" value="{{ old('slug') }}">
+                            <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="slug" placeholder="{{ __('menu.slug') }}" value="{{ old('slug') }}" required>
                             @if ($errors->has('slug'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('slug') }}</strong>
@@ -29,7 +29,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label text-right">{{ __('menu.name') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is_invalid' : '' }}" name="name" id="name" placeholder="{{ __('menu.name') }}" value="{{ old('name') }}">
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('menu.name') }}" value="{{ old('name') }}" required>
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -41,7 +41,7 @@
                     <div class="form-group row">
                         <label for="description" class="col-sm-3 col-form-label text-right">{{ __('menu.description') }}</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control{{ $errors->has('description') ? ' is_invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('menu.description') }}">{{ old('description') }}</textarea>
+                            <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('menu.description') }}">{{ old('description') }}</textarea>
                             @if ($errors->has('description'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('description') }}</strong>
@@ -54,11 +54,11 @@
                         <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('menu.is_enable') }}</label>
                         <div class="col-sm-9">
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1" checked>
+                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is-invalid' : '' }}" value="1" checked>
                                 <label class="form-check-label" for="is_enable1">是</label>
                             </div>
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0">
+                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is-invalid' : '' }}" value="0">
                                 <label class="form-check-label" for="is_enable0">否</label>
                             </div>
                             @if ($errors->has('is_enable'))

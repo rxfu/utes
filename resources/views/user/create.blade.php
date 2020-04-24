@@ -17,7 +17,7 @@
                     <div class="form-group row">
                         <label for="username" class="col-sm-3 col-form-label text-right">{{ __('user.username') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('username') ? ' is_invalid' : '' }}" name="username" id="username" placeholder="{{ __('user.username') }}" value="{{ old('username') }}">
+                            <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" id="username" placeholder="{{ __('user.username') }}" value="{{ old('username') }}" required>
                             @if ($errors->has('username'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('username') }}</strong>
@@ -29,7 +29,7 @@
                     <div class="form-group row">
                         <label for="password" class="col-sm-3 col-form-label text-right">{{ __('user.password') }}</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is_invalid' : '' }}" name="password" id="password" placeholder="{{ __('user.password') }}" value="{{ old('password') }}">
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="{{ __('user.password') }}" value="{{ old('password') }}" required>
                             @if ($errors->has('password'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
@@ -54,7 +54,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label text-right">{{ __('user.name') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is_invalid' : '' }}" name="name" id="name" placeholder="{{ __('user.name') }}" value="{{ old('name') }}">
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('user.name') }}" value="{{ old('name') }}" required>
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -66,7 +66,7 @@
                     <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('email') ? ' is_invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email') }}">
+                            <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email') }}">
                             @if ($errors->has('email'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -79,11 +79,11 @@
                         <label for="is_enable" class="col-sm-3 col-form-label text-right">{{ __('user.is_enable') }}</label>
                         <div class="col-sm-9">
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="1" checked>
+                                <input type="radio" name="is_enable" id="is_enable1" class="form-check-input{{ $errors->has('is_enable') ? ' is-invalid' : '' }}" value="1" checked>
                                 <label class="form-check-label" for="is_enable1">是</label>
                             </div>
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is_invalid' : '' }}" value="0">
+                                <input type="radio" name="is_enable" id="is_enable0" class="form-check-input{{ $errors->has('is_enable') ? ' is-invalid' : '' }}" value="0">
                                 <label class="form-check-label" for="is_enable0">否</label>
                             </div>
                             @if ($errors->has('is_enable'))
