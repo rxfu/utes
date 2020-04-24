@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', __('menuitem.module') . '列表')
+@section('title', __('menuitem.module') . __('List'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('menuitem.module') }}列表</h3>
+                <h3 class="card-title">{{ __('menuitem.module') . __('List') }}</h3>
                 <div class="card-tools">
-                    <a href="{{ route('menuitems.create') }}" title="创建" class="btn btn-success">
-                        <i class="icon fa fa-plus"></i> 创建{{ __('menuitem.module') }}
+                    <a href="{{ route('menuitems.create') }}" title="{{ __('Create') }}" class="btn btn-success">
+                        <i class="icon fa fa-plus"></i> {{ __('Create') . __('menuitem.module') }}
                     </a>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 							<th>{{ __('menuitem.parent_id') }}</th>
 							<th>{{ __('menuitem.menu_id') }}</th>
 							<th>{{ __('menuitem.is_enable') }}</th>
-                            <th>操作</th>
+                            <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,15 +40,15 @@
 								<td>{{ optional($item->menu)->name }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
                                 <td>
-                                    <a href="{{ route('menuitems.show', $item) }}" class="btn btn-primary btn-sm" title="显示">
-                                        <i class="fas fa-folder"></i> 显示
+                                    <a href="{{ route('menuitems.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
+                                        <i class="fas fa-folder"></i> {{ __('Show') }}
                                     </a>
                                     @unless($item->is_system)
-                                        <a href="{{ route('menuitems.edit', $item) }}" class="btn btn-info btn-sm" title="编辑">
-                                            <i class="fas fa-pencil-alt"></i> 编辑
+                                        <a href="{{ route('menuitems.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
+                                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
                                         </a>
-                                        <a href="{{ route('menuitems.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="删除" data-toggle="modal" data-target="#dialog" data-whatever="确认删除">
-                                            <i class="fas fa-trash"></i> 删除
+                                        <a href="{{ route('menuitems.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                                            <i class="fas fa-trash"></i> {{ __('Delete') }}
                                         </a>
                                     @endunless
                                 </td>
@@ -64,7 +64,7 @@
 							<th>{{ __('menuitem.parent_id') }}</th>
 							<th>{{ __('menuitem.menu_id') }}</th>
 							<th>{{ __('menuitem.is_enable') }}</th>
-                            <th>操作</th>
+                            <th>{{ __('Action') }}</th>
                         </tr>
                     </tfoot>
                 </table>

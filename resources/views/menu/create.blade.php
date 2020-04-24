@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', '创建' . __('menu.module'))
+@section('title', __('Create') . __('menu.module'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">创建{{ __('menu.module') }}</h3>
+                <h3 class="card-title">{{ __('Create') . __('menu.module') }}</h3>
             </div>
 
 		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route('menus.store') }}">
@@ -73,7 +73,7 @@
                 <div class="card-footer">
                     <div class="row justify-content-sm-center">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> 创建
+                            <i class="fas fa-save"></i> {{ __('Create') }}
                         </button>
                     </div>
                 </div>

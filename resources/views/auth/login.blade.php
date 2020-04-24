@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', '登录')
+@section('title', __('Login'))
 
 @section('content')
 <form action="{{ route('login') }}" method="post">
@@ -36,13 +36,13 @@
             <div class="icheck-primary">
                 <input type="checkbox" value="1" name="remember_me" id="remember_me">
                 <label for="remember_me">
-                    记住我
+                    {{ __('Remember me') }}
                 </label>
             </div>
         </div>
 
         <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">登录</button>
+            <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
         </div>
     </div>
 </form>

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', '编辑' . __('user.module'))
+@section('title', __('Edit') . __('user.module'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">编辑{{ __('user.module') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Edit') . __('user.module') }}: {{ $item->getKey() }}</h3>
             </div>
 
 		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route('users.update', $item) }}">
@@ -74,7 +74,7 @@
                 <div class="card-footer">
                     <div class="row justify-content-sm-center">
                         <button type="submit" class="btn btn-info">
-                            <i class="fas fa-save"></i> 保存
+                            <i class="fas fa-save"></i> {{ __('Save') }}
                         </button>
                     </div>
                 </div>

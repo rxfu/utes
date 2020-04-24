@@ -15,7 +15,10 @@
 				<!-- Right navbar links -->
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a href="{{ route('login') }}" class="nav-link">登录</a>
+						<a href="{{ route('login') }}" class="nav-link">
+							<i class="nav-icon fas fa-sign-in-alt"></i>
+							{{ __('Login') }}
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -42,7 +45,7 @@
 			<li class="nav-item d-done d-sm-inline-block">
 				<a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 					<i class="nav-icon fas fa-sign-out-alt"></i>
-					退出
+					{{ __('Logout') }}
 				</a>
 
 				<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none">

@@ -40,6 +40,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize(User::class);
+
         return view('user.create');
     }
 
@@ -52,7 +54,7 @@ class UserController extends Controller
     public function store(UserStoreRequest $request)
     {
         if ($request->isMethod('post')) {
-    
+
             $item = $this->service->store($request->all());
 
             return redirect()->route('users.show', $item);
@@ -99,7 +101,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         if ($request->isMethod('put')) {
-    
+
             $this->service->update($user, $request->all());
 
             return redirect()->route('users.show', $user);

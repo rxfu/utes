@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', '显示' . __('menuitem.module'))
+@section('title', __('Show') . __('menuitem.module'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">显示{{ __('menuitem.module') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Show') . __('menuitem.module') }}: {{ $item->getKey() }}</h3>
             </div>
 
             <div class="card-body">
@@ -86,12 +86,12 @@
             @unless($item->is_system)
                 <div class="card-footer">
                     <div class="row justify-content-sm-center">
-                        <a href="{{ route('menuitems.edit', $item) }}" title="编辑" class="btn btn-info">
-                            <i class="fas fa-pencil-alt"></i> 编辑
+                        <a href="{{ route('menuitems.edit', $item) }}" class="btn btn-info" title="{{ __('Edit') }}">
+                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
                         </a>
                         &nbsp;&nbsp;
-                        <a href="{{ route('menuitems.destroy', $item) }}" class="btn btn-danger delete" title="删除" data-toggle="modal" data-target="#dialog" data-whatever="确认删除">
-                            <i class="fas fa-trash"></i> 删除
+                        <a href="{{ route('menuitems.destroy', $item) }}" class="btn btn-danger delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                            <i class="fas fa-trash"></i> {{ __('Delete') }}
                         </a>
                     </div>
                 </div>

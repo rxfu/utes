@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', __('log.module') . '列表')
+@section('title', __('log.module') . __('List'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('log.module') }}列表</h3>
+                <h3 class="card-title">{{ __('log.module') . __('List') }}</h3>
             </div>
 
             <div class="card-body">
@@ -23,7 +23,7 @@
 							<th>{{ __('log.action') }}</th>
 							<th>{{ __('log.model') }}</th>
 							<th>{{ __('log.model_id') }}</th>
-                            <th>操作</th>
+                            <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,8 +39,8 @@
 								<td>{{ $item->model }}</td>
 								<td>{{ $item->model_id }}</td>
                                 <td>
-                                    <a href="{{ route('logs.show', $item) }}" class="btn btn-primary btn-sm" title="显示">
-                                        <i class="fas fa-folder"></i> 显示
+                                    <a href="{{ route('logs.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
+                                        <i class="fas fa-folder"></i> {{ __('Show') }}
                                     </a>
                                 </td>
                             </tr>
@@ -57,7 +57,7 @@
 							<th>{{ __('log.action') }}</th>
 							<th>{{ __('log.model') }}</th>
 							<th>{{ __('log.model_id') }}</th>
-                            <th>操作</th>
+                            <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
                 </table>
