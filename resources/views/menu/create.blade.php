@@ -15,12 +15,12 @@
                 <div class="card-body">
                     
                     <div class="form-group row">
-                        <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('menu.uid') }}</label>
+                        <label for="slug" class="col-sm-3 col-form-label text-right">{{ __('menu.slug') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('uid') ? ' is_invalid' : '' }}" name="uid" id="uid" placeholder="{{ __('menu.uid') }}" value="{{ old('uid') }}">
-                            @if ($errors->has('uid'))
+                            <input type="text" class="form-control{{ $errors->has('slug') ? ' is_invalid' : '' }}" name="slug" id="slug" placeholder="{{ __('menu.slug') }}" value="{{ old('slug') }}">
+                            @if ($errors->has('slug'))
                                 <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('uid') }}</strong>
+                                    <strong>{{ $errors->first('slug') }}</strong>
                                 </div>
                             @endif
                         </div>

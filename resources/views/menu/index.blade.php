@@ -20,7 +20,7 @@
                     <thead>
                         <tr>
                             <th>{{ __('menu.id') }}</th>
-							<th>{{ __('menu.uid') }}</th>
+							<th>{{ __('menu.slug') }}</th>
 							<th>{{ __('menu.name') }}</th>
 							<th>{{ __('menu.is_enable') }}</th>
                             <th>操作</th>
@@ -30,7 +30,7 @@
                         @foreach ($items as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-								<td>{{ $item->uid }}</td>
+								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
                                 <td>
@@ -52,7 +52,7 @@
                     <tfoot>
                         <tr>
                             <th>{{ __('menu.id') }}</th>
-							<th>{{ __('menu.uid') }}</th>
+							<th>{{ __('menu.slug') }}</th>
 							<th>{{ __('menu.name') }}</th>
 							<th>{{ __('menu.is_enable') }}</th>
                             <th>操作</th>

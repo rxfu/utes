@@ -13,10 +13,10 @@ class MenuRepository extends Repository
         $this->model = $menu;
     }
 
-    public function getActiveItems($uid)
+    public function getActiveItems($slug)
     {
         try {
-            return $this->model->isActive($uid)->first()->activeItems()->get();
+            return $this->model->isActive($slug)->first()->activeItems()->get();
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }

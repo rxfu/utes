@@ -17,7 +17,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'description', 'is_enable',
+        'slug', 'name', 'description', 'is_enable',
     ];
 
     /**
@@ -45,8 +45,8 @@ class Menu extends Model
             ->orderBy('order');
     }
 
-    public function scopeIsActive($query, $uid)
+    public function scopeIsActive($query, $slug)
     {
-        return $query->whereUid($uid)->whereIsEnable(true);
+        return $query->whereSlug($slug)->whereIsEnable(true);
     }
 }

@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('menuitem.uid') }}</label>
+                    <label for="slug" class="col-sm-3 col-form-label text-right">{{ __('menuitem.slug') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="uid" id="uid" value="{{ $item->uid }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="slug" id="slug" value="{{ $item->slug }}" readonly>
                     </div>
                 </div>
 

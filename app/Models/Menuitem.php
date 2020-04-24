@@ -17,7 +17,7 @@ class Menuitem extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'route', 'icon', 'parent_id', 'menu_id', 'description', 'order', 'is_enable',
+        'slug', 'name', 'route', 'icon', 'parent_id', 'menu_id', 'description', 'order', 'is_enable',
     ];
 
     /**

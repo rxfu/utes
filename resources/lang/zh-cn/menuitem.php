@@ -3,9 +3,9 @@
 return [
 	'module' => '菜单项',
 	'id' => 'ID',
-	'uid' => '唯一标识符',
+	'slug' => '唯一标识',
 	'name' => '名称',
-	'route' => '路由名称',
+	'route' => '路由',
 	'icon' => '图标',
 	'parent_id' => '父菜单项',
 	'menu_id' => '所属菜单',

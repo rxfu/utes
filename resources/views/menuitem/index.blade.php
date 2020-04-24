@@ -20,7 +20,7 @@
                     <thead>
                         <tr>
                             <th>{{ __('menuitem.id') }}</th>
-							<th>{{ __('menuitem.uid') }}</th>
+							<th>{{ __('menuitem.slug') }}</th>
 							<th>{{ __('menuitem.name') }}</th>
 							<th>{{ __('menuitem.route') }}</th>
 							<th>{{ __('menuitem.parent_id') }}</th>
@@ -33,7 +33,7 @@
                         @foreach ($items as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-								<td>{{ $item->uid }}</td>
+								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->route }}</td>
 								<td>{{ optional($item->parent)->name }}</td>
@@ -58,7 +58,7 @@
                     <tfoot>
                         <tr>
                             <th>{{ __('menuitem.id') }}</th>
-							<th>{{ __('menuitem.uid') }}</th>
+							<th>{{ __('menuitem.slug') }}</th>
 							<th>{{ __('menuitem.name') }}</th>
 							<th>{{ __('menuitem.route') }}</th>
 							<th>{{ __('menuitem.parent_id') }}</th>
