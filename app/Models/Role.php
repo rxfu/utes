@@ -12,6 +12,16 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'name', 'parent_id', 'description', 
+        'slug', 'name', 'parent_id', 'description',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Models\Permission');
+    }
 }

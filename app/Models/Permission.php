@@ -12,6 +12,11 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'name', 'module', 'action', 'by_group', 'parent_id', 'description', 
+        'slug', 'name', 'module', 'action', 'by_group', 'parent_id', 'description',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
 }

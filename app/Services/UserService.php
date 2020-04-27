@@ -47,4 +47,8 @@ class UserService extends Service
             throw new InvalidRequestException(403004, $this->repository->getModel(), __FUNCTION__);
         }
     }
+
+    public function hasPermission($user, $module, $action)
+    {
+    }
 }

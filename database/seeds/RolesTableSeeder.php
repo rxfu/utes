@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -12,10 +13,14 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
+        $role = Role::create([
             'slug' => 'admin',
             'name' => '管理员',
         ]);
+
+        foreach (Permission::all() as $permission) {
+            $role->permissions()->attach($permission->id);
+        }
 
         Role::create([
             'slug' => 'user',
