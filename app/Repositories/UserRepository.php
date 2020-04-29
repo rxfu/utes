@@ -11,7 +11,10 @@ class UserRepository extends Repository
         $this->model = $user;
     }
 
-    public function hasPermission($id, $module, $action)
+    public function authenticate($user, $permit)
     {
+        try {
+            return $user->roles()->permissions;
+        }
     }
 }

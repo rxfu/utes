@@ -5,12 +5,16 @@ namespace App\Services;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\InvalidRequestException;
+use App\Repositories\PermissionRepository;
 
 class UserService extends Service
 {
-    public function __construct(UserRepository $users)
+    protected $permissons;
+
+    public function __construct(UserRepository $users, PermissionRepository $permssions)
     {
         $this->repository = $users;
+        $this->permissions = $permssions;
     }
 
     public function changePassword($user, $oldPassword, $newPassword, $confirmedPassword)
@@ -48,7 +52,10 @@ class UserService extends Service
         }
     }
 
-    public function hasPermission($user, $module, $action)
+    public function hasPermission($user, $permission)
     {
+        $permit = $this->permissions->own($permission);
+
+        return $this->repository->authenticate($user, $permit);
     }
 }
