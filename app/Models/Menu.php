@@ -37,6 +37,11 @@ class Menu extends Model
         return $this->hasMany('App\Models\Menuitem');
     }
 
+    public function scopeEnable($query, $enable)
+    {
+        return $query->whereIsEnable($enable);
+    }
+
     public function activeItems()
     {
         return $this->hasMany('App\Models\Menuitem')
