@@ -37,5 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('permissions', 'PermissionController');
     Route::resource('settings', 'SettingController');
     Route::resource('roles', 'RoleController');
+    Route::resource('permissions', 'PermissionController');
     // route_here
 });

@@ -18,6 +18,8 @@ class UserController extends Controller
      */
     public function __construct(UserService $userService)
     {
+        $this->authorizeResource(User::class, 'user');
+
         $this->service = $userService;
     }
 
@@ -28,8 +30,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('list', User::class);
-
         $items = $this->service->getAll();
 
         return view('user.index', compact('items'));
@@ -42,8 +42,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', User::class);
-
         return view('user.create');
     }
 
@@ -55,8 +53,6 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-        $this->authorize('create', User::class);
-
         if ($request->isMethod('post')) {
 
             $item = $this->service->store($request->all());
@@ -77,8 +73,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('view', $user);
-
         $item = $this->service->get($user);
 
         return view('user.show', compact('item'));
@@ -92,8 +86,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('update', $user);
-
         $item = $this->service->get($user);
 
         return view('user.edit', compact('item'));
@@ -108,8 +100,6 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
         if ($request->isMethod('put')) {
 
             $this->service->update($user, $request->all());
@@ -131,8 +121,6 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        $this->authorize('delete', $user);
-
         if ($request->isMethod('delete')) {
 
             $this->service->delete($user);

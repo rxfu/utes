@@ -24,7 +24,7 @@ class MenuitemStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'uid' => 'required|max:50|unique:menuitems',
+            'slug' => 'required|max:50|unique:menuitems',
             'name' => 'required',
             'is_enable' => 'required',
             'menu_id' => 'required',

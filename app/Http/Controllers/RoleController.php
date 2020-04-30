@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use Illuminate\Http\Request;
+use App\Services\RoleService;
 use App\Http\Requests\RoleStoreRequest;
 use App\Http\Requests\RoleUpdateRequest;
-use App\Models\Role;
-use App\Services\RoleService;
-use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -18,6 +18,8 @@ class RoleController extends Controller
      */
     public function __construct(RoleService $roleService)
     {
+        $this->authorizeResource(Role::class, 'role');
+
         $this->service = $roleService;
     }
 
@@ -28,8 +30,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('list', Role::class);
-
         $items = $this->service->getAll();
 
         return view('role.index', compact('items'));
@@ -42,8 +42,6 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Role::class);
-
         return view('role.create');
     }
 
@@ -55,10 +53,8 @@ class RoleController extends Controller
      */
     public function store(RoleStoreRequest $request)
     {
-        $this->authorize('create', Role::class);
-
         if ($request->isMethod('post')) {
-    
+
             $item = $this->service->store($request->all());
 
             return redirect()->route('roles.show', $item);
@@ -77,8 +73,6 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $this->authorize('view', $role);
-
         $item = $this->service->get($role);
 
         return view('role.show', compact('item'));
@@ -92,8 +86,6 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $this->authorize('update', $role);
-
         $item = $this->service->get($role);
 
         return view('role.edit', compact('item'));
@@ -108,10 +100,8 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, Role $role)
     {
-        $this->authorize('update', $role);
-
         if ($request->isMethod('put')) {
-    
+
             $this->service->update($role, $request->all());
 
             return redirect()->route('roles.show', $role);
@@ -131,8 +121,6 @@ class RoleController extends Controller
      */
     public function destroy(Request $request, Role $role)
     {
-        $this->authorize('delete', $role);
-
         if ($request->isMethod('delete')) {
 
             $this->service->delete($role);

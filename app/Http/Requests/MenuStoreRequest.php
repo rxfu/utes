@@ -24,7 +24,7 @@ class MenuStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'uid' => 'required|max:50|unique:menus',
+            'slug' => 'required|max:50|unique:menus',
             'name' => 'required',
             'is_enable' => 'required',
         ];

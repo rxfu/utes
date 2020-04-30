@@ -42,12 +42,12 @@ class ModelPolicy
     }
 
     /**
-     * Determine whether the user can list models.
+     * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function list(User $user)
+    public function viewAny(User $user)
     {
         return $this->service->hasPermission($user, $this->getAction('index'));
     }

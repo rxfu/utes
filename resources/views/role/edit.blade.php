@@ -44,6 +44,7 @@
                         <div class="col-sm-9">
                             @inject('roles', 'App\Services\RoleService')
 							<select name="parent_id" id="parent_id" class="form-control select2 select2-info{{ $errors->has('parent_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-info">
+                                <option value=""{{ old('parent_id', $item->parent_id) === '' ? ' selected' : '' }}>无</option>
                                 @foreach ($roles->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('parent_id', $item->parent_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                                 @endforeach

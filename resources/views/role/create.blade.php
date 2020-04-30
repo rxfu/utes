@@ -43,6 +43,7 @@
                         <div class="col-sm-9">
                             @inject('roles', 'App\Services\RoleService')
 							<select name="parent_id" id="parent_id" class="form-control select2 select2-success{{ $errors->has('parent_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                                <option value="">无</option>
                                 @foreach ($roles->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach

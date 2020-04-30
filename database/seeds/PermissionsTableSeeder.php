@@ -26,7 +26,7 @@ class PermissionsTableSeeder extends Seeder
                     'slug' => $module . '-' . $action,
                     'name' => __($action) . __($module . '.module'),
                     'action' => $action,
-                    'module' => $module,
+                    'model' => $module,
                 ]);
             }
         }
@@ -35,14 +35,14 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'user-change',
             'name' => '修改密码',
             'action' => 'change',
-            'module' => 'user',
+            'model' => 'user',
         ]);
 
         Permission::create([
             'slug' => 'user-reset',
             'name' => '重置密码',
             'action' => 'reset',
-            'module' => 'user',
+            'model' => 'user',
         ]);
     }
 }
