@@ -20,7 +20,7 @@ class LogRepository extends Repository
         $content = is_array($content) ? $content : [$content];
 
         $data = [
-            'user_id' => Auth::id(),
+            'user_id' => Auth::id() ?: 0,
             'ip' => request()->ip(),
             'code' => $code,
             'path' => request()->path(),

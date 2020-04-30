@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordChangeRequest;
 
@@ -29,7 +27,7 @@ class PasswordController extends Controller
      */
     public function create()
     {
-        $this->authorize('change');
+        $this->authorize('change', User::class);
 
         return view('password.create');
     }
@@ -42,7 +40,7 @@ class PasswordController extends Controller
      */
     public function store(PasswordChangeRequest $request)
     {
-        $this->authorize('change');
+        $this->authorize('change', User::class);
 
         if ($request->isMethod('post')) {
 

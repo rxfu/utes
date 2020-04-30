@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->created_at }}</td>
-								<td>{{ $item->user->username }}</td>
+								<td>{{ optional($item->user)->username }}</td>
 								<td>{{ $item->ip }}</td>
 								<td>{{ $item->code }}</td>
 								<td>{{ $item->path }}</td>

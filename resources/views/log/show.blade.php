@@ -29,7 +29,7 @@
                 <div class="form-group row">
                     <label for="user_id" class="col-sm-3 col-form-label text-right">{{ __('log.user_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ $item->user->username }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ optional($item->user)->username }}" readonly>
                     </div>
                 </div>
 

@@ -24,4 +24,9 @@ class Role extends Model
     {
         return $this->belongsToMany('App\Models\Permission');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Role', 'parent_id');
+    }
 }

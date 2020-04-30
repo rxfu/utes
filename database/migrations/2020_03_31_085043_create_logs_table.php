@@ -15,11 +15,7 @@ class CreateLogsTable extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade')
-                ->comment('用户ID');
+            $table->unsignedBigInteger('user_id')->comment('用户ID');
             $table->unsignedInteger('ip')->default(0)->comment('IP地址');
             $table->unsignedInteger('code')->comment('代码');
             $table->string('path', 128)->comment('路径');
