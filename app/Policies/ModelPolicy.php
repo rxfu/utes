@@ -3,39 +3,53 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Str;
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ModelPolicy
 {
     use HandlesAuthorization;
+
+    protected $service;
 
     /**
      * Create a new policy instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
-        //
+        $this->service = $userService;
+    }
+
+    public function getModule()
+    {
+        return Str::snake(Str::substr(class_basename(get_class($this)), 0, -6));
+    }
+
+    public function getAction($action)
+    {
+        return $this->getModule() . '-' . $action;
     }
 
     public function before(User $user, $ability)
     {
-        if ($user->is_super) {
-            return true;
-        }
+        // if ($user->is_super) {
+        //     return true;
+        // }
     }
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can list models.
      *
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function list(User $user)
     {
-        //
+        return $this->service->hasPermission($user, $this->getAction('index'));
     }
 
     /**
@@ -47,7 +61,7 @@ class ModelPolicy
      */
     public function view(User $user, Model $model)
     {
-        //
+        return $this->service->hasPermission($user, $this->getAction('show'));
     }
 
     /**
@@ -58,7 +72,7 @@ class ModelPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->service->hasPermission($user, $this->getAction('create'));
     }
 
     /**
@@ -70,7 +84,7 @@ class ModelPolicy
      */
     public function update(User $user, Model $model)
     {
-        //
+        return $this->service->hasPermission($user, $this->getAction('edit'));
     }
 
     /**
@@ -82,7 +96,7 @@ class ModelPolicy
      */
     public function delete(User $user, Model $model)
     {
-        //
+        return $this->service->hasPermission($user, $this->getAction('delete'));
     }
 
     /**

@@ -28,6 +28,8 @@ class MenuController extends Controller
      */
     public function index()
     {
+        $this->authorize('list', Menu::class);
+
         $items = $this->service->getAll();
 
         return view('menu.index', compact('items'));
@@ -40,6 +42,8 @@ class MenuController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Menu::class);
+
         return view('menu.create');
     }
 
@@ -51,6 +55,8 @@ class MenuController extends Controller
      */
     public function store(MenuStoreRequest $request)
     {
+        $this->authorize('create', Menu::class);
+
         if ($request->isMethod('post')) {
 
             $item = $this->service->store($request->all());
@@ -71,6 +77,8 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
+        $this->authorize('view', $menu);
+
         $item = $this->service->get($menu);
 
         return view('menu.show', compact('item'));
@@ -84,6 +92,8 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
+        $this->authorize('update', $menu);
+
         $item = $this->service->get($menu);
 
         return view('menu.edit', compact('item'));
@@ -98,6 +108,8 @@ class MenuController extends Controller
      */
     public function update(MenuUpdateRequest $request, Menu $menu)
     {
+        $this->authorize('update', $menu);
+
         if ($request->isMethod('put')) {
 
             $this->service->update($menu, $request->all());
@@ -119,6 +131,8 @@ class MenuController extends Controller
      */
     public function destroy(Request $request, Menu $menu)
     {
+        $this->authorize('delete', $menu);
+
         if ($request->isMethod('delete')) {
 
             $this->service->delete($menu);

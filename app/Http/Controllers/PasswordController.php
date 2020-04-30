@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordChangeRequest;
 
@@ -22,24 +23,14 @@ class PasswordController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $items = $this->service->getAll();
-
-        return view('user.index', compact('items'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
+        $this->authorize('change');
+
         return view('password.create');
     }
 
@@ -51,6 +42,8 @@ class PasswordController extends Controller
      */
     public function store(PasswordChangeRequest $request)
     {
+        $this->authorize('change');
+
         if ($request->isMethod('post')) {
 
             list($old, $new, $confirmed) = array_values($request->only('old_password', 'password', 'password_confirmation'));
@@ -68,19 +61,6 @@ class PasswordController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        $item = $this->service->get($user);
-
-        return view('user.show', compact('item'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  User  $user
@@ -88,6 +68,8 @@ class PasswordController extends Controller
      */
     public function edit(User $password)
     {
+        $this->authorize('reset', $password);
+
         $item = $this->service->get($password);
 
         return view('password.edit', compact('item'));
@@ -102,32 +84,13 @@ class PasswordController extends Controller
      */
     public function update(PasswordResetRequest $request, User $password)
     {
+        $this->authorize('reset', $password);
+
         if ($request->isMethod('put')) {
 
             list($new, $confirmed) = array_values($request->only('password', 'password_confirmation'));
 
             $this->service->resetPassword($password, $new, $confirmed);
-
-            return redirect()->route('users.index');
-        }
-
-        $this->error(405001);
-
-        return back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, User $user)
-    {
-        if ($request->isMethod('delete')) {
-
-            $this->service->delete($user);
 
             return redirect()->route('users.index');
         }

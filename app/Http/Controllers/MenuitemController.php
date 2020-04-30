@@ -28,6 +28,8 @@ class MenuitemController extends Controller
      */
     public function index()
     {
+        $this->authorize('list', Menuitem::class);
+
         $items = $this->service->getAll();
 
         return view('menuitem.index', compact('items'));
@@ -40,6 +42,8 @@ class MenuitemController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Menuitem::class);
+
         return view('menuitem.create');
     }
 
@@ -51,6 +55,8 @@ class MenuitemController extends Controller
      */
     public function store(MenuitemStoreRequest $request)
     {
+        $this->authorize('create', Menuitem::class);
+
         if ($request->isMethod('post')) {
 
             $item = $this->service->store($request->all());
@@ -71,6 +77,8 @@ class MenuitemController extends Controller
      */
     public function show(Menuitem $menuitem)
     {
+        $this->authorize('view', $menuitem);
+
         $item = $this->service->get($menuitem);
 
         return view('menuitem.show', compact('item'));
@@ -84,6 +92,8 @@ class MenuitemController extends Controller
      */
     public function edit(Menuitem $menuitem)
     {
+        $this->authorize('update', $menuitem);
+
         $item = $this->service->get($menuitem);
 
         return view('menuitem.edit', compact('item'));
@@ -98,6 +108,8 @@ class MenuitemController extends Controller
      */
     public function update(MenuitemUpdateRequest $request, Menuitem $menuitem)
     {
+        $this->authorize('update', $menuitem);
+
         if ($request->isMethod('put')) {
 
             $this->service->update($menuitem, $request->all());
@@ -119,6 +131,8 @@ class MenuitemController extends Controller
      */
     public function destroy(Request $request, Menuitem $menuitem)
     {
+        $this->authorize('delete', $menuitem);
+
         if ($request->isMethod('delete')) {
 
             $this->service->delete($menuitem);

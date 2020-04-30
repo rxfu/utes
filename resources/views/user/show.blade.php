@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ ___('Show') . __('user.module') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Show') . __('user.module') }}: {{ $item->getKey() }}</h3>
             </div>
 
             <div class="card-body">

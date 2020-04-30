@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Permission;
-use App\Exceptions\InternalException;
+use App\Exceptions\InvalidRequestException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PermissionRepository extends Repository
@@ -13,12 +13,12 @@ class PermissionRepository extends Repository
         $this->model = $permission;
     }
 
-    public function own($slug)
+    public function have($slug)
     {
         try {
             return $this->model->whereSlug($slug)->firstOrFail();
         } catch (ModelNotFoundException $e) {
-            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+            throw new InvalidRequestException(500004, $this->getModel(), __FUNCTION__);
         }
     }
 }

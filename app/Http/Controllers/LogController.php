@@ -25,6 +25,8 @@ class LogController extends Controller
      */
     public function index()
     {
+        $this->authorize('list', Log::class);
+
         $items = $this->service->getAll();
 
         return view('log.index', compact('items'));
@@ -38,6 +40,8 @@ class LogController extends Controller
      */
     public function show(Log $log)
     {
+        $this->authorize('view', $log);
+
         $item = $this->service->get($log);
 
         return view('log.show', compact('item'));

@@ -54,8 +54,9 @@ class UserService extends Service
 
     public function hasPermission($user, $permission)
     {
-        $permit = $this->permissions->own($permission);
+        $user = $this->repository->find($user->getKey());
+        $permission = $this->permissions->have($permission);
 
-        return $this->repository->authenticate($user, $permit);
+        return $this->repository->authenticate($user, $permission);
     }
 }

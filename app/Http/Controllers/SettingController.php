@@ -28,6 +28,8 @@ class SettingController extends Controller
      */
     public function index()
     {
+        $this->authorize('list', Setting::class);
+
         $items = $this->service->getAll();
 
         return view('setting.index', compact('items'));
@@ -40,6 +42,8 @@ class SettingController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Setting::class);
+
         return view('setting.create');
     }
 
@@ -51,8 +55,10 @@ class SettingController extends Controller
      */
     public function store(SettingStoreRequest $request)
     {
+        $this->authorize('create', Setting::class);
+
         if ($request->isMethod('post')) {
-    
+
             $item = $this->service->store($request->all());
 
             return redirect()->route('settings.show', $item);
@@ -71,6 +77,8 @@ class SettingController extends Controller
      */
     public function show(Setting $setting)
     {
+        $this->authorize('view', $setting);
+
         $item = $this->service->get($setting);
 
         return view('setting.show', compact('item'));
@@ -84,6 +92,8 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
+        $this->authorize('update', $setting);
+
         $item = $this->service->get($setting);
 
         return view('setting.edit', compact('item'));
@@ -98,8 +108,10 @@ class SettingController extends Controller
      */
     public function update(SettingUpdateRequest $request, Setting $setting)
     {
+        $this->authorize('update', $setting);
+
         if ($request->isMethod('put')) {
-    
+
             $this->service->update($setting, $request->all());
 
             return redirect()->route('settings.show', $setting);
@@ -119,6 +131,8 @@ class SettingController extends Controller
      */
     public function destroy(Request $request, Setting $setting)
     {
+        $this->authorize('delete', $setting);
+
         if ($request->isMethod('delete')) {
 
             $this->service->delete($setting);

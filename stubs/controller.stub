@@ -28,6 +28,8 @@ class {{ class }} extends Controller
      */
     public function index()
     {
+        $this->authorize('list', {{ model }}::class);
+
         $items = $this->service->getAll();
 
         return view('{{ object }}.index', compact('items'));
@@ -40,6 +42,8 @@ class {{ class }} extends Controller
      */
     public function create()
     {
+        $this->authorize('create', {{ model }}::class);
+
         return view('{{ object }}.create');
     }
 
@@ -51,6 +55,8 @@ class {{ class }} extends Controller
      */
     public function store({{ storeRequest }} $request)
     {
+        $this->authorize('create', {{ model }}::class);
+
         if ($request->isMethod('post')) {
     
             $item = $this->service->store($request->all());
@@ -71,6 +77,8 @@ class {{ class }} extends Controller
      */
     public function show({{ model }} ${{ object }})
     {
+        $this->authorize('view', ${{ object }});
+
         $item = $this->service->get(${{ object }});
 
         return view('{{ object }}.show', compact('item'));
@@ -84,6 +92,8 @@ class {{ class }} extends Controller
      */
     public function edit({{ model }} ${{ object }})
     {
+        $this->authorize('update', ${{ object }});
+
         $item = $this->service->get(${{ object }});
 
         return view('{{ object }}.edit', compact('item'));
@@ -98,6 +108,8 @@ class {{ class }} extends Controller
      */
     public function update({{ updateRequest }} $request, {{ model }} ${{ object }})
     {
+        $this->authorize('update', ${{ object }});
+
         if ($request->isMethod('put')) {
     
             $this->service->update(${{ object }}, $request->all());
@@ -119,6 +131,8 @@ class {{ class }} extends Controller
      */
     public function destroy(Request $request, {{ model }} ${{ object }})
     {
+        $this->authorize('delete', ${{ object }});
+
         if ($request->isMethod('delete')) {
 
             $this->service->delete(${{ object }});
