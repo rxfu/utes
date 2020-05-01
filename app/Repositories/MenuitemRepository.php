@@ -11,7 +11,13 @@ class MenuitemRepository extends Repository
         $this->model = $menuitem;
     }
 
-    public function getItemsByParent($id = null) {
+    public function getItemsByParent($id = null)
+    {
         return $this->model->whereParentId($id)->get();
+    }
+
+    public function getActiveItems($menu)
+    {
+        return $this->model->whereMenuId($menu->id)->get();
     }
 }

@@ -46,4 +46,9 @@ class Menuitem extends Model
     {
         return $this->hasMany('App\Models\Menuitem', 'parent_id');
     }
+
+    public function scopeEnable($query, $menuId)
+    {
+        return $query->whereMenuId($menuId)->whereIsEnable(true);
+    }
 }

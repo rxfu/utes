@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laracasts\Presenter\PresentableTrait;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, PresentableTrait;
+    use Notifiable, Authorizable, PresentableTrait;
 
     protected $presenter = 'App\Presenters\UserPresenter';
 
