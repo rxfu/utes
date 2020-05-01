@@ -37,11 +37,6 @@ class Menu extends Model
         return $this->hasMany('App\Models\Menuitem');
     }
 
-    public function scopeEnable($query, $enable)
-    {
-        return $query->whereIsEnable($enable);
-    }
-
     public function activeItems()
     {
         return $this->hasMany('App\Models\Menuitem')
@@ -50,7 +45,7 @@ class Menu extends Model
             ->orderBy('order');
     }
 
-    public function scopeIsActive($query, $slug)
+    public function scopeEnable($query, $slug)
     {
         return $query->whereSlug($slug)->whereIsEnable(true);
     }

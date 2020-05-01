@@ -15,10 +15,10 @@ class MenuRepository extends Repository
         $this->model = $menu;
     }
 
-    public function getMenu($slug, $enable = true)
+    public function getActiveMenu($slug)
     {
         try {
-            return $this->model->whereSlug($slug)->enable($enable)->firstOrFail();
+            return $this->model->enable($slug)->firstOrFail();
         } catch (ModelNotFoundException $e) {
             throw new InvalidRequestException(500004, $this->getModel(), __FUNCTION__);
         }

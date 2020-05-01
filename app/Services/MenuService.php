@@ -15,8 +15,8 @@ class MenuService extends Service
         $this->users = $users;
     }
 
-    public function getItemsByMenu($slug, $enable = true)
+    public function getItemsByMenu($slug)
     {
-        $menu = $this->repository->getMenu($slug, $enable);
+        $menu = $this->repository->getActiveMenu($slug);
     }
 }
