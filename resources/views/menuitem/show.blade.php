@@ -86,19 +86,25 @@
             @unless($item->is_system)
                 <div class="card-footer">
                     <div class="row justify-content-sm-center">
-                        <a href="{{ route('menuitems.edit', $item) }}" class="btn btn-info" title="{{ __('Edit') }}">
-                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
-                        </a>
+                        @can('update', $item)
+                            <a href="{{ route('menuitems.edit', $item) }}" class="btn btn-info" title="{{ __('Edit') }}">
+                                <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
+                            </a>
+                        @endcan
                         &nbsp;&nbsp;
-                        <a href="{{ route('menuitems.destroy', $item) }}" class="btn btn-danger delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
-                            <i class="fas fa-trash"></i> {{ __('Delete') }}
-                        </a>
+                        @can('delete', $item)
+                            <a href="{{ route('menuitems.destroy', $item) }}" class="btn btn-danger delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                                <i class="fas fa-trash"></i> {{ __('Delete') }}
+                            </a>
+                        @endcan
                     </div>
                 </div>
-                <form id="delete-form" method="post" style="display: none;">
-                    @csrf
-                    @method('delete')
-                </form>
+                @can('delete', $item)
+                    <form id="delete-form" method="post" style="display: none;">
+                        @csrf
+                        @method('delete')
+                    </form>
+                @endcan
             @endunless
         </div>
     </div>

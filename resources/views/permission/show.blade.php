@@ -71,19 +71,25 @@
 
             <div class="card-footer">
                 <div class="row justify-content-sm-center">
-                    <a href="{{ route('permissions.edit', $item) }}" title="{{ __('Edit') }}" class="btn btn-info">
-                        <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
-                    </a>
+                    @can('update', $item)
+                        <a href="{{ route('permissions.edit', $item) }}" title="{{ __('Edit') }}" class="btn btn-info">
+                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
+                        </a>
+                    @endcan
                     &nbsp;&nbsp;
-                    <a href="{{ route('permissions.destroy', $item) }}" class="btn btn-danger delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
-                        <i class="fas fa-trash"></i> {{ __('Delete') }}
-                    </a>
+                    @can('delete', $item)
+                        <a href="{{ route('permissions.destroy', $item) }}" class="btn btn-danger delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                            <i class="fas fa-trash"></i> {{ __('Delete') }}
+                        </a>
+                    @endcan
                 </div>
             </div>
-            <form id="delete-form" method="post" style="display: none;">
-                @csrf
-                @method('delete')
-            </form>
+            @can('delete', $item)
+                <form id="delete-form" method="post" style="display: none;">
+                    @csrf
+                    @method('delete')
+                </form>
+            @endcan
         </div>
     </div>
 </div>

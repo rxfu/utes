@@ -9,9 +9,11 @@
             <div class="card-header">
                 <h3 class="card-title">{{ __('role.module') . __('List') }}</h3>
                 <div class="card-tools">
-                    <a href="{{ route('roles.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                        <i class="icon fa fa-plus"></i> {{ __('Create') . __('role.module') }}
-                    </a>
+                    @can('create', Role::class)
+                        <a href="{{ route('roles.create') }}" title="{{ __('Create') }}" class="btn btn-success">
+                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('role.module') }}
+                        </a>
+                    @endcan
                 </div>
             </div>
 
@@ -23,7 +25,6 @@
 							<th>{{ __('role.slug') }}</th>
 							<th>{{ __('role.name') }}</th>
 							<th>{{ __('role.parent_id') }}</th>
-							<th>{{ __('role.description') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
@@ -34,17 +35,22 @@
 								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ optional($item->parent)->name }}</td>
-								<td>{{ $item->description }}</td>
                                 <td>
-                                    <a href="{{ route('roles.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
-                                        <i class="fas fa-folder"></i> {{ __('Show') }}
-                                    </a>
-                                    <a href="{{ route('roles.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
-                                        <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
-                                    </a>
-                                    <a href="{{ route('roles.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
-                                        <i class="fas fa-trash"></i> {{ __('Delete') }}
-                                    </a>
+                                    @can('view', $item)
+                                        <a href="{{ route('roles.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
+                                            <i class="fas fa-folder"></i> {{ __('Show') }}
+                                        </a>
+                                    @endcan
+                                    @can('update', $item)
+                                        <a href="{{ route('roles.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
+                                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
+                                        </a>
+                                    @endcan
+                                    @can('delete', $item)
+                                        <a href="{{ route('roles.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                                            <i class="fas fa-trash"></i> {{ __('Delete') }}
+                                        </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -55,16 +61,17 @@
 							<th>{{ __('role.slug') }}</th>
 							<th>{{ __('role.name') }}</th>
 							<th>{{ __('role.parent_id') }}</th>
-							<th>{{ __('role.description') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
-            <form id="delete-form" method="post" style="display: none;">
-                @csrf
-                @method('delete')
-            </form>
+            @can('delete', $items[0])
+                <form id="delete-form" method="post" style="display: none;">
+                    @csrf
+                    @method('delete')
+                </form>
+            @endcan
         </div>
     </div>
 </div>

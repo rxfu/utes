@@ -42,18 +42,26 @@
 								<td>{{ $item->present()->isSuper }}</td>
 								<td>{{ $item->last_login_at }}</td>
                                 <td>
-                                    <a href="{{ route('users.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
-                                        <i class="fas fa-folder"></i> {{ __('Show') }}
-                                    </a>
-                                    <a href="{{ route('users.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
-                                        <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
-                                    </a>
-                                    <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
-                                        <i class="fas fa-trash"></i> {{ __('Delete') }}
-                                    </a>
-                                    <a href="{{ route('passwords.edit', $item) }}" class="btn btn-secondary btn-sm reset" title="{{ __('Reset Password') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Reset Password') }}">
-                                        <i class="fas fa-key"></i> {{ __('Reset Password') }}
-                                    </a>
+                                    @can('view', $item)
+                                        <a href="{{ route('users.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
+                                            <i class="fas fa-folder"></i> {{ __('Show') }}
+                                        </a>
+                                    @endcan
+                                    @can('update', $item)
+                                        <a href="{{ route('users.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
+                                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
+                                        </a>
+                                    @endcan
+                                    @can('delete', $item)
+                                        <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                                            <i class="fas fa-trash"></i> {{ __('Delete') }}
+                                        </a>
+                                    @endcan
+                                    @can('reset', $item)
+                                        <a href="{{ route('passwords.edit', $item) }}" class="btn btn-secondary btn-sm reset" title="{{ __('Reset Password') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Reset Password') }}">
+                                            <i class="fas fa-key"></i> {{ __('Reset Password') }}
+                                        </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -72,10 +80,12 @@
                     </tfoot>
                 </table>
             </div>
-            <form id="delete-form" method="post" style="display: none;">
-                @csrf
-                @method('delete')
-            </form>
+            @can('delete', $items[0])
+                <form id="delete-form" method="post" style="display: none;">
+                    @csrf
+                    @method('delete')
+                </form>
+            @endcan
         </div>
     </div>
 </div>

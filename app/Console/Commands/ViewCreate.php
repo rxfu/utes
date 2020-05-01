@@ -52,9 +52,12 @@ class ViewCreate extends Command
     {
         $name = $this->argument('name');
         $model = Str::snake($name);
+        $collection = Str::kebab(Str::pluralStudly($name));
+        $class = Str::studly($name);
         $replace = [
             'DummyModel' => $model,
-            'DummyCollection' => Str::kebab(Str::pluralStudly($name)),
+            'DummyCollection' => $collection,
+            'DummyClass' => $class,
         ];
 
         $paths = $this->getPaths($model);
