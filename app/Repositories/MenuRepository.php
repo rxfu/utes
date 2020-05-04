@@ -15,7 +15,7 @@ class MenuRepository extends Repository
         $this->model = $menu;
     }
 
-    public function getActiveMenu($slug)
+    public function activeItem($slug)
     {
         try {
             return $this->model->enable($slug)->firstOrFail();

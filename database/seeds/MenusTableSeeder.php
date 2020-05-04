@@ -30,11 +30,13 @@ class MenusTableSeeder extends Seeder
                 'slug' => 'item1',
                 'name' => '使用说明',
                 'route' => 'home',
+                'order' => 1,
             ],
             [
                 'slug' => 'item2',
                 'name' => '联系我们',
                 'route' => 'contact',
+                'order' => 2,
             ],
         ]);
 
@@ -45,12 +47,14 @@ class MenusTableSeeder extends Seeder
                 'name' => '仪表盘',
                 'route' => 'home',
                 'icon' => 'tachometer-alt',
+                'order' => 3,
             ],
             [
                 'slug' => 'item4',
                 'name' => '菜单管理',
                 'icon' => 'tachometer-alt',
                 'is_system' => true,
+                'order' => 4,
             ],
             [
                 'slug' => 'item5',
@@ -59,6 +63,7 @@ class MenusTableSeeder extends Seeder
                 'icon' => 'tachometer-alt',
                 'parent_id' => 4,
                 'is_system' => true,
+                'order' => 5,
             ],
             [
                 'slug' => 'item6',
@@ -67,12 +72,14 @@ class MenusTableSeeder extends Seeder
                 'icon' => 'tachometer-alt',
                 'parent_id' => 4,
                 'is_system' => true,
+                'order' => 6,
             ],
             [
                 'slug' => 'item7',
                 'name' => '用户管理',
                 'icon' => 'users',
                 'is_system' => true,
+                'order' => 7,
             ],
             [
                 'slug' => 'item8',
@@ -80,6 +87,7 @@ class MenusTableSeeder extends Seeder
                 'route' => 'users.index',
                 'parent_id' => 7,
                 'is_system' => true,
+                'order' => 8,
             ],
             [
                 'slug' => 'item9',
@@ -87,6 +95,7 @@ class MenusTableSeeder extends Seeder
                 'route' => 'roles.index',
                 'parent_id' => 7,
                 'is_system' => true,
+                'order' => 9,
             ],
             [
                 'slug' => 'item10',
@@ -94,12 +103,14 @@ class MenusTableSeeder extends Seeder
                 'route' => 'permissions.index',
                 'parent_id' => 7,
                 'is_system' => true,
+                'order' => 10,
             ],
             [
                 'slug' => 'item11',
                 'name' => '系统管理',
                 'icon' => 'tachometer-alt',
                 'is_system' => true,
+                'order' => 11,
             ],
             [
                 'slug' => 'item12',
@@ -107,6 +118,7 @@ class MenusTableSeeder extends Seeder
                 'route' => 'passwords.create',
                 'parent_id' => 11,
                 'is_system' => true,
+                'order' => 12,
             ],
             [
                 'slug' => 'item13',
@@ -114,6 +126,7 @@ class MenusTableSeeder extends Seeder
                 'route' => 'logs.index',
                 'parent_id' => 11,
                 'is_system' => true,
+                'order' => 13,
             ],
             [
                 'slug' => 'item14',
@@ -121,6 +134,7 @@ class MenusTableSeeder extends Seeder
                 'route' => 'settings.index',
                 'parent_id' => 11,
                 'is_system' => true,
+                'order' => 14,
             ],
         ]);
     }
