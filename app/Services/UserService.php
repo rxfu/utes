@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
-use App\Exceptions\InvalidRequestException;
+use App\Exceptions\InternalException;
+use Illuminate\Database\QueryException;
 use App\Repositories\PermissionRepository;
+use App\Exceptions\InvalidRequestException;
 
 class UserService extends Service
 {
@@ -58,5 +60,19 @@ class UserService extends Service
         $permission = $this->permissions->have($permission);
 
         return $this->repository->authenticate($user, $permission);
+    }
+
+    public function assignRole($user, $roles)
+    {
+        $user = $this->repository->find($user->getKey());
+
+        $this->repository->grant($user, $roles);
+    }
+
+    public function getGrantedRoles($user)
+    {
+        $user = $this->repository->find($user->getKey());
+
+        return $user->roles->pluck('id')->toArray();
     }
 }

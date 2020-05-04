@@ -25,5 +25,7 @@
     "delete": "删除",
     "Change Password": "修改密码",
     "Reset Password": "重置密码",
-    "Remember me": "记住我"
+    "Remember me": "记住我",
+    "Grant Role": "分配角色",
+    "Grant Permission": "分配权限"
 }

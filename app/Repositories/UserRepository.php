@@ -27,4 +27,13 @@ class UserRepository extends Repository
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
+
+    public function grant($user, $roles)
+    {
+        try {
+            $user->roles()->sync($roles);
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
 }

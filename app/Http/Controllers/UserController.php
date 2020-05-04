@@ -132,4 +132,43 @@ class UserController extends Controller
 
         return back();
     }
+
+    /**
+     * Show the form for granting the specified resource.
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function grant(User $user)
+    {
+        $this->authorize('grant', $user);
+
+        $item = $this->service->get($user);
+        $grantedRoles = $this->service->getGrantedRoles($user);
+
+        return view('user.role', compact('item', 'grantedRoles'));
+    }
+
+    /**
+     * Grant the specified role in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function assign(Request $request, User $user)
+    {
+        $this->authorize('grant', $user);
+
+        if ($request->isMethod('post')) {
+
+            $this->service->assignRole($user, $request->roles);
+
+            return redirect()->route('users.assign', $user);
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
 }

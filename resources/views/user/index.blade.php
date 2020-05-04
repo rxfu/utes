@@ -62,6 +62,13 @@
                                             <i class="fas fa-key"></i> {{ __('Reset Password') }}
                                         </a>
                                     @endcan
+                                    @can('grant', $item)
+                                        @if (!$item->is_super)
+                                            <a href="{{ route('users.assign', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
+                                                <i class="fa fa-key"></i> {{ __('Grant Role') }}
+                                            </a>
+                                        @endif
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

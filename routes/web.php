@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/contact', 'HomeController@contact')->name('contact');
 
+    Route::get('/users/{user}/roles', 'UserController@grant')->name('users.grant');
+    Route::post('/users/{user}/roles', 'UserController@assign')->name('users.assign');
+
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
     Route::resource('logs', 'LogController')->only(['index', 'show']);

@@ -18,7 +18,7 @@ class UserPolicy extends ModelPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can reset password.
      *
      * @param  \App\Models\User  $user
      * @return mixed
@@ -26,5 +26,16 @@ class UserPolicy extends ModelPolicy
     public function reset(User $user)
     {
         return $this->service->hasPermission($user, 'user-reset');
+    }
+
+    /**
+     * Determine whether the user can grant role.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function grant(User $user)
+    {
+        return $this->service->hasPermission($user, 'user-grant');
     }
 }
