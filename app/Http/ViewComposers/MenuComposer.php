@@ -3,15 +3,15 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Repositories\MenuRepository;
+use App\Services\MenuitemService;
 
 class MenuComposer
 {
-    private $menus;
+    private $menuitems;
 
-    public function __construct(MenuRepository $menus)
+    public function __construct(MenuitemService $menuitems)
     {
-        $this->menus = $menus;
+        $this->menuitems = $menuitems;
     }
     /**
      * Bind data to the view.
@@ -21,8 +21,8 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $menus = $this->menus;
+        $menuitems = $this->menuitems;
 
-        $view->with(compact('menus'));
+        $view->with(compact('menuitems'));
     }
 }

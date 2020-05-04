@@ -18,12 +18,4 @@ class MenuService extends Service
         $this->users = $users;
         $this->menuitems = $menuitems;
     }
-
-    public function getItemsByMenu($slug)
-    {
-        $menu = $this->repository->getActiveMenu($slug);
-
-        foreach ($menu->activeItems as $item) {
-        }
-    }
 }

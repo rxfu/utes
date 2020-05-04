@@ -16,4 +16,19 @@ class MenuitemPresenter extends Presenter
     {
         return $this->is_enable ? '是' : '否';
     }
+
+    public function image()
+    {
+        $icon = '<i class="nav-icon ';
+
+        if (Str::of($this->icon)->trim()->isEmpty()) {
+            $icon .= 'far fa-circle';
+        } else {
+            $icon .= 'fas fa-' . $this->icon;
+        }
+
+        $icon .= '"></i>';
+
+        return $icon;
+    }
 }

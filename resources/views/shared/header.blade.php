@@ -31,10 +31,10 @@
 					<i class="fa fa-bars"></i>
 				</a>
 			</li>
-			@foreach ($menus->getActiveItems('navigation') as $item)
+			@foreach ($menuitems->getActiveByMenu('navigation') as $item)
 				<li class="nav-item d-done d-sm-inline-block">
-					<a href="{{ $item->present()->link }}" class="nav-link" title="{{ $item->name }}">
-						{{ $item->name }}
+					<a href="{{ $item['url'] }}" class="nav-link" title="{{ $item['name'] }}">
+						{{ $item['name'] }}
 					</a>
 				</li>
 			@endforeach

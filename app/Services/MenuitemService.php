@@ -30,7 +30,22 @@ class MenuitemService extends Service
         $menu = $this->menus->activeItem($slug);
         $items = $this->repository->activeItems($menu->id);
 
+        $tree = [];
         foreach ($items as $item) {
+            $node = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'url' => $item->present()->link,
+                'icon' => $item->present()->image,
+            ];
+
+            if (!empty($item->parent_id) && isset($tree[$item->parent_id])) {
+                $tree[$item->parent_id]['children'][] = $node;
+            } else {
+                $tree[$item->id] = $node;
+            }
         }
+
+        return $tree;
     }
 }

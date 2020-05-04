@@ -22,49 +22,35 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           	    <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                @foreach ($menus->getActiveItems('main') as $item)
-                    @if ($item->children->count())
+                  @foreach ($menuitems->getActiveByMenu('main') as $item)
+                    @isset ($item['children'])
                         <li class="nav-item has-treeview">
-                            <a href="{{ $item->present()->link }}" class="nav-link">
-                                @if (!empty($item->icon))
-                                    <i class="nav-icon fas fa-{{ $item->icon }}"></i>
-                                @else
-                                    <i class="nav-icon far fa-circle"></i>
-                                @endif
+                            <a href="{{ $item['url'] }}" class="nav-link">
+                                {!! $item['icon'] !!}
                                 <p>
-                                    {{ $item->name }}
+                                    {{ $item['name'] }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @foreach ($item->children as $child)
+                                @foreach ($item['children'] as $child)
                                     <li class="nav-item">
-                                        <a href="{{ $child->present()->link }}" class="nav-link" title="{{ $child->name }}">
-                                            @if (!empty($child->icon))
-                                                <i class="nav-icon fas fa-{{ $child->icon }}"></i>
-                                            @else
-                                                <i class="nav-icon far fa-circle"></i>
-                                            @endif
-                                            <p>{{ $child->name }}</p>
+                                        <a href="{{ $child['url'] }}" class="nav-link" title="{{ $child['name'] }}">
+                                            {!! $child['icon'] !!}
+                                            <p>{{ $child['name'] }}</p>
                                         </a>
                                     </li>
                                 @endforeach
                             </ul>
                         </li>
                     @else
-                        @if (empty($item->parent))
-                            <li class="nav-item">
-                                <a href="{{ $item->present()->link }}" class="nav-link" title="{{ $item->name }}">
-                                    @if (!empty($item->icon))
-                                        <i class="nav-icon fas fa-{{ $item->icon }}"></i>
-                                    @else
-                                        <i class="nav-icon far fa-circle"></i>
-                                    @endif
-                                    <p>{{ $item->name }}</p>
-                                </a>
-                            </li>
-                        @endif
-                    @endif
+                        <li class="nav-item">
+                            <a href="{{ $item['url'] }}" class="nav-link" title="{{ $item['name'] }}">
+                                {!! $item['icon'] !!}
+                                <p>{{ $item['name'] }}</p>
+                            </a>
+                        </li>
+                    @endisset
                 @endforeach
             </ul>
         </nav>

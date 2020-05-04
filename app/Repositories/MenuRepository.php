@@ -23,13 +23,4 @@ class MenuRepository extends Repository
             throw new InvalidRequestException(500004, $this->getModel(), __FUNCTION__);
         }
     }
-
-    public function getActiveItems($slug)
-    {
-        try {
-            return $this->model->isActive($slug)->first()->activeItems()->get();
-        } catch (QueryException $e) {
-            throw new InternalException($e, $this->getModel(), __FUNCTION__);
-        }
-    }
 }

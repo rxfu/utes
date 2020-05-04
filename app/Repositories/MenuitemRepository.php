@@ -18,6 +18,9 @@ class MenuitemRepository extends Repository
 
     public function activeItems($menuId)
     {
-        return $this->model->enable($menuId)->get();
+        return $this->model->enable($menuId)
+            ->orderBy('parent_id')
+            ->orderBy('order')
+            ->get();
     }
 }
