@@ -12,6 +12,20 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        Permission::create([
+            'slug' => 'home',
+            'name' => '首页',
+            'action' => 'index',
+            'model' => 'home',
+        ]);
+
+        Permission::create([
+            'slug' => 'contact',
+            'name' => '联系我们',
+            'action' => 'contact',
+            'model' => 'home',
+        ]);
+
         $modules = [
             'user', 'menu', 'menuitem', 'log', 'role', 'permission'
         ];
@@ -32,17 +46,31 @@ class PermissionsTableSeeder extends Seeder
         }
 
         Permission::create([
-            'slug' => 'user-change',
+            'slug' => 'password-change',
             'name' => '修改密码',
             'action' => 'change',
             'model' => 'user',
         ]);
 
         Permission::create([
-            'slug' => 'user-reset',
+            'slug' => 'password-reset',
             'name' => '重置密码',
             'action' => 'reset',
             'model' => 'user',
+        ]);
+
+        Permission::create([
+            'slug' => 'role-grant',
+            'name' => '分配角色',
+            'action' => 'grant',
+            'model' => 'user',
+        ]);
+
+        Permission::create([
+            'slug' => 'permission-grant',
+            'name' => '分配权限',
+            'action' => 'grant',
+            'model' => 'role',
         ]);
     }
 }

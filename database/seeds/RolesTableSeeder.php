@@ -18,9 +18,7 @@ class RolesTableSeeder extends Seeder
             'name' => '管理员',
         ]);
 
-        foreach (Permission::all() as $permission) {
-            $role->permissions()->attach($permission->id);
-        }
+        $role->permissions()->sync(Permission::all()->pluck('id')->toArray());
 
         Role::create([
             'slug' => 'user',

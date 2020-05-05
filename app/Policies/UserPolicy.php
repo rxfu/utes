@@ -14,7 +14,7 @@ class UserPolicy extends ModelPolicy
      */
     public function change(User $user)
     {
-        return $this->service->hasPermission($user, 'user-change');
+        return $this->service->hasPermission($user, 'password-change');
     }
 
     /**
@@ -25,7 +25,7 @@ class UserPolicy extends ModelPolicy
      */
     public function reset(User $user)
     {
-        return $this->service->hasPermission($user, 'user-reset');
+        return $this->service->hasPermission($user, 'password-reset');
     }
 
     /**
@@ -36,6 +36,6 @@ class UserPolicy extends ModelPolicy
      */
     public function grant(User $user)
     {
-        return $this->service->hasPermission($user, 'user-grant');
+        return $this->service->hasPermission($user, 'role-grant');
     }
 }

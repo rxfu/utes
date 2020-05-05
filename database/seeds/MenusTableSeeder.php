@@ -115,7 +115,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'item12',
                 'name' => '修改密码',
-                'route' => 'passwords.create',
+                'route' => 'passwords.change',
                 'parent_id' => 11,
                 'is_system' => true,
                 'order' => 12,

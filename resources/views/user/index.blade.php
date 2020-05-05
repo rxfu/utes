@@ -58,13 +58,13 @@
                                         </a>
                                     @endcan
                                     @can('reset', $item)
-                                        <a href="{{ route('passwords.edit', $item) }}" class="btn btn-secondary btn-sm reset" title="{{ __('Reset Password') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Reset Password') }}">
+                                        <a href="{{ route('passwords.reset', $item) }}" class="btn btn-secondary btn-sm reset" title="{{ __('Reset Password') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Reset Password') }}">
                                             <i class="fas fa-key"></i> {{ __('Reset Password') }}
                                         </a>
                                     @endcan
                                     @can('grant', $item)
-                                        @if (!$item->is_super)
-                                            <a href="{{ route('users.assign', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
+                                        @if ($item->is_super)
+                                            <a href="{{ route('users.grant', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
                                                 <i class="fa fa-key"></i> {{ __('Grant Role') }}
                                             </a>
                                         @endif

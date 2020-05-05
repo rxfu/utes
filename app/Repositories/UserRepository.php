@@ -15,6 +15,10 @@ class UserRepository extends Repository
 
     public function authenticate($user, $permission)
     {
+        if (empty($permission)) {
+            return false;
+        }
+
         try {
             foreach ($permission->roles as $role) {
                 if ($user->roles->contains($role)) {

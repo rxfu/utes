@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Str;
 use App\Repositories\MenuRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\MenuitemRepository;
@@ -31,12 +32,12 @@ class MenuitemService extends Service
 
     public function getActiveByMenu($slug)
     {
-        $menu = $this->menus->activeItem($slug);
+        $menu = $this->menus->activeItem('main');
         $items = $this->repository->activeItems($menu->id);
 
-        $tree = [];
+        $menuitems = [];
         foreach ($items as $item) {
-            if ($this->userService->hasPermission(Auth::user(), $this->getPermission($item->route))) {
+            if (empty($item->route) || $this->userService->hasPermission(Auth::user(), $this->getPermission($item->route))) {
                 $node = [
                     'id' => $item->id,
                     'name' => $item->name,
@@ -44,19 +45,32 @@ class MenuitemService extends Service
                     'icon' => $item->present()->image,
                 ];
 
-                if (!empty($item->parent_id) && isset($tree[$item->parent_id])) {
-                    $tree[$item->parent_id]['children'][] = $node;
+                if (!empty($item->parent_id) && isset($menuitems[$item->parent_id])) {
+                    $menuitems[$item->parent_id]['children'][] = $node;
                 } else {
-                    $tree[$item->id] = $node;
+                    $menuitems[$item->id] = $node;
                 }
             }
         }
-        dd($tree);
-        return $tree;
+
+        foreach ($menuitems as $key => $item) {
+            if (!isset($item['children']) && ('#' === $item['url'])) {
+                unset($menuitems[$key]);
+            }
+        }
+
+        return $menuitems;
     }
 
     public function getPermission($route)
     {
-        return str_replace('.', '-', $route);
+        if (strpos($route, '.')) {
+            list($model, $action) = explode('.', $route);
+            $model = Str::singular($model);
+
+            return $model . '-' . $action;
+        }
+
+        return $route;
     }
 }

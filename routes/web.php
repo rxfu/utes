@@ -28,13 +28,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/contact', 'HomeController@contact')->name('contact');
 
-    Route::get('/users/{user}/roles', 'UserController@grant')->name('users.grant');
-    Route::post('/users/{user}/roles', 'UserController@assign')->name('users.assign');
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/{user}/roles', 'UserController@grant')->name('grant');
+        Route::post('/{user}/roles', 'UserController@assign')->name('assign');
+    });
+
+    Route::prefix('passwords')->name('passwords.')->group(function () {
+        Route::get('/', 'PasswordController@create')->name('change');
+        Route::post('/', 'PasswordController@store')->name('store');
+        Route::get('/{password}/reset', 'PasswordController@edit')->name('reset');
+        Route::put('/{password}', 'PasswordController@update')->name('update');
+    });
 
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
     Route::resource('logs', 'LogController')->only(['index', 'show']);
-    Route::resource('passwords', 'PasswordController');
     Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
     Route::resource('permissions', 'PermissionController');

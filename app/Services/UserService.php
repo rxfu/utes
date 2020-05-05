@@ -59,7 +59,7 @@ class UserService extends Service
         $user = $this->repository->find($user->getKey());
         $permission = $this->permissions->have($permission);
 
-        return empty($permission) ? false : $this->repository->authenticate($user, $permission);
+        return $this->repository->authenticate($user, $permission);
     }
 
     public function assignRole($user, $roles)
