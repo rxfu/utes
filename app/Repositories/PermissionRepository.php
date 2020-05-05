@@ -15,10 +15,6 @@ class PermissionRepository extends Repository
 
     public function have($slug)
     {
-        try {
-            return $this->model->whereSlug($slug)->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            throw new InvalidRequestException(500004, $this->getModel(), __FUNCTION__);
-        }
+        return $this->model->whereSlug($slug)->first();
     }
 }
