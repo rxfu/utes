@@ -10,4 +10,18 @@ class RoleService extends Service
     {
         $this->repository = $roles;
     }
+
+    public function assignPermission($role, $permissions)
+    {
+        $role = $this->repository->find($role->getKey());
+
+        $this->repository->grant($role, $permissions);
+    }
+
+    public function getGrantedPermissions($role)
+    {
+        $role = $this->repository->find($role->getKey());
+
+        return $role->permissions->pluck('id')->toArray();
+    }
 }

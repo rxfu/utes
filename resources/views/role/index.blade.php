@@ -51,6 +51,13 @@
                                             <i class="fas fa-trash"></i> {{ __('Delete') }}
                                         </a>
                                     @endcan
+                                    @can('grant', $item)
+                                        @if (Auth::user()->is_super)
+                                            <a href="{{ route('roles.grant', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Permission') }}">
+                                                <i class="fa fa-key"></i> {{ __('Grant Permission') }}
+                                            </a>
+                                        @endif
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

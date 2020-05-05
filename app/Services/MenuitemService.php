@@ -32,7 +32,7 @@ class MenuitemService extends Service
 
     public function getActiveByMenu($slug)
     {
-        $menu = $this->menus->activeItem('main');
+        $menu = $this->menus->activeItem($slug);
         $items = $this->repository->activeItems($menu->id);
 
         $menuitems = [];

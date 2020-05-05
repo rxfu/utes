@@ -33,6 +33,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/{user}/roles', 'UserController@assign')->name('assign');
     });
 
+    Route::prefix('roles')->name('roles.')->group(function () {
+        Route::get('/{role}/roles', 'RoleController@grant')->name('grant');
+        Route::post('/{role}/roles', 'RoleController@assign')->name('assign');
+    });
+
     Route::prefix('passwords')->name('passwords.')->group(function () {
         Route::get('/', 'PasswordController@create')->name('change');
         Route::post('/', 'PasswordController@store')->name('store');

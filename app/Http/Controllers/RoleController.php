@@ -132,4 +132,43 @@ class RoleController extends Controller
 
         return back();
     }
+
+    /**
+     * Show the form for granting the specified resource.
+     *
+     * @param  Role  $role
+     * @return \Illuminate\Http\Response
+     */
+    public function grant(Role $role)
+    {
+        $this->authorize('grant', $role);
+
+        $item = $this->service->get($role);
+        $grantedPermissions = $this->service->getGrantedPermissions($role);
+
+        return view('role.permission', compact('item', 'grantedPermissions'));
+    }
+
+    /**
+     * Grant the specified permission in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  Role  $role
+     * @return \Illuminate\Http\Response
+     */
+    public function assign(Request $request, Role $role)
+    {
+        $this->authorize('grant', $role);
+
+        if ($request->isMethod('post')) {
+
+            $this->service->assignPermission($role, $request->permissions);
+
+            return redirect()->route('roles.assign', $role);
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
 }
