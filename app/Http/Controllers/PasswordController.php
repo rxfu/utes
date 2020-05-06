@@ -90,6 +90,8 @@ class PasswordController extends Controller
 
             $this->service->resetPassword($password, $new, $confirmed);
 
+            $this->success(200007);
+
             return redirect()->route('users.index');
         }
 
