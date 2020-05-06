@@ -24,6 +24,7 @@
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
 							<th>{{ __('user.name') }}</th>
+							<th>{{ __('user.role') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>
@@ -37,6 +38,7 @@
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->username }}</td>
 								<td>{{ $item->name }}</td>
+								<td>{{ $item->present()->hasRoles }}</td>
 								<td>{{ $item->email }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
 								<td>{{ $item->present()->isSuper }}</td>
@@ -78,6 +80,7 @@
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
 							<th>{{ __('user.name') }}</th>
+							<th>{{ __('user.role') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>

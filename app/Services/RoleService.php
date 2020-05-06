@@ -11,6 +11,11 @@ class RoleService extends Service
         $this->repository = $roles;
     }
 
+    public function getAll()
+    {
+        return $this->repository->findWith(['permissions']);
+    }
+
     public function assignPermission($role, $permissions)
     {
         $role = $this->repository->find($role->getKey());

@@ -10,4 +10,5 @@ return [
 	'by_group' => '按分组',
 	'parent_id' => '父权限',
 	'description' => '描述',
+	'role' => '所属角色',
 ];

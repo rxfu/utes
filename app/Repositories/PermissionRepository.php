@@ -17,4 +17,8 @@ class PermissionRepository extends Repository
     {
         return $this->model->whereSlug($slug)->first();
     }
+
+    public function role($permisson)
+    {
+    }
 }

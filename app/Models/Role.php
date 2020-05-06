@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 class Role extends Model
 {
+    use PresentableTrait;
+
+    protected $presenter = 'App\Presenters\RolePresenter';
+
     /**
      * The attributes that are mass assignable.
      *

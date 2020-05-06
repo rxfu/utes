@@ -7,4 +7,5 @@ return [
 	'name' => '名称',
 	'parent_id' => '父角色',
 	'description' => '描述',
+	'permission' => '拥有权限',
 ];

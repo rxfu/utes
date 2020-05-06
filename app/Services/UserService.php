@@ -19,6 +19,11 @@ class UserService extends Service
         $this->permissions = $permssions;
     }
 
+    public function getAll()
+    {
+        return $this->repository->findWith(['roles']);
+    }
+
     public function changePassword($user, $oldPassword, $newPassword, $confirmedPassword)
     {
         $credentials = [

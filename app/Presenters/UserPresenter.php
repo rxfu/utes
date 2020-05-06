@@ -15,4 +15,15 @@ class UserPresenter extends Presenter
     {
         return $this->is_super ? '是' : '否';
     }
+
+    public function hasRoles()
+    {
+        $roles = [];
+
+        foreach ($this->roles as $role) {
+            $roles[] = $role->name;
+        }
+
+        return implode(',', $roles);
+    }
 }

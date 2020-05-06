@@ -10,4 +10,9 @@ class PermissionService extends Service
     {
         $this->repository = $permissions;
     }
+
+    public function getAll()
+    {
+        return $this->repository->findWith(['roles']);
+    }
 }

@@ -26,6 +26,7 @@
 							<th>{{ __('permission.name') }}</th>
 							<th>{{ __('permission.by_group') }}</th>
 							<th>{{ __('permission.parent_id') }}</th>
+							<th>{{ __('permission.role') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
                     </thead>
@@ -36,7 +37,8 @@
 								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->present()->byGroup }}</td>
-								<td>{{ optional($item->parent)->name }}</td>
+                                <td>{{ optional($item->parent)->name }}</td>
+                                <td>{{ $item->present()->hasRoles }}</td>
                                 <td>
                                     @can('view', $item)
                                         <a href="{{ route('permissions.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
@@ -64,6 +66,7 @@
 							<th>{{ __('permission.name') }}</th>
 							<th>{{ __('permission.by_group') }}</th>
 							<th>{{ __('permission.parent_id') }}</th>
+							<th>{{ __('permission.role') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
                     </tfoot>

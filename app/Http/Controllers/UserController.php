@@ -144,7 +144,7 @@ class UserController extends Controller
         $this->authorize('grant', $user);
 
         $item = $this->service->get($user);
-        $grantedRoles = $this->service->getGrantedRoles($user);
+        $grantedRoles = $this->service->getGrantedRoles($item);
 
         return view('user.role', compact('item', 'grantedRoles'));
     }
@@ -164,7 +164,7 @@ class UserController extends Controller
 
             $this->service->assignRole($user, $request->roles);
 
-            return redirect()->route('users.assign', $user);
+            return redirect()->route('users.grant', $user);
         }
 
         $this->error(405001);

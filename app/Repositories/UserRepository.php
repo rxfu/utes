@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Exceptions\InternalException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\QueryException;
 
 class UserRepository extends Repository
@@ -11,6 +12,15 @@ class UserRepository extends Repository
     public function __construct(User $user)
     {
         $this->model = $user;
+    }
+
+    public function roles($user)
+    {
+        $roles = Cache::rememberForever($user->username . '.role', function () use ($user) {
+            return $user->roles;
+        });
+
+        return $roles;
     }
 
     public function authenticate($user, $permission)
