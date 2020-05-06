@@ -164,7 +164,7 @@ class UserController extends Controller
 
             $this->service->assignRole($user, $request->roles);
 
-            return redirect()->route('users.grant', $user);
+            return redirect()->route('users.index');
         }
 
         $this->error(405001);

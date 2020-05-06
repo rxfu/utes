@@ -164,7 +164,7 @@ class RoleController extends Controller
 
             $this->service->assignPermission($role, $request->permissions);
 
-            return redirect()->route('roles.assign', $role);
+            return redirect()->route('roles.index');
         }
 
         $this->error(405001);

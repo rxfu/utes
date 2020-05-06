@@ -16,8 +16,8 @@ class UserRepository extends Repository
 
     public function roles($user)
     {
-        $roles = Cache::rememberForever($user->username . '.role', function () use ($user) {
-            return $user->roles;
+        $roles = Cache::remember($user->username . '.roles', 10, function () use ($user) {
+            return $user->roles->pluck('slug')->toArray();
         });
 
         return $roles;

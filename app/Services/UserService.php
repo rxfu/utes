@@ -2,21 +2,19 @@
 
 namespace App\Services;
 
+use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
-use App\Exceptions\InternalException;
-use Illuminate\Database\QueryException;
-use App\Repositories\PermissionRepository;
 use App\Exceptions\InvalidRequestException;
 
 class UserService extends Service
 {
-    protected $permissons;
+    protected $roles;
 
-    public function __construct(UserRepository $users, PermissionRepository $permssions)
+    public function __construct(UserRepository $users, RoleRepository $roles)
     {
         $this->repository = $users;
-        $this->permissions = $permssions;
+        $this->roles = $roles;
     }
 
     public function getAll()
@@ -61,10 +59,10 @@ class UserService extends Service
 
     public function hasPermission($user, $permission)
     {
-        $user = $this->repository->find($user->getKey());
-        $permission = $this->permissions->have($permission);
+        $roles = $this->repository->roles($user);
+        $permissions = $this->roles->permissions($roles);
 
-        return $this->repository->authenticate($user, $permission);
+        return in_array($permission, $permissions);
     }
 
     public function assignRole($user, $roles)
