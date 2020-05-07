@@ -24,7 +24,11 @@ class PermissionStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'slug' => 'required|max:20|unique:permissions',
+            'name' => 'required|max:50',
+            'model' => 'required',
+            'action' => 'required',
+            'by_group' => 'required',
         ];
     }
 }

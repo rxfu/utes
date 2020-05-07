@@ -25,7 +25,7 @@ class SettingStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:20|unique:settings',
-            'value' => 'required',
+            'value' => 'required|max:50',
         ];
     }
 }

@@ -24,8 +24,8 @@ class MenuitemUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required|max:50|unique:menuitems,slug,' . $this->route('menuitem')->id,
-            'name' => 'required',
+            'slug' => 'required|max:20|unique:menuitems,slug,' . $this->route('menuitem')->id,
+            'name' => 'required|max:50',
             'is_enable' => 'required',
             'menu_id' => 'required',
         ];

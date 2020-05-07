@@ -36,9 +36,9 @@ class ModelPolicy
 
     public function before(User $user, $ability)
     {
-        // if ($user->is_super) {
-        //     return true;
-        // }
+        if ($user->is_super) {
+            return true;
+        }
     }
 
     /**

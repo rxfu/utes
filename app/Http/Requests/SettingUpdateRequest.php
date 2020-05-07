@@ -25,7 +25,7 @@ class SettingUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|max:20|unique:settings,name,' . $this->route('setting')->id,
-            'value' => 'required',
+            'value' => 'required|max:50',
         ];
     }
 }

@@ -52,7 +52,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'item4',
                 'name' => '菜单管理',
-                'icon' => 'tachometer-alt',
+                'icon' => 'sitemap',
                 'is_system' => true,
                 'order' => 4,
             ],
@@ -60,7 +60,6 @@ class MenusTableSeeder extends Seeder
                 'slug' => 'item5',
                 'name' => '菜单管理',
                 'route' => 'menus.index',
-                'icon' => 'tachometer-alt',
                 'parent_id' => 4,
                 'is_system' => true,
                 'order' => 5,
@@ -69,7 +68,6 @@ class MenusTableSeeder extends Seeder
                 'slug' => 'item6',
                 'name' => '菜单项管理',
                 'route' => 'menuitems.index',
-                'icon' => 'tachometer-alt',
                 'parent_id' => 4,
                 'is_system' => true,
                 'order' => 6,
@@ -108,7 +106,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'item11',
                 'name' => '系统管理',
-                'icon' => 'tachometer-alt',
+                'icon' => 'cogs',
                 'is_system' => true,
                 'order' => 11,
             ],

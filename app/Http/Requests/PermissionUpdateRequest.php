@@ -24,7 +24,11 @@ class PermissionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'slug' => 'required|max:20|unique:permissions,slug,' . $this->route('permission')->id,
+            'name' => 'required|max:50',
+            'model' => 'required',
+            'action' => 'required',
+            'by_group' => 'required',
         ];
     }
 }
