@@ -92,12 +92,14 @@
                     </tfoot>
                 </table>
             </div>
-            @can('delete', $items[0])
-                <form id="delete-form" method="post" style="display: none;">
-                    @csrf
-                    @method('delete')
-                </form>
-            @endcan
+            @unless ($items[0]->is_super)
+                @can('delete', $items[0])
+                    <form id="delete-form" method="post" style="display: none;">
+                        @csrf
+                        @method('delete')
+                    </form>
+                @endcan
+            @endunless
         </div>
     </div>
 </div>
