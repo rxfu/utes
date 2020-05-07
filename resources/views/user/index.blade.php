@@ -49,28 +49,30 @@
                                             <i class="fas fa-folder"></i> {{ __('Show') }}
                                         </a>
                                     @endcan
-                                    @can('update', $item)
-                                        <a href="{{ route('users.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
-                                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
-                                        </a>
-                                    @endcan
-                                    @can('delete', $item)
-                                        <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
-                                            <i class="fas fa-trash"></i> {{ __('Delete') }}
-                                        </a>
-                                    @endcan
+                                    @unless ($item->is_super)
+                                        @can('update', $item)
+                                            <a href="{{ route('users.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Edit') }}">
+                                                <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
+                                            </a>
+                                        @endcan
+                                        @can('delete', $item)
+                                            <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger btn-sm delete" title="{{ __('Delete') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                                                <i class="fas fa-trash"></i> {{ __('Delete') }}
+                                            </a>
+                                        @endcan
+                                    @endunless
                                     @can('reset', $item)
                                         <a href="{{ route('passwords.reset', $item) }}" class="btn btn-secondary btn-sm reset" title="{{ __('Reset Password') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Reset Password') }}">
                                             <i class="fas fa-key"></i> {{ __('Reset Password') }}
                                         </a>
                                     @endcan
-                                    @can('grant', $item)
-                                        @if (Auth::user()->is_super)
+                                    @if (Auth::user()->is_super)
+                                        @can('grant', $item)
                                             <a href="{{ route('users.grant', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
                                                 <i class="fa fa-key"></i> {{ __('Grant Role') }}
                                             </a>
-                                        @endif
-                                    @endcan
+                                        @endcan
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

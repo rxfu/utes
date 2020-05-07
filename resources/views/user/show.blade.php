@@ -71,25 +71,29 @@
 
             <div class="card-footer">
                 <div class="row justify-content-sm-center">
-                    @can('update', $item)
-                        <a href="{{ route('users.edit', $item) }}" title="{{ __('Edit') }}" class="btn btn-info">
-                            <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
-                        </a>
-                    @endcan
-                    &nbsp;&nbsp;
-                    @can('delete', $item)
-                        <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger delete" title="删除" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
-                            <i class="fas fa-trash"></i> {{ __('Delete') }}
-                        </a>
-                    @endcan
+                    @unless($item->is_super)
+                        @can('update', $item)
+                            <a href="{{ route('users.edit', $item) }}" title="{{ __('Edit') }}" class="btn btn-info">
+                                <i class="fas fa-pencil-alt"></i> {{ __('Edit') }}
+                            </a>
+                        @endcan
+                        &nbsp;&nbsp;
+                        @can('delete', $item)
+                            <a href="{{ route('users.destroy', $item) }}" class="btn btn-danger delete" title="删除" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Delete') }}">
+                                <i class="fas fa-trash"></i> {{ __('Delete') }}
+                            </a>
+                        @endcan
+                    @endunless
                 </div>
             </div>
-            @can('delete', $item)
-                <form id="delete-form" method="post" style="display: none;">
-                    @csrf
-                    @method('delete')
-                </form>
-            @endcan
+            @unless($item->is_super)
+                @can('delete', $item)
+                    <form id="delete-form" method="post" style="display: none;">
+                        @csrf
+                        @method('delete')
+                    </form>
+                @endcan
+            @endunless
         </div>
     </div>
 </div>

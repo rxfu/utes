@@ -14,7 +14,7 @@
             	<img src="{{ asset('admin-lte/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
           	</div>
           	<div class="info">
-            	<a href="#" class="d-block">{{ Auth::user()->name }}</a>
+            	<a href="{{ route('users.show', Auth::user()) }}" class="d-block">{{ Auth::user()->name }}</a>
           	</div>
         </div>
 
