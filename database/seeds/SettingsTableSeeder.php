@@ -13,9 +13,9 @@ class SettingsTableSeeder extends Seeder
     public function run()
     {
         Setting::create([
-            'name' => 'switch',
-            'value' => 'true',
-            'description' => '系统开关，true-开启，false-关闭',
+            'name' => 'maintenance',
+            'value' => '0',
+            'description' => '系统维护开关，1-开启维护，关闭系统，0-关闭维护，开启系统',
         ]);
     }
 }

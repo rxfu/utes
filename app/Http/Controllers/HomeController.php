@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('maintenance');
     }
 
     /**
@@ -29,5 +29,10 @@ class HomeController extends Controller
     public function contact()
     {
         return view('home.contact');
+    }
+
+    public function maintenance()
+    {
+        return view('home.maintenance');
     }
 }

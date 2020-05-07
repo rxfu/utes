@@ -10,4 +10,11 @@ class SettingService extends Service
     {
         $this->repository = $settings;
     }
+
+    public function getSetting($name)
+    {
+        $value = $this->repository->item($name)->value;
+
+        return $value;
+    }
 }

@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/contact', 'HomeController@contact')->name('contact');
+    Route::get('/maintenance', 'HomeController@maintenance')->name('maintenance');
 
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/{user}/roles', 'UserController@grant')->name('grant');

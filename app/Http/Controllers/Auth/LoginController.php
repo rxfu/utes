@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\SettingService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -30,14 +31,18 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected $settingService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(SettingService $settingService)
     {
         $this->middleware('guest')->except('logout');
+
+        $this->settingService = $settingService;
     }
 
     /**
@@ -48,6 +53,20 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        if ($this->settingService->getSetting('maintenance')) {
+            $this->warning(402001);
+        }
+
+        return view('auth.login');
     }
 
     /**
@@ -76,8 +95,13 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             $user = $request->user();
-            $user->last_login_at = Carbon::now();
-            $user->save();
+
+            if (!$user->is_super && $this->settingService->getSetting('maintenance')) {
+                return redirect()->route('maintenance');
+            } else {
+                $user->last_login_at = Carbon::now();
+                $user->save();
+            }
 
             return $this->sendLoginResponse($request);
         }
