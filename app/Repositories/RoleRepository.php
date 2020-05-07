@@ -18,7 +18,7 @@ class RoleRepository extends Repository
     public function permissions($roles)
     {
         $permissions = array_map(function ($role) {
-            $permissions = Cache::remember($role . '.permissions', 10, function () use ($role) {
+            $permissions = Cache::rememberForever($role . '.permissions', function () use ($role) {
                 return $this->model->whereSlug($role)->first()->permissions->pluck('slug')->toArray();
             });
 
@@ -32,6 +32,8 @@ class RoleRepository extends Repository
     {
         try {
             $role->permissions()->sync($permissions);
+
+            Cache::forget($role->slug . '.permissions');
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }

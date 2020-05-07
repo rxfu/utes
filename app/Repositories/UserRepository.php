@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Exceptions\InternalException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository extends Repository
 {
@@ -16,7 +18,7 @@ class UserRepository extends Repository
 
     public function roles($user)
     {
-        $roles = Cache::remember($user->username . '.roles', 10, function () use ($user) {
+        $roles = Cache::rememberForever($user->username . '.roles', function () use ($user) {
             return $user->roles->pluck('slug')->toArray();
         });
 
@@ -46,7 +48,44 @@ class UserRepository extends Repository
     {
         try {
             $user->roles()->sync($roles);
+
+            Cache::forget($user->username . '.roles');
         } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function super($id)
+    {
+        try {
+            $user = $this->find($id);
+
+            return $user->is_super;
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function logLoginTime($id)
+    {
+        try {
+            $data = [
+                'last_login_at' => Carbon::now(),
+            ];
+
+            return $this->update($id, $data);
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function active($username)
+    {
+        try {
+            $user = $this->model->whereUsername($username)->firstOrFail();
+
+            return $user->is_enable;
+        } catch (ModelNotFoundException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Services\SettingService;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Services\SettingService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -38,10 +39,11 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct(SettingService $settingService)
+    public function __construct(UserService $userService, SettingService $settingService)
     {
         $this->middleware('guest')->except('logout');
 
+        $this->service = $userService;
         $this->settingService = $settingService;
     }
 
@@ -96,11 +98,10 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             $user = $request->user();
 
-            if (!$user->is_super && $this->settingService->getSetting('maintenance')) {
+            if (!$this->service->isSuperAdmin($user) && $this->settingService->getSetting('maintenance')) {
                 return redirect()->route('maintenance');
             } else {
-                $user->last_login_at = Carbon::now();
-                $user->save();
+                $this->service->successLogin($user);
             }
 
             return $this->sendLoginResponse($request);
@@ -112,5 +113,25 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        if ($this->service->isDeactive($request->username)) {
+            $this->warning(401003);
+
+            return false;
+        }
+
+        return $this->guard()->attempt(
+            $this->credentials($request),
+            $request->filled('remember')
+        );
     }
 }

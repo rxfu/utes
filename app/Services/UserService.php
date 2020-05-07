@@ -78,4 +78,24 @@ class UserService extends Service
 
         return $user->roles->pluck('id')->toArray();
     }
+
+    public function isSuperAdmin($user)
+    {
+        return $this->repository->super($user->getKey());
+    }
+
+    public function successLogin($user)
+    {
+        $this->repository->logLoginTime($user->getKey());
+    }
+
+    public function isActive($username)
+    {
+        return $this->repository->active($username);
+    }
+
+    public function isDeactive($username)
+    {
+        return !$this->isActive($username);
+    }
 }
