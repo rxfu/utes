@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Exceptions\InternalException;
 use Illuminate\Support\Facades\Cache;
@@ -70,7 +69,7 @@ class UserRepository extends Repository
     {
         try {
             $data = [
-                'last_login_at' => Carbon::now(),
+                'last_login_at' => now(),
             ];
 
             return $this->update($id, $data);
