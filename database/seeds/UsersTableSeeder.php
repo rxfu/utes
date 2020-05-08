@@ -19,8 +19,5 @@ class UsersTableSeeder extends Seeder
             'name' => 'Administrator',
             'is_super' => true,
         ]);
-
-        $role = Role::whereSlug('admin')->firstOrFail();
-        $user->roles()->attach($role->id);
     }
 }

@@ -23,7 +23,7 @@ class UserRepository extends Repository
 
         return $roles;
     }
-
+    /* 
     public function authenticate($user, $permission)
     {
         if (empty($permission)) {
@@ -42,13 +42,24 @@ class UserRepository extends Repository
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
-
-    public function grant($user, $roles)
+ */
+    public function grantRole($user, $roles)
     {
         try {
             $user->roles()->sync($roles);
 
             Cache::forget($user->username . '.roles');
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function grantGroup($user, $groups)
+    {
+        try {
+            $user->groups()->sync($groups);
+
+            Cache::forget($user->username . '.groups');
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }

@@ -30,13 +30,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/maintenance', 'HomeController@maintenance')->name('maintenance');
 
     Route::prefix('users')->name('users.')->group(function () {
-        Route::get('/{user}/roles', 'UserController@grant')->name('grant');
-        Route::post('/{user}/roles', 'UserController@assign')->name('assign');
+        Route::get('/{user}/roles', 'UserController@showRoleForm')->name('role');
+        Route::post('/{user}/roles', 'UserController@assignRole');
+        Route::get('/{user}/groups', 'UserController@showGroupForm')->name('group');
+        Route::post('/{user}/groups', 'UserController@assignGroup');
     });
 
     Route::prefix('roles')->name('roles.')->group(function () {
-        Route::get('/{role}/roles', 'RoleController@grant')->name('grant');
-        Route::post('/{role}/roles', 'RoleController@assign')->name('assign');
+        Route::get('/{role}/permissions', 'RoleController@showPermissionForm')->name('permission');
+        Route::post('/{role}/permissions', 'RoleController@assignPermission');
     });
 
     Route::prefix('passwords')->name('passwords.')->group(function () {
@@ -46,12 +48,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/{password}', 'PasswordController@update')->name('update');
     });
 
+    Route::resource('logs', 'LogController')->only(['index', 'show']);
+    Route::resource('settings', 'SettingController');
     Route::resource('menus', 'MenuController');
     Route::resource('menuitems', 'MenuitemController');
-    Route::resource('logs', 'LogController')->only(['index', 'show']);
     Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
     Route::resource('permissions', 'PermissionController');
-    Route::resource('settings', 'SettingController');
+    Route::resource('groups', 'GroupController');
     // route_here
 });

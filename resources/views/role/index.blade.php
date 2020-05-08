@@ -25,6 +25,7 @@
 							<th>{{ __('role.slug') }}</th>
 							<th>{{ __('role.name') }}</th>
 							<th>{{ __('role.parent_id') }}</th>
+							<th>{{ __('role.by_group') }}</th>
 							<th>{{ __('role.permission') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
@@ -36,6 +37,7 @@
 								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
                                 <td>{{ optional($item->parent)->name }}</td>
+								<td>{{ $item->present()->byGroup }}</td>
                                 <td>{{ $item->present()->hasPermissions }}</td>
                                 <td>
                                     @can('view', $item)
@@ -53,12 +55,10 @@
                                             <i class="fas fa-trash"></i> {{ __('Delete') }}
                                         </a>
                                     @endcan
-                                    @can('grant', $item)
-                                        @if (Auth::user()->is_super)
-                                            <a href="{{ route('roles.grant', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Permission') }}">
-                                                <i class="fa fa-key"></i> {{ __('Grant Permission') }}
-                                            </a>
-                                        @endif
+                                    @can('permission', $item)
+                                        <a href="{{ route('roles.permission', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Permission') }}">
+                                            <i class="fa fa-key"></i> {{ __('Grant Permission') }}
+                                        </a>
                                     @endcan
                                 </td>
                             </tr>
@@ -70,18 +70,21 @@
 							<th>{{ __('role.slug') }}</th>
 							<th>{{ __('role.name') }}</th>
 							<th>{{ __('role.parent_id') }}</th>
+							<th>{{ __('role.by_group') }}</th>
 							<th>{{ __('role.permission') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
-            @can('delete', $items[0])
-                <form id="delete-form" method="post" style="display: none;">
-                    @csrf
-                    @method('delete')
-                </form>
-            @endcan
+            @isset($items[0])
+                @can('delete', $items[0])
+                    <form id="delete-form" method="post" style="display: none;">
+                        @csrf
+                        @method('delete')
+                    </form>
+                @endcan
+            @endisset
         </div>
     </div>
 </div>

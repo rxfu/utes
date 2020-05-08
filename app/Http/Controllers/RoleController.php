@@ -139,9 +139,9 @@ class RoleController extends Controller
      * @param  Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function grant(Role $role)
+    public function showPermissionForm(Role $role)
     {
-        $this->authorize('grant', $role);
+        $this->authorize('permission', $role);
 
         $item = $this->service->get($role);
         $grantedPermissions = $this->service->getGrantedPermissions($role);
@@ -156,9 +156,9 @@ class RoleController extends Controller
      * @param  Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function assign(Request $request, Role $role)
+    public function assignPermission(Request $request, Role $role)
     {
-        $this->authorize('grant', $role);
+        $this->authorize('permission', $role);
 
         if ($request->isMethod('post')) {
 

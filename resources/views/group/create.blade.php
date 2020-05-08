@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('title', __('Create') . __('role.module'))
+@section('title', __('Create') . __('group.module'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Create') . __('role.module') }}</h3>
+                <h3 class="card-title">{{ __('Create') . __('group.module') }}</h3>
             </div>
 
-		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route('roles.store') }}">
+		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route('groups.store') }}">
                 @csrf
                 <div class="card-body">
                     
                     <div class="form-group row">
-                        <label for="slug" class="col-sm-3 col-form-label text-right">{{ __('role.slug') }}</label>
+                        <label for="slug" class="col-sm-3 col-form-label text-right">{{ __('group.slug') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="slug" placeholder="{{ __('role.slug') }}" value="{{ old('slug') }}">
+                            <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="slug" placeholder="{{ __('group.slug') }}" value="{{ old('slug') }}">
                             @if ($errors->has('slug'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('slug') }}</strong>
@@ -27,9 +27,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('role.name') }}</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('group.name') }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('role.name') }}" value="{{ old('name') }}">
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('group.name') }}" value="{{ old('name') }}">
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -39,12 +39,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('role.parent_id') }}</label>
+                        <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('group.parent_id') }}</label>
                         <div class="col-sm-9">
-                            @inject('roles', 'App\Services\RoleService')
+                            @inject('groups', 'App\Services\GroupService')
 							<select name="parent_id" id="parent_id" class="form-control select2 select2-success{{ $errors->has('parent_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
                                 <option value="">无</option>
-                                @foreach ($roles->getAll() as $collection)
+                                @foreach ($groups->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>
@@ -57,28 +57,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="by_group" class="col-sm-3 col-form-label text-right">{{ __('role.by_group') }}</label>
+                        <label for="description" class="col-sm-3 col-form-label text-right">{{ __('group.description') }}</label>
                         <div class="col-sm-9">
-                            <div class="icheck-success icheck-inline">
-                                <input type="radio" name="by_group" id="by_group1" class="form-check-input{{ $errors->has('by_group') ? ' is-invalid' : '' }}" value="1" checked>
-                                <label class="form-check-label" for="by_group1">是</label>
-                            </div>
-                            <div class="icheck-success icheck-inline">
-                                <input type="radio" name="by_group" id="by_group0" class="form-check-input{{ $errors->has('by_group') ? ' is-invalid' : '' }}" value="0">
-                                <label class="form-check-label" for="by_group0">否</label>
-                            </div>
-                            @if ($errors->has('by_group'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('by_group') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-3 col-form-label text-right">{{ __('role.description') }}</label>
-                        <div class="col-sm-9">
-                            <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('role.description') }}">{{ old('description') }}</textarea>
+                            <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" rows="5" placeholder="{{ __('group.description') }}">{{ old('description') }}</textarea>
                             @if ($errors->has('description'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('description') }}</strong>

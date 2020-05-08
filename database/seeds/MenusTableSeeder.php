@@ -27,13 +27,13 @@ class MenusTableSeeder extends Seeder
         $menu = Menu::find(2);
         $menu->items()->createMany([
             [
-                'slug' => 'item1',
+                'slug' => 'home',
                 'name' => '使用说明',
                 'route' => 'home',
                 'order' => 1,
             ],
             [
-                'slug' => 'item2',
+                'slug' => 'contact',
                 'name' => '联系我们',
                 'route' => 'contact',
                 'order' => 2,
@@ -43,21 +43,21 @@ class MenusTableSeeder extends Seeder
         $menu = Menu::find(1);
         $menu->items()->createMany([
             [
-                'slug' => 'item3',
+                'slug' => 'dashboard',
                 'name' => '仪表盘',
                 'route' => 'home',
                 'icon' => 'tachometer-alt',
                 'order' => 3,
             ],
             [
-                'slug' => 'item4',
+                'slug' => 'menu-manage',
                 'name' => '菜单管理',
                 'icon' => 'sitemap',
                 'is_system' => true,
                 'order' => 4,
             ],
             [
-                'slug' => 'item5',
+                'slug' => 'menu',
                 'name' => '菜单管理',
                 'route' => 'menus.index',
                 'parent_id' => 4,
@@ -65,7 +65,7 @@ class MenusTableSeeder extends Seeder
                 'order' => 5,
             ],
             [
-                'slug' => 'item6',
+                'slug' => 'menuitem',
                 'name' => '菜单项管理',
                 'route' => 'menuitems.index',
                 'parent_id' => 4,
@@ -73,14 +73,14 @@ class MenusTableSeeder extends Seeder
                 'order' => 6,
             ],
             [
-                'slug' => 'item7',
+                'slug' => 'user-manage',
                 'name' => '用户管理',
                 'icon' => 'users',
                 'is_system' => true,
                 'order' => 7,
             ],
             [
-                'slug' => 'item8',
+                'slug' => 'user',
                 'name' => '用户管理',
                 'route' => 'users.index',
                 'parent_id' => 7,
@@ -88,7 +88,7 @@ class MenusTableSeeder extends Seeder
                 'order' => 8,
             ],
             [
-                'slug' => 'item9',
+                'slug' => 'role',
                 'name' => '角色管理',
                 'route' => 'roles.index',
                 'parent_id' => 7,
@@ -96,7 +96,7 @@ class MenusTableSeeder extends Seeder
                 'order' => 9,
             ],
             [
-                'slug' => 'item10',
+                'slug' => 'permission',
                 'name' => '权限管理',
                 'route' => 'permissions.index',
                 'parent_id' => 7,
@@ -104,35 +104,43 @@ class MenusTableSeeder extends Seeder
                 'order' => 10,
             ],
             [
-                'slug' => 'item11',
-                'name' => '系统管理',
-                'icon' => 'cogs',
+                'slug' => 'group',
+                'name' => '组管理',
+                'route' => 'groups.index',
+                'parent_id' => 7,
                 'is_system' => true,
                 'order' => 11,
             ],
             [
-                'slug' => 'item12',
-                'name' => '修改密码',
-                'route' => 'passwords.change',
-                'parent_id' => 11,
+                'slug' => 'system-manage',
+                'name' => '系统管理',
+                'icon' => 'cogs',
                 'is_system' => true,
                 'order' => 12,
             ],
             [
-                'slug' => 'item13',
-                'name' => '日志查询',
-                'route' => 'logs.index',
-                'parent_id' => 11,
+                'slug' => 'password-change',
+                'name' => '修改密码',
+                'route' => 'passwords.change',
+                'parent_id' => 12,
                 'is_system' => true,
                 'order' => 13,
             ],
             [
-                'slug' => 'item14',
+                'slug' => 'setting',
                 'name' => '系统设置',
                 'route' => 'settings.index',
-                'parent_id' => 11,
+                'parent_id' => 12,
                 'is_system' => true,
                 'order' => 14,
+            ],
+            [
+                'slug' => 'log',
+                'name' => '日志查询',
+                'route' => 'logs.index',
+                'parent_id' => 12,
+                'is_system' => true,
+                'order' => 15,
             ],
         ]);
     }

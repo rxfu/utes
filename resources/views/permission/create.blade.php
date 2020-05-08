@@ -63,25 +63,6 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="by_group" class="col-sm-3 col-form-label text-right">{{ __('permission.by_group') }}</label>
-                        <div class="col-sm-9">
-                            <div class="icheck-success icheck-inline">
-                                <input type="radio" name="by_group" id="by_group1" class="form-check-input{{ $errors->has('by_group') ? ' is-invalid' : '' }}" value="1" checked>
-                                <label class="form-check-label" for="by_group1">是</label>
-                            </div>
-                            <div class="icheck-success icheck-inline">
-                                <input type="radio" name="by_group" id="by_group0" class="form-check-input{{ $errors->has('by_group') ? ' is-invalid' : '' }}" value="0">
-                                <label class="form-check-label" for="by_group0">否</label>
-                            </div>
-                            @if ($errors->has('by_group'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('by_group') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('permission.parent_id') }}</label>
                         <div class="col-sm-9">
                             @inject('permissions', 'App\Services\PermissionService')

@@ -25,6 +25,7 @@
 							<th>{{ __('user.username') }}</th>
 							<th>{{ __('user.name') }}</th>
 							<th>{{ __('user.role') }}</th>
+							<th>{{ __('user.group') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>
@@ -39,6 +40,7 @@
 								<td>{{ $item->username }}</td>
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->present()->hasRoles }}</td>
+								<td>{{ $item->present()->hasGroups }}</td>
 								<td>{{ $item->email }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
 								<td>{{ $item->present()->isSuper }}</td>
@@ -63,16 +65,19 @@
                                     @endunless
                                     @can('reset', $item)
                                         <a href="{{ route('passwords.reset', $item) }}" class="btn btn-secondary btn-sm reset" title="{{ __('Reset Password') }}" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Reset Password') }}">
-                                            <i class="fas fa-key"></i> {{ __('Reset Password') }}
+                                            <i class="fas fa-unlock"></i> {{ __('Reset Password') }}
                                         </a>
                                     @endcan
-                                    @if (Auth::user()->is_super)
-                                        @can('grant', $item)
-                                            <a href="{{ route('users.grant', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
-                                                <i class="fa fa-key"></i> {{ __('Grant Role') }}
-                                            </a>
-                                        @endcan
-                                    @endif
+                                    @can('role', $item)
+                                        <a href="{{ route('users.role', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
+                                            <i class="fa fa-user-tag"></i> {{ __('Grant Role') }}
+                                        </a>
+                                    @endcan
+                                    @can('group', $item)
+                                        <a href="{{ route('users.group', $item->getKey()) }}" class="btn btn-success btn-sm" title="{{ __('Grant Group') }}">
+                                            <i class="fa fa-user-friends"></i> {{ __('Grant Group') }}
+                                        </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -83,6 +88,7 @@
 							<th>{{ __('user.username') }}</th>
 							<th>{{ __('user.name') }}</th>
 							<th>{{ __('user.role') }}</th>
+							<th>{{ __('user.group') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>
@@ -92,14 +98,14 @@
                     </tfoot>
                 </table>
             </div>
-            @unless ($items[0]->is_super)
+            @isset($items[0])
                 @can('delete', $items[0])
                     <form id="delete-form" method="post" style="display: none;">
                         @csrf
                         @method('delete')
                     </form>
                 @endcan
-            @endunless
+            @endisset
         </div>
     </div>
 </div>

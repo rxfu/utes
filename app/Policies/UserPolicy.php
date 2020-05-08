@@ -29,13 +29,24 @@ class UserPolicy extends ModelPolicy
     }
 
     /**
-     * Determine whether the user can grant role.
+     * Determine whether the user can assign role.
      *
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function grant(User $user)
+    public function role(User $user)
     {
-        return $this->service->hasPermission($user, 'role-grant');
+        return $this->service->hasPermission($user, 'role-assign');
+    }
+
+    /**
+     * Determine whether the user can assign group.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function group(User $user)
+    {
+        return $this->service->hasPermission($user, 'group-assign');
     }
 }

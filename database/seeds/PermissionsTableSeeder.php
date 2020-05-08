@@ -27,7 +27,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $modules = [
-            'user', 'menu', 'menuitem', 'log', 'role', 'permission', 'setting',
+            'user', 'menu', 'menuitem', 'log', 'role', 'permission', 'group', 'setting',
         ];
 
         $actions = [
@@ -60,17 +60,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'slug' => 'role-grant',
+            'slug' => 'role-assign',
             'name' => '分配角色',
-            'action' => 'grant',
+            'action' => 'assignRole',
             'model' => 'user',
         ]);
 
         Permission::create([
-            'slug' => 'permission-grant',
+            'slug' => 'permission-assign',
             'name' => '分配权限',
-            'action' => 'grant',
+            'action' => 'assignPermission',
             'model' => 'role',
+        ]);
+
+        Permission::create([
+            'slug' => 'group-assign',
+            'name' => '分配组',
+            'action' => 'assignGroup',
+            'model' => 'user',
         ]);
     }
 }

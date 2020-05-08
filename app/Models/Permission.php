@@ -17,7 +17,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'name', 'model', 'action', 'by_group', 'parent_id', 'description',
+        'slug', 'name', 'model', 'action', 'parent_id', 'description',
     ];
 
     public function roles()

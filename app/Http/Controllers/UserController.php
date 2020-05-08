@@ -139,9 +139,9 @@ class UserController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function grant(User $user)
+    public function showRoleForm(User $user)
     {
-        $this->authorize('grant', $user);
+        $this->authorize('role', $user);
 
         $item = $this->service->get($user);
         $grantedRoles = $this->service->getGrantedRoles($item);
@@ -156,13 +156,52 @@ class UserController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function assign(Request $request, User $user)
+    public function assignRole(Request $request, User $user)
     {
-        $this->authorize('grant', $user);
+        $this->authorize('role', $user);
 
         if ($request->isMethod('post')) {
 
             $this->service->assignRole($user, $request->roles);
+
+            return redirect()->route('users.index');
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+
+    /**
+     * Show the form for granting the specified resource.
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function showGroupForm(User $user)
+    {
+        $this->authorize('group', $user);
+
+        $item = $this->service->get($user);
+        $grantedGroups = $this->service->getGrantedGroups($item);
+
+        return view('user.group', compact('item', 'grantedGroups'));
+    }
+
+    /**
+     * Grant the specified role in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function assignGroup(Request $request, User $user)
+    {
+        $this->authorize('group', $user);
+
+        if ($request->isMethod('post')) {
+
+            $this->service->assignGroup($user, $request->groups);
 
             return redirect()->route('users.index');
         }

@@ -10,7 +10,7 @@
                 <h3 class="card-title">{{ __('Grant Role') }}: {{ $item->getKey() }}</h3>
             </div>
 
-		    <form role="form" id="grant-form" name="grant-form" method="post" action="{{ route('users.assign', $item->getKey()) }}">
+		    <form role="form" id="grant-form" name="grant-form" method="post" action="{{ route('users.role', $item->getKey()) }}">
                 @csrf
                 <div class="card-body">
                     

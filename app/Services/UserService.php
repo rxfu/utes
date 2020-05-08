@@ -59,6 +59,10 @@ class UserService extends Service
 
     public function hasPermission($user, $permission)
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         $roles = $this->repository->roles($user);
         $permissions = $this->roles->permissions($roles);
 
@@ -69,7 +73,7 @@ class UserService extends Service
     {
         $user = $this->repository->find($user->getKey());
 
-        $this->repository->grant($user, $roles);
+        $this->repository->grantRole($user, $roles);
     }
 
     public function getGrantedRoles($user)
@@ -77,6 +81,20 @@ class UserService extends Service
         $user = $this->repository->find($user->getKey());
 
         return $user->roles->pluck('id')->toArray();
+    }
+
+    public function assignGroup($user, $groups)
+    {
+        $user = $this->repository->find($user->getKey());
+
+        $this->repository->grantGroup($user, $groups);
+    }
+
+    public function getGrantedGroups($user)
+    {
+        $user = $this->repository->find($user->getKey());
+
+        return $user->groups->pluck('id')->toArray();
     }
 
     public function isSuperAdmin($user)

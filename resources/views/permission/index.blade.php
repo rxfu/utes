@@ -24,7 +24,6 @@
                             <th>{{ __('permission.id') }}</th>
 							<th>{{ __('permission.slug') }}</th>
 							<th>{{ __('permission.name') }}</th>
-							<th>{{ __('permission.by_group') }}</th>
 							<th>{{ __('permission.parent_id') }}</th>
 							<th>{{ __('permission.role') }}</th>
                             <th>{{ __('Action') }}</th>
@@ -36,7 +35,6 @@
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
-								<td>{{ $item->present()->byGroup }}</td>
                                 <td>{{ optional($item->parent)->name }}</td>
                                 <td>{{ $item->present()->hasRoles }}</td>
                                 <td>
@@ -64,7 +62,6 @@
                             <th>{{ __('permission.id') }}</th>
 							<th>{{ __('permission.slug') }}</th>
 							<th>{{ __('permission.name') }}</th>
-							<th>{{ __('permission.by_group') }}</th>
 							<th>{{ __('permission.parent_id') }}</th>
 							<th>{{ __('permission.role') }}</th>
                             <th>{{ __('Action') }}</th>
@@ -72,12 +69,14 @@
                     </tfoot>
                 </table>
             </div>
-            @can('delete', $items[0])
-                <form id="delete-form" method="post" style="display: none;">
-                    @csrf
-                    @method('delete')
-                </form>
-            @endcan
+            @isset($items[0])
+                @can('delete', $items[0])
+                    <form id="delete-form" method="post" style="display: none;">
+                        @csrf
+                        @method('delete')
+                    </form>
+                @endcan
+            @endisset
         </div>
     </div>
 </div>

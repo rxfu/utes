@@ -15,4 +15,5 @@ return [
 	'password' => '新密码',
 	'password_confirmation' => '确认密码',
 	'role' => '所属角色',
+	'group' => '所属组',
 ];

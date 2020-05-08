@@ -7,7 +7,6 @@ return [
 	'name' => '名称',
 	'model' => '模型',
 	'action' => '动作',
-	'by_group' => '按分组',
 	'parent_id' => '父权限',
 	'description' => '描述',
 	'role' => '所属角色',

@@ -41,6 +41,13 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="by_group" class="col-sm-3 col-form-label text-right">{{ __('role.by_group') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="by_group" id="by_group" value="{{ $item->present()->byGroup }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="description" class="col-sm-3 col-form-label text-right">{{ __('role.description') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="description" id="description" value="{{ $item->description }}" readonly>

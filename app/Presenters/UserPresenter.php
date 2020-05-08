@@ -26,4 +26,15 @@ class UserPresenter extends Presenter
 
         return implode(',', $roles);
     }
+
+    public function hasGroups()
+    {
+        $groups = [];
+
+        foreach ($this->groups as $group) {
+            $groups[] = $group->name;
+        }
+
+        return implode(',', $groups);
+    }
 }
