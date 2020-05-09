@@ -12,6 +12,7 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        /* 
         Permission::create([
             'slug' => 'home',
             'name' => '首页',
@@ -79,5 +80,27 @@ class PermissionsTableSeeder extends Seeder
             'action' => 'assignGroup',
             'model' => 'user',
         ]);
+        */
+
+        foreach (config('setting.permissions') as $model => $actions) {
+            if (is_array($actions)) {
+                foreach ($actions as $action) {
+                    var_dump(__($action));
+                    Permission::create([
+                        'slug' => $model . '-' . $action,
+                        'name' => __($action) . __($model . '.module'),
+                        'action' => $action,
+                        'model' => $model,
+                    ]);
+                }
+            } else {
+                Permission::create([
+                    'slug' => $actions,
+                    'name' => __($actions),
+                    'action' => $actions,
+                    'model' => 'home',
+                ]);
+            }
+        }
     }
 }

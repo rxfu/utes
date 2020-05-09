@@ -29,8 +29,8 @@ return [
         402001 => '系统已关闭',
         403001 => '重置密码失败',
         403002 => '修改密码失败',
-        403003 => '旧密码错误，请重新输入',
-        403004 => '确认密码与新密码不一致，请重新输入',
+        403003 => '旧密码错误, 请重新输入',
+        403004 => '确认密码与新密码不一致, 请重新输入',
         405001 => '提交方法错误',
 
         500001 => '对象创建失败',
@@ -39,5 +39,35 @@ return [
         500004 => '对象不存在',
         500005 => '角色分配失败',
         500006 => '权限分配失败',
-    ]
+    ],
+
+    // 权限设置
+    'permissions' => [
+        'home',
+        'contact',
+        'user' => [
+            'index', 'create', 'edit', 'show', 'delete', 'change', 'reset', 'role', 'group',
+        ],
+        'role' => [
+            'index', 'create', 'edit', 'show', 'delete', 'permission',
+        ],
+        'permission' => [
+            'index', 'create', 'edit', 'show', 'delete',
+        ],
+        'group' => [
+            'index', 'create', 'edit', 'show', 'delete',
+        ],
+        'menu' => [
+            'index', 'create', 'edit', 'show', 'delete',
+        ],
+        'menuitem' => [
+            'index', 'create', 'edit', 'show', 'delete',
+        ],
+        'log' => [
+            'index', 'show',
+        ],
+        'setting' => [
+            'index', 'create', 'edit', 'show', 'delete',
+        ],
+    ],
 ];
