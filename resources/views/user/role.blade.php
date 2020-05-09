@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Assign Role') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Assign Role') }}: {{ $item->username }}</h3>
             </div>
 
 		    <form role="form" id="assign-form" name="assign-form" method="post" action="{{ route('users.role', $item->getKey()) }}">
