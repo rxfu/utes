@@ -34,6 +34,20 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="role" class="col-sm-3 col-form-label text-right">{{ __('user.role') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="role" id="role" value="{{ $item->present()->allRoles }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="group" class="col-sm-3 col-form-label text-right">{{ __('user.group') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="group" id="group" value="{{ $item->present()->allGroups }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="email" id="email" value="{{ $item->email }}" readonly>

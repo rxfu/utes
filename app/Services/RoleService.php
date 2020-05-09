@@ -20,10 +20,10 @@ class RoleService extends Service
     {
         $role = $this->repository->find($role->getKey());
 
-        $this->repository->grant($role, $permissions);
+        $this->repository->assign($role, $permissions);
     }
 
-    public function getGrantedPermissions($role)
+    public function getAssignedPermissions($role)
     {
         $role = $this->repository->find($role->getKey());
 

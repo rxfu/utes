@@ -1,4 +1,6 @@
 {
+    "Navigation": "导航",
+    "navigation": "导航",
     "Home": "首页",
     "home": "首页",
     "Contact": "联系我们",
@@ -36,9 +38,14 @@
     "Export": "导出",
     "export": "导出",
     "Change Password": "修改密码",
+    "changePassword": "修改密码",
     "Reset Password": "重置密码",
+    "resetPassword": "重置密码",
     "Remember me": "记住我",
-    "Grant Group": "分配组",
-    "Grant Role": "分配角色",
-    "Grant Permission": "分配权限"
+    "Assign Group": "分配组",
+    "assignGroup": "分配组",
+    "Assign Role": "分配角色",
+    "assignRole": "分配角色",
+    "Assign Permission": "分配权限",
+    "assignPermission": "分配权限"
 }

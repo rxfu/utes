@@ -134,7 +134,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for granting the specified resource.
+     * Show the form for assigning the specified resource.
      *
      * @param  User  $user
      * @return \Illuminate\Http\Response
@@ -144,13 +144,13 @@ class UserController extends Controller
         $this->authorize('role', $user);
 
         $item = $this->service->get($user);
-        $grantedRoles = $this->service->getGrantedRoles($item);
+        $assignedRoles = $this->service->getAssignedRoles($item);
 
-        return view('user.role', compact('item', 'grantedRoles'));
+        return view('user.role', compact('item', 'assignedRoles'));
     }
 
     /**
-     * Grant the specified role in storage.
+     * Assign the specified role in storage.
      *
      * @param  Illuminate\Http\Request  $request
      * @param  User  $user
@@ -173,7 +173,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for granting the specified resource.
+     * Show the form for assigning the specified resource.
      *
      * @param  User  $user
      * @return \Illuminate\Http\Response
@@ -183,13 +183,13 @@ class UserController extends Controller
         $this->authorize('group', $user);
 
         $item = $this->service->get($user);
-        $grantedGroups = $this->service->getGrantedGroups($item);
+        $assignedGroups = $this->service->getAssignedGroups($item);
 
-        return view('user.group', compact('item', 'grantedGroups'));
+        return view('user.group', compact('item', 'assignedGroups'));
     }
 
     /**
-     * Grant the specified role in storage.
+     * Assign the specified role in storage.
      *
      * @param  Illuminate\Http\Request  $request
      * @param  User  $user

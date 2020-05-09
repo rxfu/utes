@@ -38,7 +38,7 @@
 								<td>{{ $item->name }}</td>
                                 <td>{{ optional($item->parent)->name }}</td>
 								<td>{{ $item->present()->byGroup }}</td>
-                                <td>{{ $item->present()->hasPermissions }}</td>
+                                <td>{{ $item->present()->allPermissions }}</td>
                                 <td>
                                     @can('view', $item)
                                         <a href="{{ route('roles.show', $item) }}" class="btn btn-primary btn-sm" title="{{ __('Show') }}">
@@ -56,8 +56,8 @@
                                         </a>
                                     @endcan
                                     @can('permission', $item)
-                                        <a href="{{ route('roles.permission', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Permission') }}">
-                                            <i class="fa fa-key"></i> {{ __('Grant Permission') }}
+                                        <a href="{{ route('roles.permission', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Assign Permission') }}">
+                                            <i class="fa fa-key"></i> {{ __('Assign Permission') }}
                                         </a>
                                     @endcan
                                 </td>

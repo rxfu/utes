@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', __('Grant Role'))
+@section('title', __('Assign Role'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Grant Role') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Assign Role') }}: {{ $item->getKey() }}</h3>
             </div>
 
-		    <form role="form" id="grant-form" name="grant-form" method="post" action="{{ route('users.role', $item->getKey()) }}">
+		    <form role="form" id="assign-form" name="assign-form" method="post" action="{{ route('users.role', $item->getKey()) }}">
                 @csrf
                 <div class="card-body">
                     
@@ -20,7 +20,7 @@
                             @inject('roles', 'App\Services\RoleService')
                             @foreach ($roles->getAll() as $item)
                                 <div class="icheck-warning icheck-inline">
-                                    <input type="checkbox" name="roles[]" id="role{{ $loop->index }}" class="form-check-input{{ $errors->has('roles[]') ? ' is-invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $grantedRoles) ? ' checked' : '' }}>
+                                    <input type="checkbox" name="roles[]" id="role{{ $loop->index }}" class="form-check-input{{ $errors->has('roles[]') ? ' is-invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $assignedRoles) ? ' checked' : '' }}>
                                     <label class="form-check-label" for="role{{ $loop->index }}">{{ $item->name }}</label>
                                 </div>
                             @endforeach

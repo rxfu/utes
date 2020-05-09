@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', __('Grant Group'))
+@section('title', __('Assign Group'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Grant Group') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Assign Group') }}: {{ $item->getKey() }}</h3>
             </div>
 
-		    <form role="form" id="grant-form" name="grant-form" method="post" action="{{ route('users.group', $item->getKey()) }}">
+		    <form role="form" id="assign-form" name="assign-form" method="post" action="{{ route('users.group', $item->getKey()) }}">
                 @csrf
                 <div class="card-body">
                     
@@ -20,7 +20,7 @@
                             @inject('groups', 'App\Services\GroupService')
                             @foreach ($groups->getAll() as $item)
                                 <div class="icheck-success icheck-inline">
-                                    <input type="checkbox" name="groups[]" id="group{{ $loop->index }}" class="form-check-input{{ $errors->has('groups[]') ? ' is-invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $grantedGroups) ? ' checked' : '' }}>
+                                    <input type="checkbox" name="groups[]" id="group{{ $loop->index }}" class="form-check-input{{ $errors->has('groups[]') ? ' is-invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $assignedGroups) ? ' checked' : '' }}>
                                     <label class="form-check-label" for="group{{ $loop->index }}">{{ $item->name }}</label>
                                 </div>
                             @endforeach

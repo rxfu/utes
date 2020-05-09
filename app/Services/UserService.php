@@ -73,10 +73,10 @@ class UserService extends Service
     {
         $user = $this->repository->find($user->getKey());
 
-        $this->repository->grantRole($user, $roles);
+        $this->repository->assignRole($user, $roles);
     }
 
-    public function getGrantedRoles($user)
+    public function getAssignedRoles($user)
     {
         $user = $this->repository->find($user->getKey());
 
@@ -87,10 +87,10 @@ class UserService extends Service
     {
         $user = $this->repository->find($user->getKey());
 
-        $this->repository->grantGroup($user, $groups);
+        $this->repository->assignGroup($user, $groups);
     }
 
-    public function getGrantedGroups($user)
+    public function getAssignedGroups($user)
     {
         $user = $this->repository->find($user->getKey());
 

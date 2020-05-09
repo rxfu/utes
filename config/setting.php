@@ -40,34 +40,4 @@ return [
         500005 => '角色分配失败',
         500006 => '权限分配失败',
     ],
-
-    // 权限设置
-    'permissions' => [
-        'home',
-        'contact',
-        'user' => [
-            'index', 'create', 'edit', 'show', 'delete', 'change', 'reset', 'role', 'group',
-        ],
-        'role' => [
-            'index', 'create', 'edit', 'show', 'delete', 'permission',
-        ],
-        'permission' => [
-            'index', 'create', 'edit', 'show', 'delete',
-        ],
-        'group' => [
-            'index', 'create', 'edit', 'show', 'delete',
-        ],
-        'menu' => [
-            'index', 'create', 'edit', 'show', 'delete',
-        ],
-        'menuitem' => [
-            'index', 'create', 'edit', 'show', 'delete',
-        ],
-        'log' => [
-            'index', 'show',
-        ],
-        'setting' => [
-            'index', 'create', 'edit', 'show', 'delete',
-        ],
-    ],
 ];

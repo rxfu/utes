@@ -46,6 +46,13 @@
                         <input type="text" class="form-control-plaintext" name="by_group" id="by_group" value="{{ $item->present()->byGroup }}" readonly>
                     </div>
                 </div>
+                
+                <div class="form-group row">
+                    <label for="permission" class="col-sm-3 col-form-label text-right">{{ __('role.permission') }}</label>
+                    <div class="col-sm-9">
+                        <div class="form-control-plaintext">{{ $item->present()->allPermissions }}</div>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label for="description" class="col-sm-3 col-form-label text-right">{{ __('role.description') }}</label>

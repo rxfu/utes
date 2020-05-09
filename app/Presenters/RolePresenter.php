@@ -11,7 +11,7 @@ class RolePresenter extends Presenter
         return $this->by_group ? '是' : '否';
     }
 
-    public function hasPermissions()
+    public function allPermissions()
     {
         $permissions = [];
 

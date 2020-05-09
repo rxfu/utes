@@ -43,7 +43,7 @@ class UserRepository extends Repository
         }
     }
  */
-    public function grantRole($user, $roles)
+    public function assignRole($user, $roles)
     {
         try {
             $user->roles()->sync($roles);
@@ -54,7 +54,7 @@ class UserRepository extends Repository
         }
     }
 
-    public function grantGroup($user, $groups)
+    public function assignGroup($user, $groups)
     {
         try {
             $user->groups()->sync($groups);

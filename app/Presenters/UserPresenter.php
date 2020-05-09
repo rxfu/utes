@@ -16,7 +16,7 @@ class UserPresenter extends Presenter
         return $this->is_super ? '是' : '否';
     }
 
-    public function hasRoles()
+    public function allRoles()
     {
         $roles = [];
 
@@ -27,7 +27,7 @@ class UserPresenter extends Presenter
         return implode(',', $roles);
     }
 
-    public function hasGroups()
+    public function allGroups()
     {
         $groups = [];
 

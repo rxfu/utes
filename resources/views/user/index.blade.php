@@ -39,8 +39,8 @@
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->username }}</td>
 								<td>{{ $item->name }}</td>
-								<td>{{ $item->present()->hasRoles }}</td>
-								<td>{{ $item->present()->hasGroups }}</td>
+								<td>{{ $item->present()->allRoles }}</td>
+								<td>{{ $item->present()->allGroups }}</td>
 								<td>{{ $item->email }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
 								<td>{{ $item->present()->isSuper }}</td>
@@ -69,13 +69,13 @@
                                         </a>
                                     @endcan
                                     @can('role', $item)
-                                        <a href="{{ route('users.role', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Grant Role') }}">
-                                            <i class="fa fa-user-tag"></i> {{ __('Grant Role') }}
+                                        <a href="{{ route('users.role', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Assign Role') }}">
+                                            <i class="fa fa-user-tag"></i> {{ __('Assign Role') }}
                                         </a>
                                     @endcan
                                     @can('group', $item)
-                                        <a href="{{ route('users.group', $item->getKey()) }}" class="btn btn-success btn-sm" title="{{ __('Grant Group') }}">
-                                            <i class="fa fa-user-friends"></i> {{ __('Grant Group') }}
+                                        <a href="{{ route('users.group', $item->getKey()) }}" class="btn btn-success btn-sm" title="{{ __('Assign Group') }}">
+                                            <i class="fa fa-user-friends"></i> {{ __('Assign Group') }}
                                         </a>
                                     @endcan
                                 </td>

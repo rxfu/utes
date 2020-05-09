@@ -12,23 +12,36 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        /* 
         Permission::create([
             'slug' => 'home',
             'name' => '首页',
-            'action' => 'index',
-            'model' => 'home',
+            'action' => 'home',
+            'model' => 'navigation',
         ]);
 
         Permission::create([
             'slug' => 'contact',
             'name' => '联系我们',
             'action' => 'contact',
-            'model' => 'home',
+            'model' => 'navigation',
+        ]);
+
+        Permission::create([
+            'slug' => 'log-index',
+            'name' => '列出日志',
+            'action' => 'index',
+            'model' => 'log',
+        ]);
+
+        Permission::create([
+            'slug' => 'log-show',
+            'name' => '查看日志',
+            'action' => 'show',
+            'model' => 'log',
         ]);
 
         $modules = [
-            'user', 'menu', 'menuitem', 'log', 'role', 'permission', 'group', 'setting',
+            'setting', 'menu', 'menuitem', 'group', 'role', 'permission', 'user',
         ];
 
         $actions = [
@@ -49,14 +62,21 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'slug' => 'password-change',
             'name' => '修改密码',
-            'action' => 'change',
+            'action' => 'changePassword',
             'model' => 'user',
         ]);
 
         Permission::create([
             'slug' => 'password-reset',
             'name' => '重置密码',
-            'action' => 'reset',
+            'action' => 'resetPassword',
+            'model' => 'user',
+        ]);
+
+        Permission::create([
+            'slug' => 'group-assign',
+            'name' => '分配组',
+            'action' => 'assignGroup',
             'model' => 'user',
         ]);
 
@@ -73,34 +93,5 @@ class PermissionsTableSeeder extends Seeder
             'action' => 'assignPermission',
             'model' => 'role',
         ]);
-
-        Permission::create([
-            'slug' => 'group-assign',
-            'name' => '分配组',
-            'action' => 'assignGroup',
-            'model' => 'user',
-        ]);
-        */
-
-        foreach (config('setting.permissions') as $model => $actions) {
-            if (is_array($actions)) {
-                foreach ($actions as $action) {
-                    var_dump(__($action));
-                    Permission::create([
-                        'slug' => $model . '-' . $action,
-                        'name' => __($action) . __($model . '.module'),
-                        'action' => $action,
-                        'model' => $model,
-                    ]);
-                }
-            } else {
-                Permission::create([
-                    'slug' => $actions,
-                    'name' => __($actions),
-                    'action' => $actions,
-                    'model' => 'home',
-                ]);
-            }
-        }
     }
 }

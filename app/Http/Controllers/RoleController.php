@@ -134,7 +134,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for granting the specified resource.
+     * Show the form for assigning the specified resource.
      *
      * @param  Role  $role
      * @return \Illuminate\Http\Response
@@ -144,13 +144,13 @@ class RoleController extends Controller
         $this->authorize('permission', $role);
 
         $item = $this->service->get($role);
-        $grantedPermissions = $this->service->getGrantedPermissions($role);
+        $assignedPermissions = $this->service->getAssignedPermissions($role);
 
-        return view('role.permission', compact('item', 'grantedPermissions'));
+        return view('role.permission', compact('item', 'assignedPermissions'));
     }
 
     /**
-     * Grant the specified permission in storage.
+     * Assign the specified permission in storage.
      *
      * @param  Illuminate\Http\Request  $request
      * @param  Role  $role

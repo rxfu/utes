@@ -28,7 +28,7 @@ class RoleRepository extends Repository
         return array_unique(Arr::flatten($permissions));
     }
 
-    public function grant($role, $permissions)
+    public function assign($role, $permissions)
     {
         try {
             $role->permissions()->sync($permissions);

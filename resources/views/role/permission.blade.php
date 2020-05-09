@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', __('Grant Permission'))
+@section('title', __('Assign Permission'))
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Grant Permission') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Assign Permission') }}: {{ $item->getKey() }}</h3>
             </div>
 
-		    <form role="form" id="grant-form" name="grant-form" method="post" action="{{ route('roles.permission', $item->getKey()) }}">
+		    <form role="form" id="assign-form" name="assign-form" method="post" action="{{ route('roles.permission', $item->getKey()) }}">
                 @csrf
                 <div class="card-body">
                     
@@ -20,7 +20,7 @@
                             @inject('permissions', 'App\Services\PermissionService')
                             @foreach ($permissions->getAll() as $item)
                                 <div class="icheck-warning icheck-inline">
-                                    <input type="checkbox" name="permissions[]" id="permission{{ $loop->index }}" class="form-check-input{{ $errors->has('permissions[]') ? ' is-invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $grantedPermissions) ? ' checked' : '' }}>
+                                    <input type="checkbox" name="permissions[]" id="permission{{ $loop->index }}" class="form-check-input{{ $errors->has('permissions[]') ? ' is-invalid' : '' }}" value="{{ $item->id }}"{{ in_array($item->id, $assignedPermissions) ? ' checked' : '' }}>
                                     <label class="form-check-label" for="permission{{ $loop->index }}">{{ $item->name }}</label>
                                 </div>
                             @endforeach
