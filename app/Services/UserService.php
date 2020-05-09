@@ -57,6 +57,17 @@ class UserService extends Service
         }
     }
 
+    public function hasGroup($user, $group)
+    {
+        if ($this->isSuperAdmin($user) || is_null($group)) {
+            return true;
+        }
+
+        $groups = $this->repository->groups($user);
+
+        return in_array($group, $groups);
+    }
+
     public function hasPermission($user, $permission)
     {
         if ($this->isSuperAdmin($user)) {

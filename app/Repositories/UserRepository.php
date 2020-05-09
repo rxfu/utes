@@ -15,6 +15,15 @@ class UserRepository extends Repository
         $this->model = $user;
     }
 
+    public function groups($user)
+    {
+        $groups = Cache::rememberForever($user->username . '.groups', function () use ($user) {
+            return $user->groups->pluck('id')->toArray();
+        });
+
+        return $groups;
+    }
+
     public function roles($user)
     {
         $roles = Cache::rememberForever($user->username . '.roles', function () use ($user) {

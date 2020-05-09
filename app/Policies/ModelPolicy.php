@@ -61,7 +61,7 @@ class ModelPolicy
      */
     public function view(User $user, Model $model)
     {
-        return $this->service->hasPermission($user, $this->getAction('show'));
+        return $this->service->hasGroup($user, $model->group_id) && $this->service->hasPermission($user, $this->getAction('show'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ModelPolicy
      */
     public function update(User $user, Model $model)
     {
-        return $this->service->hasPermission($user, $this->getAction('edit'));
+        return $this->service->hasGroup($user, $model->group_id) && $this->service->hasPermission($user, $this->getAction('edit'));
     }
 
     /**
@@ -96,7 +96,7 @@ class ModelPolicy
      */
     public function delete(User $user, Model $model)
     {
-        return $this->service->hasPermission($user, $this->getAction('delete'));
+        return $this->service->hasGroup($user, $model->group_id) && $this->service->hasPermission($user, $this->getAction('delete'));
     }
 
     /**
