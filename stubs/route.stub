@@ -1,0 +1,2 @@
+Route::resource('{{ collection }}', '{{ class }}');
+    // route_here

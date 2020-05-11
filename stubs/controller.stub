@@ -1,0 +1,135 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespaceStoreRequest }};
+use {{ namespaceUpdateRequest }};
+use {{ namespaceModel }};
+use {{ namespaceService }};
+use Illuminate\Http\Request;
+
+class {{ class }} extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @param \{{ namespaceService }}  ${{ serviceVariable }}
+     * @return void
+     */
+    public function __construct({{ service }} ${{ serviceVariable }})
+    {
+        $this->authorizeResource({{ model }}::class, '{{ object }}');
+
+        $this->service = ${{ serviceVariable }};
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $items = $this->service->getAll();
+
+        return view('{{ object }}.index', compact('items'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('{{ object }}.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \{{ namespaceStoreRequest }}  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store({{ storeRequest }} $request)
+    {
+        if ($request->isMethod('post')) {
+    
+            $item = $this->service->store($request->all());
+
+            return redirect()->route('{{ collection }}.show', $item);
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  {{ model }}  ${{ object }}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{ model }} ${{ object }})
+    {
+        $item = $this->service->get(${{ object }});
+
+        return view('{{ object }}.show', compact('item'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  {{ model }}  ${{ object }}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{ model }} ${{ object }})
+    {
+        $item = $this->service->get(${{ object }});
+
+        return view('{{ object }}.edit', compact('item'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \{{ namespaceUpdateRequest }}  $request
+     * @param  {{ model }}  ${{ object }}
+     * @return \Illuminate\Http\Response
+     */
+    public function update({{ updateRequest }} $request, {{ model }} ${{ object }})
+    {
+        if ($request->isMethod('put')) {
+    
+            $this->service->update(${{ object }}, $request->all());
+
+            return redirect()->route('{{ collection }}.show', ${{ object }});
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  {{ model }}  ${{ object }}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, {{ model }} ${{ object }})
+    {
+        if ($request->isMethod('delete')) {
+
+            $this->service->delete(${{ object }});
+
+            return redirect()->route('{{ collection }}.index');
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+}
