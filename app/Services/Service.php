@@ -2,9 +2,13 @@
 
 namespace App\Services;
 
+use App\Exceptions\InternalException;
+use App\Exceptions\InvalidRequestException;
 use App\Traits\Flash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Exceptions\LaravelExcelException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Service
 {
@@ -53,14 +57,28 @@ class Service
 
                 return compact('name', 'type', 'path');
             } else {
-                $this->error(500008);
-
-                return false;
+                throw new InvalidRequestException(500008, $this->repository->getModel(), __FUNCTION__);
             }
         }
 
-        $this->error(500007);
+        throw new InvalidRequestException(500007, $this->repository->getModel(), __FUNCTION__);
+    }
 
-        return false;
+    public function import($import, $file)
+    {
+        try {
+            Excel::import($import, $file);
+        } catch (LaravelExcelException $e) {
+            throw new InternalException($e, $this->repository->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function exportExcel($export, $file = 'untitle.xlsx')
+    {
+        try {
+            return Excel::download($export, $file);
+        } catch (LaravelExcelException $e) {
+            throw new InternalException($e, $this->repository->getModel(), __FUNCTION__);
+        }
     }
 }
