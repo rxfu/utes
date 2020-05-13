@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'base' => env('MIX_BASE_URL', '/'),
-    'name' => env('MIX_APP_NAME', 'Laradmin'),
-    'slug' => env('MIX_APP_SLUG', 'Laradmin'),
+    'base' => '/utes/',
+    'name' => '广西师范大学教师教学测评系统',
+    'slug' => '教学测评系统',
     'keywords' => 'Laravel, Bootstrap, Admin template',
     'description' => 'An admin boilerplate developed with Bootstrap and AdminLTE base on Laravel',
     'author' => 'Fu Rongxin',
     'powerby' => 'Fu Rongxin',
-    'copyright' => 'Laradmin Company',
+    'copyright' => '广西师范大学教师教学发展中心',
     'password' => '123456',
 
     // 状态代码,
