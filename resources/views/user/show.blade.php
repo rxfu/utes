@@ -48,6 +48,13 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="phone" class="col-sm-3 col-form-label text-right">{{ __('user.phone') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="phone" id="phone" value="{{ $item->phone }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="email" id="email" value="{{ $item->email }}" readonly>

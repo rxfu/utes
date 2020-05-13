@@ -64,6 +64,18 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="phone" class="col-sm-3 col-form-label text-right">{{ __('user.phone') }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" id="phone" placeholder="{{ __('user.phone') }}" value="{{ old('phone') }}">
+                            @if ($errors->has('phone'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('phone') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email') }}">

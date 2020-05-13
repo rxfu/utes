@@ -26,6 +26,7 @@
 							<th>{{ __('user.name') }}</th>
 							<th>{{ __('user.role') }}</th>
 							<th>{{ __('user.group') }}</th>
+							<th>{{ __('user.phone') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>
@@ -41,6 +42,7 @@
 								<td>{{ $item->name }}</td>
 								<td>{{ $item->present()->allRoles }}</td>
 								<td>{{ $item->present()->allGroups }}</td>
+								<td>{{ $item->phone }}</td>
 								<td>{{ $item->email }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
 								<td>{{ $item->present()->isSuper }}</td>
@@ -89,6 +91,7 @@
 							<th>{{ __('user.name') }}</th>
 							<th>{{ __('user.role') }}</th>
 							<th>{{ __('user.group') }}</th>
+							<th>{{ __('user.phone') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
 							<th>{{ __('user.is_super') }}</th>

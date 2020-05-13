@@ -4,7 +4,7 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /laradmin/
+    RewriteBase /utes/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
