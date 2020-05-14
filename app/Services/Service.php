@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\InternalException;
 use App\Exceptions\InvalidRequestException;
-use App\Traits\Flash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Exceptions\LaravelExcelException;
@@ -12,8 +11,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class Service
 {
-    use Flash;
-
     protected $repository;
 
     public function get($model)
@@ -53,8 +50,6 @@ class Service
             $path = $directory . '/' . date('Ymd') . '/' . $filename;
 
             if (Storage::disk('public')->put($path, $fileContents)) {
-                $this->success(200008);
-
                 return compact('name', 'type', 'path');
             } else {
                 throw new InvalidRequestException(500008, $this->repository->getModel(), __FUNCTION__);

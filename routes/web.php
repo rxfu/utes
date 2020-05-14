@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/{user}/roles', 'UserController@assignRole');
         Route::get('/{user}/groups', 'UserController@showGroupForm')->name('group');
         Route::post('/{user}/groups', 'UserController@assignGroup');
+        Route::get('/import', 'UserController@showImportForm')->name('import');
+        Route::post('/import', 'UserController@import');
     });
 
     Route::prefix('roles')->name('roles.')->group(function () {

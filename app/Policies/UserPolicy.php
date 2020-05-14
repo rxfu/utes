@@ -49,4 +49,15 @@ class UserPolicy extends ModelPolicy
     {
         return $this->service->hasPermission($user, 'group-assign');
     }
+
+    /**
+     * Determine whether the user can import users.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function import(User $user)
+    {
+        return $this->service->hasPermission($user, 'user-import');
+    }
 }

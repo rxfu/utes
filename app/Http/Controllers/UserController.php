@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Imports\UserImport;
+use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\User;
-use App\Services\UserService;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -202,6 +203,42 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
 
             $this->service->assignGroup($user, $request->groups);
+
+            return redirect()->route('users.index');
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+
+    /**
+     * Show the form for importing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showImportForm()
+    {
+        $this->authorize('import');
+
+        return view('user.import');
+    }
+
+    /**
+     * Import the specified users in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function import(Request $request)
+    {
+        $this->authorize('import');
+
+        if ($request->isMethod('post')) {
+
+            $this->service->import(new UserImport, $request->file('import'));
+
+            $this->success(200009);
 
             return redirect()->route('users.index');
         }

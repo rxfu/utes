@@ -93,5 +93,12 @@ class PermissionsTableSeeder extends Seeder
             'action' => 'assignPermission',
             'model' => 'role',
         ]);
+
+        Permission::create([
+            'slug' => 'user-import',
+            'name' => '导入用户',
+            'action' => 'import',
+            'model' => 'user',
+        ]);
     }
 }
