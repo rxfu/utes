@@ -10,7 +10,8 @@
                 <h3 class="card-title">{{ __('user.module') . __('List') }}</h3>
                 <div class="card-tools">
                     @can('import', User::class)
-                        <a href="{{ route('users.import') }}" title="{{ __('Import') }}" class="btn btn-warning">
+                        <a href="{{ route('users.import') }}" title="{{ __('Import') }}" class="btn btn-info import" data-toggle="modal" data-target="#dialog" data-whatever="{{  __('user.module') . __('import') }}
+                    ">
                             <i class="fas fa-file-import"></i> {{ __('Import') . __('user.module') }}
                         </a>
                     @endcan

@@ -219,7 +219,7 @@ class UserController extends Controller
      */
     public function showImportForm()
     {
-        $this->authorize('import');
+        $this->authorize('import', User::class);
 
         return view('user.import');
     }
@@ -232,7 +232,7 @@ class UserController extends Controller
      */
     public function import(Request $request)
     {
-        $this->authorize('import');
+        $this->authorize('import', User::class);
 
         if ($request->isMethod('post')) {
 
