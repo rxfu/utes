@@ -15,6 +15,9 @@ class CreateTitlesTable extends Migration
     {
         Schema::create('titles', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 50)->unique()->comment('名称');
+            $table->boolean('is_allowed')->default(false)->comment('是否允许申报，0-不允许，1-允许');
+            $table->text('description')->nullable()->comment('描述');
             $table->timestamps();
         });
     }
