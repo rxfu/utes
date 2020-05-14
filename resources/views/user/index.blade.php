@@ -9,9 +9,14 @@
             <div class="card-header">
                 <h3 class="card-title">{{ __('user.module') . __('List') }}</h3>
                 <div class="card-tools">
+                    @can('import', User::class)
+                        <a href="{{ route('users.import') }}" title="{{ __('Import') }}" class="btn btn-warning">
+                            <i class="fas fa-file-import"></i> {{ __('Import') . __('user.module') }}
+                        </a>
+                    @endcan
                     @can('create', User::class)
                         <a href="{{ route('users.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('user.module') }}
+                            <i class="fas fa-plus"></i> {{ __('Create') . __('user.module') }}
                         </a>
                     @endcan
                 </div>
@@ -72,12 +77,12 @@
                                     @endcan
                                     @can('role', $item)
                                         <a href="{{ route('users.role', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Assign Role') }}">
-                                            <i class="fa fa-user-tag"></i> {{ __('Assign Role') }}
+                                            <i class="fas fa-user-tag"></i> {{ __('Assign Role') }}
                                         </a>
                                     @endcan
                                     @can('group', $item)
                                         <a href="{{ route('users.group', $item->getKey()) }}" class="btn btn-success btn-sm" title="{{ __('Assign Group') }}">
-                                            <i class="fa fa-user-friends"></i> {{ __('Assign Group') }}
+                                            <i class="fas fa-user-friends"></i> {{ __('Assign Group') }}
                                         </a>
                                     @endcan
                                 </td>

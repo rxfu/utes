@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     @can('create', Gender::class)
                         <a href="{{ route('genders.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('gender.module') }}
+                            <i class="fas fa-plus"></i> {{ __('Create') . __('gender.module') }}
                         </a>
                     @endcan
                 </div>

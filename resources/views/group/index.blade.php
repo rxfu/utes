@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     @can('create', Group::class)
                         <a href="{{ route('groups.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('group.module') }}
+                            <i class="fas fa-plus"></i> {{ __('Create') . __('group.module') }}
                         </a>
                     @endcan
                 </div>

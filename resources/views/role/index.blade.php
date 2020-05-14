@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     @can('create', Role::class)
                         <a href="{{ route('roles.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('role.module') }}
+                            <i class="fas fa-plus"></i> {{ __('Create') . __('role.module') }}
                         </a>
                     @endcan
                 </div>
@@ -57,7 +57,7 @@
                                     @endcan
                                     @can('permission', $item)
                                         <a href="{{ route('roles.permission', $item->getKey()) }}" class="btn btn-warning btn-sm" title="{{ __('Assign Permission') }}">
-                                            <i class="fa fa-key"></i> {{ __('Assign Permission') }}
+                                            <i class="fas fa-key"></i> {{ __('Assign Permission') }}
                                         </a>
                                     @endcan
                                 </td>

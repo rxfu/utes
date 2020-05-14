@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     @can('create', Setting::class)
                         <a href="{{ route('settings.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('setting.module') }}
+                            <i class="fas fa-plus"></i> {{ __('Create') . __('setting.module') }}
                         </a>
                     @endcan
                 </div>

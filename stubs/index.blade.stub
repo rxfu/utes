@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     @can('create', DummyClass::class)
                         <a href="{{ route('DummyCollection.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('DummyModel.module') }}
+                            <i class="icon fas fa-plus"></i> {{ __('Create') . __('DummyModel.module') }}
                         </a>
                     @endcan
                 </div>

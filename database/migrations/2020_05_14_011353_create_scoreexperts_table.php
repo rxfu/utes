@@ -27,6 +27,7 @@ class CreateScoreexpertsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
                 ->comment('评委ID');
+            $table->boolean('is_confirmed')->default(false)->comment('成绩确认状态，0-未确认，1-已确认');
             $table->timestamps();
         });
     }

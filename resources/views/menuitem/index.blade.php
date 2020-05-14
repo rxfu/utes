@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     @can('create', Menuitem::class)
                         <a href="{{ route('menuitems.create') }}" title="{{ __('Create') }}" class="btn btn-success">
-                            <i class="icon fa fa-plus"></i> {{ __('Create') . __('menuitem.module') }}
+                            <i class="fas fa-plus"></i> {{ __('Create') . __('menuitem.module') }}
                         </a>
                     @endcan
                 </div>

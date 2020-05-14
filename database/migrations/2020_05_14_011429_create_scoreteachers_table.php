@@ -32,6 +32,7 @@ class CreateScoreteachersTable extends Migration
             $table->text('classroom')->comment('上课地点');
             $table->text('class')->comment('班级');
             $table->string('file')->nullable()->comment('听课评价表');
+            $table->boolean('is_confirmed')->default(false)->comment('成绩确认状态，0-未确认，1-已确认');
             $table->timestamps();
         });
     }
