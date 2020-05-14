@@ -56,5 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', 'RoleController');
     Route::resource('permissions', 'PermissionController');
     Route::resource('groups', 'GroupController');
+    Route::resource('genders', 'GenderController');
+    Route::resource('grades', 'GradeController');
+    Route::resource('departments', 'DepartmentController');
+    Route::resource('titles', 'TitleController');
     // route_here
 });

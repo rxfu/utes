@@ -38,7 +38,7 @@ class CreateApplicationsTable extends Migration
             $table->text('classroom')->comment('上课地点');
             $table->text('class')->comment('班级');
             $table->text('remark')->nullable()->comment('描述');
-            $table->string('file')->comment('教案');
+            $table->string('file')->nullable()->comment('教案');
             $table->timestamps();
         });
     }

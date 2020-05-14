@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Gender;
 use Illuminate\Database\Seeder;
 
 class GendersTableSeeder extends Seeder
@@ -11,6 +12,11 @@ class GendersTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Gender::create([
+            'name' => '男',
+        ]);
+        Gender::create([
+            'name' => '女',
+        ]);
     }
 }

@@ -17,8 +17,8 @@ class CreateGradesTable extends Migration
             $table->id();
             $table->string('slug', 20)->unique()->comment('唯一标识');
             $table->string('name', 50)->unique()->comment('名称');
-            $table->decimal('maximum', 5, 2)->default(0)->comment('最大分值');
-            $table->decimal('miniimum', 5, 2)->default(0)->comment('最小分值');
+            $table->decimal('max_score', 5, 2)->default(0)->comment('最大分值');
+            $table->decimal('min_score', 5, 2)->default(0)->comment('最小分值');
             $table->text('description')->nullable()->comment('描述');
             $table->timestamps();
         });

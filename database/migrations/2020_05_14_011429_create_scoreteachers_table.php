@@ -31,7 +31,7 @@ class CreateScoreteachersTable extends Migration
             $table->text('time')->comment('上课时间');
             $table->text('classroom')->comment('上课地点');
             $table->text('class')->comment('班级');
-            $table->string('file')->comment('听课评价表');
+            $table->string('file')->nullable()->comment('听课评价表');
             $table->timestamps();
         });
     }
