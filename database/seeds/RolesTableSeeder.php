@@ -21,8 +21,28 @@ class RolesTableSeeder extends Seeder
         $role->permissions()->sync(Permission::all()->pluck('id')->toArray());
 
         Role::create([
-            'slug' => 'user',
-            'name' => '普通用户',
+            'slug' => 'teacher',
+            'name' => '测评教师',
+        ]);
+
+        Role::create([
+            'slug' => 'peer',
+            'name' => '同行评委',
+        ]);
+
+        Role::create([
+            'slug' => 'expert',
+            'name' => '专家评委',
+        ]);
+
+        Role::create([
+            'slug' => 'plan',
+            'name' => '教案评委',
+        ]);
+
+        Role::create([
+            'slug' => 'office',
+            'name' => '评建办',
         ]);
     }
 }

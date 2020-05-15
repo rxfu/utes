@@ -15,6 +15,7 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->string('year', 4)->comment('年度');
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')
@@ -37,7 +38,7 @@ class CreateApplicationsTable extends Migration
             $table->text('time')->comment('上课时间');
             $table->text('classroom')->comment('上课地点');
             $table->text('class')->comment('班级');
-            $table->text('remark')->nullable()->comment('描述');
+            $table->text('remark')->nullable()->comment('备注');
             $table->string('file')->nullable()->comment('教案');
             $table->timestamps();
         });
