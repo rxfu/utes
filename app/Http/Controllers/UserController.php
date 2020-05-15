@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Imports\UserImport;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use App\Imports\TeacherImport;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 
@@ -236,7 +236,7 @@ class UserController extends Controller
 
         if ($request->isMethod('post')) {
 
-            $this->service->import(new UserImport, $request->file('import'));
+            $this->service->import(new TeacherImport, $request->file('import'));
 
             $this->success(200009);
 

@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class UserImport implements OnEachRow, WithHeadingRow
+class TeacherImport implements OnEachRow, WithHeadingRow
 {
     /**
      * @param \Maatwebsite\Excel\Row $row
