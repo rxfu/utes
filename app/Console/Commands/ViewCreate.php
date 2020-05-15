@@ -160,7 +160,14 @@ class ViewCreate extends Command
         }, $columns);
 
         $attributes = array_map(function ($column) {
-            return '<td>{{ $item->' . $column . ' }}</td>';
+            $field = '$item->' . $column;
+
+            if (substr($column, -3) === '_id') {
+                $model = substr($column, 0, -3);
+                $field = 'optional($item->' . $model . ')->name';
+            }
+
+            return '<td>{{ ' . $field . ' }}</td>';
         }, $columns);
 
         return array_merge($replace, [
@@ -176,12 +183,18 @@ class ViewCreate extends Command
 
         $attributes = array_map(function ($column) use ($table) {
             $table = Str::singular($table);
+            $field = '$item->' . $column;
+
+            if (substr($column, -3) === '_id') {
+                $model = substr($column, 0, -3);
+                $field = 'optional($item->' . $model . ')->name';
+            }
 
             $attribute = '
                 <div class="form-group row">
                     <label for="' . $column . '" class="col-sm-3 col-form-label text-right">{{ __(\'' . $table . '.' . $column . '\') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="' . $column . '" id="' . $column . '" value="{{ $item->' . $column . ' }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="' . $column . '" id="' . $column . '" value="{{ ' . $field . ' }}" readonly>
                     </div>
                 </div>';
 
