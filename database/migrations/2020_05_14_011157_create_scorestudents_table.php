@@ -21,12 +21,12 @@ class CreateScorestudentsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
                 ->comment('测评教师ID');
-            $table->decimal('score', 5, 2)->default(0)->comment('成绩');
             $table->foreignId('judge_id')
                 ->constrained('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
                 ->comment('评委ID');
+            $table->decimal('score', 5, 2)->default(0)->comment('成绩');
             $table->boolean('is_confirmed')->default(false)->comment('成绩确认状态，0-未确认，1-已确认');
             $table->timestamps();
         });

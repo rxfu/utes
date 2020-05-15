@@ -34,12 +34,12 @@ class CreateApplicationsTable extends Migration
                 ->constrained('titles')
                 ->comment('申报职称ID');
             $table->boolean('is_applied_peer')->default(true)->comment('本学期是否申请同行评价');
-            $table->text('course')->comment('主讲本科课程名称');
-            $table->text('time')->comment('上课时间');
-            $table->text('classroom')->comment('上课地点');
-            $table->text('class')->comment('班级');
-            $table->text('remark')->nullable()->comment('备注');
+            $table->text('course')->nullable()->comment('主讲本科课程名称');
+            $table->text('time')->nullable()->comment('上课时间');
+            $table->text('classroom')->nullable()->comment('上课地点');
+            $table->text('class')->uullable()->comment('班级');
             $table->string('file')->nullable()->comment('教案');
+            $table->text('remark')->nullable()->comment('备注');
             $table->timestamps();
         });
     }

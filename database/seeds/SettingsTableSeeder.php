@@ -17,5 +17,10 @@ class SettingsTableSeeder extends Seeder
             'value' => '0',
             'description' => '系统维护开关，1-开启维护，关闭系统，0-关闭维护，开启系统',
         ]);
+        Setting::create([
+            'name' => 'year',
+            'value' => '2020',
+            'description' => '年度，4位年份',
+        ]);
     }
 }

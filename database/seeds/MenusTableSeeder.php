@@ -147,7 +147,7 @@ class MenusTableSeeder extends Seeder
                 'name' => '数据字典',
                 'icon' => 'database',
                 'is_system' => true,
-                'order' => 1,
+                'order' => 2,
             ],
             [
                 'slug' => 'gender',
@@ -180,6 +180,44 @@ class MenusTableSeeder extends Seeder
                 'parent_id' => 16,
                 'is_system' => true,
                 'order' => 4,
+            ],
+            [
+                'slug' => 'judge',
+                'name' => '测评分组管理',
+                'icon' => 'group',
+                'is_system' => true,
+                'order' => 1,
+            ],
+            [
+                'slug' => 'peer',
+                'name' => '同行评议分组',
+                'route' => 'scorepeers.index',
+                'parent_id' => 21,
+                'is_system' => true,
+                'order' => 2,
+            ],
+            [
+                'slug' => 'expert',
+                'name' => '专家评议分组',
+                'route' => 'scoreexperts.index',
+                'parent_id' => 21,
+                'is_system' => true,
+                'order' => 3,
+            ],
+            [
+                'slug' => 'plan',
+                'name' => '教案评议分组',
+                'route' => 'scoreplans.index',
+                'parent_id' => 21,
+                'is_system' => true,
+                'order' => 4,
+            ],
+            [
+                'slug' => 'teacher',
+                'name' => '测评教师',
+                'route' => 'applications.index',
+                'is_system' => true,
+                'order' => -10,
             ],
         ]);
     }
