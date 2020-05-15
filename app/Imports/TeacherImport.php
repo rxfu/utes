@@ -55,10 +55,10 @@ class TeacherImport implements OnEachRow, WithHeadingRow
             'title_id' => $title->id,
             'applied_title_id' => $appliedTitle->id,
             'is_applied_peer' => $row['is_applied_peer'],
-            'course' => $row['course'],
-            'time' => $row['time'],
-            'classroom' => $row['classroom'],
-            'class' => $row['class'],
+            'course' => preg_replace('#\s+#', '<br>', $row['course']),
+            'time' => preg_replace('#\s+#', '<br>', $row['time']),
+            'classroom' => preg_replace('#\s+#', '<br>', $row['classroom']),
+            'class' => preg_replace('#\s+#', '<br>', $row['class']),
             'remark' => $row['remark'] ?? null,
         ]);
     }

@@ -22,70 +22,70 @@
                 <div class="form-group row">
                     <label for="user_id" class="col-sm-3 col-form-label text-right">{{ __('application.user_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ $item->user_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ $item->user->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('application.gender_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="gender_id" id="gender_id" value="{{ $item->gender_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="gender_id" id="gender_id" value="{{ $item->gender->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ $item->department_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ $item->department->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="title_id" class="col-sm-3 col-form-label text-right">{{ __('application.title_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="title_id" id="title_id" value="{{ $item->title_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="title_id" id="title_id" value="{{ $item->title->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="applied_title_id" class="col-sm-3 col-form-label text-right">{{ __('application.applied_title_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="applied_title_id" id="applied_title_id" value="{{ $item->applied_title_id }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="applied_title_id" id="applied_title_id" value="{{ $item->appliedTitle->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="is_applied_peer" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_peer') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_applied_peer" id="is_applied_peer" value="{{ $item->is_applied_peer }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_applied_peer" id="is_applied_peer" value="{{ $item->present()->isAppliedPeer }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="course" class="col-sm-3 col-form-label text-right">{{ __('application.course') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="course" id="course" value="{{ $item->course }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="course" id="course" value="{!! $item->course !!}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="time" class="col-sm-3 col-form-label text-right">{{ __('application.time') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="time" id="time" value="{{ $item->time }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="time" id="time" value="{!! $item->time !!}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="classroom" class="col-sm-3 col-form-label text-right">{{ __('application.classroom') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="classroom" id="classroom" value="{{ $item->classroom }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="classroom" id="classroom" value="{!! $item->classroom !!}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="class" class="col-sm-3 col-form-label text-right">{{ __('application.class') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="class" id="class" value="{{ $item->class }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="class" id="class" value="{!! $item->class !!}" readonly>
                     </div>
                 </div>
 

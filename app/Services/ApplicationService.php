@@ -10,4 +10,9 @@ class ApplicationService extends Service
     {
         $this->repository = $applications;
     }
+
+    public function getAll()
+    {
+        return $this->repository->findWith(['user', 'gender', 'department', 'title', 'appliedTitle']);
+    }
 }

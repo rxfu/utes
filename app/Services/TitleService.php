@@ -10,4 +10,9 @@ class TitleService extends Service
     {
         $this->repository = $titles;
     }
+
+    public function getAppliedTitles()
+    {
+        return $this->repository->allowed();
+    }
 }

@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'module' => 'Application',
-    'id' => 'ID',
-	'user_id' => 'USER_ID',
-	'gender_id' => 'GENDER_ID',
-	'department_id' => 'DEPARTMENT_ID',
-	'title_id' => 'TITLE_ID',
-	'applied_title_id' => 'APPLIED_TITLE_ID',
+	'module' => '申请材料',
+	'id' => 'ID',
+	'user_id' => '测评教师',
+	'gender_id' => '性别',
+	'department_id' => '所在学院',
+	'title_id' => '现有职称',
+	'applied_title_id' => '申报职称',
 	'is_applied_peer' => '本学期是否申请同行评价',
 	'course' => '主讲本科课程名称',
 	'time' => '上课时间',

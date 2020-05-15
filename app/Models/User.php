@@ -61,6 +61,6 @@ class User extends Authenticatable
 
     public function application()
     {
-        return $this->belongsTo('App\Models\Application');
+        return $this->hasOne('App\Models\Application');
     }
 }

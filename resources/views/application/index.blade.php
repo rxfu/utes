@@ -27,7 +27,6 @@
 							<th>{{ __('application.department_id') }}</th>
 							<th>{{ __('application.title_id') }}</th>
 							<th>{{ __('application.applied_title_id') }}</th>
-							<th>{{ __('application.is_applied_peer') }}</th>
 							<th>{{ __('application.course') }}</th>
 							<th>{{ __('application.time') }}</th>
 							<th>{{ __('application.classroom') }}</th>
@@ -41,16 +40,15 @@
                         @foreach ($items as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-								<td>{{ $item->user_id }}</td>
-								<td>{{ $item->gender_id }}</td>
-								<td>{{ $item->department_id }}</td>
-								<td>{{ $item->title_id }}</td>
-								<td>{{ $item->applied_title_id }}</td>
-								<td>{{ $item->is_applied_peer }}</td>
-								<td>{{ $item->course }}</td>
-								<td>{{ $item->time }}</td>
-								<td>{{ $item->classroom }}</td>
-								<td>{{ $item->class }}</td>
+								<td>{{ $item->user->name }}</td>
+								<td>{{ $item->gender->name }}</td>
+								<td>{{ $item->department->name }}</td>
+								<td>{{ $item->title->name }}</td>
+								<td>{{ $item->appliedTitle->name }}</td>
+								<td>{!! $item->course !!}</td>
+								<td>{!! $item->time !!}</td>
+								<td>{!! $item->classroom !!}</td>
+								<td>{!! $item->class !!}</td>
 								<td>{{ $item->remark }}</td>
 								<td>{{ $item->file }}</td>
                                 <td>
@@ -81,7 +79,6 @@
 							<th>{{ __('application.department_id') }}</th>
 							<th>{{ __('application.title_id') }}</th>
 							<th>{{ __('application.applied_title_id') }}</th>
-							<th>{{ __('application.is_applied_peer') }}</th>
 							<th>{{ __('application.course') }}</th>
 							<th>{{ __('application.time') }}</th>
 							<th>{{ __('application.classroom') }}</th>

@@ -10,4 +10,9 @@ class TitleRepository extends Repository
     {
         $this->model = $title;
     }
+
+    public function allowed()
+    {
+        return $this->model->whereIsAllowed(true)->get();
+    }
 }

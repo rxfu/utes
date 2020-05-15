@@ -85,9 +85,9 @@
                     <div class="form-group row">
                         <label for="applied_title_id" class="col-sm-3 col-form-label text-right">{{ __('application.applied_title_id') }}</label>
                         <div class="col-sm-9">
-                            @inject('appliedTitles', 'App\Services\AppliedTitleService')
+                            @inject('appliedTitles', 'App\Services\TitleService')
 							<select name="applied_title_id" id="applied_title_id" class="form-control select2 select2-success{{ $errors->has('applied_title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
-                                @foreach ($appliedTitles->getAll() as $collection)
+                                @foreach ($appliedTitles->getAppliedTitles() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>
