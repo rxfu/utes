@@ -7,12 +7,20 @@ use App\Models\User;
 use App\Models\Title;
 use App\Models\Gender;
 use App\Models\Department;
+use App\Services\SettingService;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class TeacherImport implements OnEachRow, WithHeadingRow
 {
+    protected $settingService;
+
+    public function __construct(SettingService $settingService)
+    {
+        $this->settingService = $settingService;
+    }
+
     /**
      * @param \Maatwebsite\Excel\Row $row
      *
@@ -48,7 +56,7 @@ class TeacherImport implements OnEachRow, WithHeadingRow
         $user->roles()->attach($role->id);
 
         $user->application()->create([
-            'year' => now()->year,
+            'year' => $this->settingService->getSetting('year'),
             'user_id' => $user->id,
             'gender_id' => $gender->id,
             'department_id' => $department->id,

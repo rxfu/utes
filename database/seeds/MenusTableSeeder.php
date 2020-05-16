@@ -182,32 +182,32 @@ class MenusTableSeeder extends Seeder
                 'order' => 4,
             ],
             [
-                'slug' => 'judge',
+                'slug' => 'judge-group',
                 'name' => '测评分组管理',
                 'icon' => 'group',
                 'is_system' => true,
                 'order' => 1,
             ],
             [
-                'slug' => 'peer',
+                'slug' => 'peer-group',
                 'name' => '同行评议分组',
-                'route' => 'scorepeers.index',
+                'route' => '',
                 'parent_id' => 21,
                 'is_system' => true,
                 'order' => 2,
             ],
             [
-                'slug' => 'expert',
+                'slug' => 'expert-group',
                 'name' => '专家评议分组',
-                'route' => 'scoreexperts.index',
+                'route' => '',
                 'parent_id' => 21,
                 'is_system' => true,
                 'order' => 3,
             ],
             [
-                'slug' => 'plan',
+                'slug' => 'plan-group',
                 'name' => '教案评议分组',
-                'route' => 'scoreplans.index',
+                'route' => '',
                 'parent_id' => 21,
                 'is_system' => true,
                 'order' => 4,
@@ -218,6 +218,41 @@ class MenusTableSeeder extends Seeder
                 'route' => 'applications.index',
                 'is_system' => true,
                 'order' => -10,
+            ],
+            [
+                'slug' => 'peer-score',
+                'name' => '同行评议评分',
+                'route' => '',
+                'is_system' => true,
+                'order' => -9,
+            ],
+            [
+                'slug' => 'expert-score',
+                'name' => '专家评分',
+                'route' => '',
+                'is_system' => true,
+                'order' => -8
+            ],
+            [
+                'slug' => 'plan-score',
+                'name' => '课程教案评分',
+                'route' => '',
+                'is_system' => true,
+                'order' => -7
+            ],
+            [
+                'slug' => 'score-score',
+                'name' => '学生评教评分',
+                'route' => '',
+                'is_system' => true,
+                'order' => -7
+            ],
+            [
+                'slug' => 'statistic',
+                'name' => '数据统计与监控',
+                'icon' => 'data',
+                'is_system' => true,
+                'order' => 0,
             ],
         ]);
     }

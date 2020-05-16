@@ -8,20 +8,25 @@ use App\Services\UserService;
 use App\Imports\TeacherImport;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Services\SettingService;
 
 class UserController extends Controller
 {
+    protected $settingService;
+
     /**
      * Create a new controller instance.
      *
      * @param \App\Services\UserService  $userService
+     * @param \App\Services\SettingService  $settingService
      * @return void
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, SettingService $settingService)
     {
         $this->authorizeResource(User::class, 'user');
 
         $this->service = $userService;
+        $this->settingService = $settingService;
     }
 
     /**
@@ -236,7 +241,7 @@ class UserController extends Controller
 
         if ($request->isMethod('post')) {
 
-            $this->service->import(new TeacherImport, $request->file('import'));
+            $this->service->import(new TeacherImport($this->settingService), $request->file('import'));
 
             $this->success(200009);
 

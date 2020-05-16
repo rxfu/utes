@@ -17,7 +17,7 @@ class Application extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'gender_id', 'department_id', 'title_id', 'applied_title_id', 'is_applied_peer', 'course', 'time', 'classroom', 'class', 'remark', 'file',
+        'year', 'user_id', 'gender_id', 'department_id', 'title_id', 'applied_title_id', 'is_applied_peer', 'course', 'time', 'classroom', 'class', 'remark', 'file',
     ];
 
     public function user()

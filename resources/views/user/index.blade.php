@@ -35,7 +35,6 @@
 							<th>{{ __('user.phone') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
-							<th>{{ __('user.is_super') }}</th>
 							<th>{{ __('user.last_login_at') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
@@ -51,7 +50,6 @@
 								<td>{{ $item->phone }}</td>
 								<td>{{ $item->email }}</td>
 								<td>{{ $item->present()->isEnable }}</td>
-								<td>{{ $item->present()->isSuper }}</td>
 								<td>{{ $item->last_login_at }}</td>
                                 <td>
                                     @can('view', $item)
@@ -100,7 +98,6 @@
 							<th>{{ __('user.phone') }}</th>
 							<th>{{ __('user.email') }}</th>
 							<th>{{ __('user.is_enable') }}</th>
-							<th>{{ __('user.is_super') }}</th>
 							<th>{{ __('user.last_login_at') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
