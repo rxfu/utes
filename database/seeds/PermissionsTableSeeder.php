@@ -41,7 +41,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $modules = [
-            'setting', 'menu', 'menuitem', 'group', 'role', 'permission', 'user', 'gender', 'title', 'department', 'grade', 'application',
+            'setting', 'menu', 'menuitem', 'group', 'role', 'permission', 'user', 'gender', 'title', 'department', 'grade', 'application', 'scorepeer'
         ];
 
         $actions = [

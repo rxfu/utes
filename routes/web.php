@@ -63,5 +63,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('departments', 'DepartmentController');
     Route::resource('titles', 'TitleController');
     Route::resource('applications', 'ApplicationController');
+    Route::resource('scorepeers', 'ScorepeerController');
     // route_here
 });
