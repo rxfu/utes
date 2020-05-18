@@ -51,9 +51,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('scorepeers')->name('scorepeers.')->group(function () {
+        Route::get('/', 'ScorepeerController@index')->name('index');
         Route::get('/teachers', 'ScorepeerController@list')->name('teacher');
         Route::get('/{user}/create', 'ScorepeerController@create')->name('create');
         Route::post('/{user}', 'ScorepeerController@store')->name('store');
+        Route::get('/{user}/edit', 'ScorepeerController@edit')->name('edit');
     });
 
     Route::resource('logs', 'LogController')->only(['index', 'show']);

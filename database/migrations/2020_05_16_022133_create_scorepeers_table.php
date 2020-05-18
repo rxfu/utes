@@ -26,7 +26,6 @@ class CreateScorepeersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
                 ->comment('评委ID');
-            $table->unsignedInteger('number')->default(1)->comment('编号');
             $table->decimal('score', 5, 2)->default(0)->comment('成绩');
             $table->boolean('is_confirmed')->default(false)->comment('成绩确认状态，0-未确认，1-已确认');
             $table->string('course')->nullable()->comment('主讲本科课程名称');

@@ -217,7 +217,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'peer-score',
                 'name' => '同行评议评分',
-                'route' => '',
+                'route' => 'scorepeers.index',
                 'order' => -9,
             ],
             [

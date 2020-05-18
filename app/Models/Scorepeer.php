@@ -17,6 +17,6 @@ class Scorepeer extends Model
      * @var array
      */
     protected $fillable = [
-        'year', 'user_id', 'judge_id', 'number', 'score', 'is_confirmed', 'course', 'time', 'classroom', 'class', 'file', 'remark',
+        'year', 'user_id', 'judge_id', 'score', 'is_confirmed', 'course', 'time', 'classroom', 'class', 'file', 'remark',
     ];
 }
