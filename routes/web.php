@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{user}', 'ScorepeerController@store')->name('store');
         Route::get('/{scorepeer}/edit', 'ScorepeerController@edit')->name('edit');
         Route::put('/{scorepeer}', 'ScorepeerController@update')->name('update');
+        Route::get('/confirm/{user?}', 'ScorepeerController@confirm')->name('confirm');
     });
 
     Route::resource('logs', 'LogController')->only(['index', 'show']);

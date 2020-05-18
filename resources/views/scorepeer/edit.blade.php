@@ -99,6 +99,7 @@
                                     <strong>{{ $errors->first('file') }}</strong>
                                 </div>
                             @endif
+                            <small>{!! $item->present()->image !!}</small>
                         </div>
                     </div>
 

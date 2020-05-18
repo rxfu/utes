@@ -37,4 +37,13 @@ class ScorepeerService extends Service
 
         $this->repository->assignTeacher($user, $teachers);
     }
+
+    public function confirmScores($user)
+    {
+        if (is_null($user)) {
+            $this->repository->confirmAll();
+        } else {
+            $this->repository->confirmByUser($user->getKey());
+        }
+    }
 }

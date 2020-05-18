@@ -113,10 +113,14 @@ class ScorepeerController extends Controller
     {
         if ($request->isMethod('put')) {
 
-            $file = $this->service->upload($request->file('file'));
-
             $inputs = $request->except('file');
-            $inputs['file'] = $file['path'];
+
+            if ($request->hasFile('file')) {
+                $file = $this->service->upload($request->file('file'));
+
+                $inputs['file'] = $file['path'];
+            }
+
             $this->service->update($scorepeer, $inputs);
 
             return redirect()->route('scorepeers.index');
@@ -161,5 +165,20 @@ class ScorepeerController extends Controller
         $items = $this->userService->getUsersByRole('peer');
 
         return view('scorepeer.teacher', compact('items'));
+    }
+
+    /**
+     * Confirm scores of the resource.
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(User $user = null)
+    {
+        $this->authorize('update', Scorepeer::class);
+
+        $this->service->confirmScores($user);
+
+        return redirect()->route('scorepeers.index');
     }
 }

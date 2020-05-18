@@ -37,4 +37,30 @@ class ScorepeerRepository extends Repository
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
+
+    public function confirmByUser($userId)
+    {
+        try {
+            $confirmed = [
+                'is_confirmed' => true,
+            ];
+
+            $this->model->whereUserId($userId)->update($confirmed);
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function confirmAll()
+    {
+        try {
+            $confirmed = [
+                'is_confirmed' => true,
+            ];
+
+            $this->model->update($confirmed);
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
 }

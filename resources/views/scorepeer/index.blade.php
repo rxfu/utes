@@ -8,6 +8,13 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">{{ __('scorepeer.module') . __('List') }}</h3>
+                <div class="card-tools">
+                    @can('update', Scorepeer::class)
+                        <a href="{{ route('scorepeers.confirm') }}" title="{{ __('Confirm') . __('Score') }}" class="btn btn-success">
+                            <i class="fas fa-check-double"></i> {{ __('Confirm') . __('Score') }}
+                        </a>
+                    @endcan
+                </div>
             </div>
 
             <div class="card-body">
