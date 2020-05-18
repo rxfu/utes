@@ -50,6 +50,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/{password}', 'PasswordController@update')->name('update');
     });
 
+    Route::prefix('scorepeers')->name('scorepeers.')->group(function () {
+        Route::get('/', 'ScorepeerController@index')->name('index');
+        Route::get('/{user}/create', 'ScorepeerController@create')->name('create');
+        Route::post('/{user}', 'ScorepeerController@store')->name('store');
+    });
+
     Route::resource('logs', 'LogController')->only(['index', 'show']);
     Route::resource('settings', 'SettingController');
     Route::resource('menus', 'MenuController');
@@ -63,6 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('departments', 'DepartmentController');
     Route::resource('titles', 'TitleController');
     Route::resource('applications', 'ApplicationController');
-    Route::resource('scorepeers', 'ScorepeerController');
+    // Route::resource('scorepeers', 'ScorepeerController');
     // route_here
 });

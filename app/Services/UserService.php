@@ -127,4 +127,9 @@ class UserService extends Service
     {
         return !$this->isActive($username);
     }
+
+    public function getUsersByRole($role)
+    {
+        return $this->roles->users($role);
+    }
 }

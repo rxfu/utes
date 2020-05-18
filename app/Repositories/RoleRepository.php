@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Role;
 use Illuminate\Support\Arr;
 use App\Exceptions\InternalException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\QueryException;
 
@@ -35,6 +36,17 @@ class RoleRepository extends Repository
 
             Cache::forget($role->slug . '.permissions');
         } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function users($role)
+    {
+        try {
+            $role = $this->model->whereSlug($role)->firstOrFail();
+
+            return $role->users;
+        } catch (ModelNotFoundException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }

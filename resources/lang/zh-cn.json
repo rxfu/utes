@@ -47,5 +47,7 @@
     "Assign Role": "分配角色",
     "assignRole": "分配角色",
     "Assign Permission": "分配权限",
-    "assignPermission": "分配权限"
+    "assignPermission": "分配权限",
+    "Assign Teacher": "分配测评教师",
+    "assignTeacher": "分配测评教师"
 }

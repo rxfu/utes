@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Application');
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany('\App\Models\User', 'scorepeers', 'judge_id', 'user_id')->withTimestamps();
+    }
 }

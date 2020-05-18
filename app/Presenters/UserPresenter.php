@@ -37,4 +37,15 @@ class UserPresenter extends Presenter
 
         return implode(',', $groups);
     }
+
+    public function allTeachers()
+    {
+        $teachers = [];
+
+        foreach ($this->teachers->groupBy('id') as $teacher) {
+            $teachers[] = $teacher[0]->name;
+        }
+
+        return implode(',', $teachers);
+    }
 }
