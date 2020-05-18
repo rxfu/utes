@@ -100,5 +100,12 @@ class PermissionsTableSeeder extends Seeder
             'action' => 'import',
             'model' => 'user',
         ]);
+
+        Permission::create([
+            'slug' => 'scorepeer-teachers',
+            'name' => '分配测评教师',
+            'action' => 'teachers',
+            'model' => 'scorepeer',
+        ]);
     }
 }

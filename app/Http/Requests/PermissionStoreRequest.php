@@ -28,7 +28,6 @@ class PermissionStoreRequest extends FormRequest
             'name' => 'required|max:50',
             'model' => 'required',
             'action' => 'required',
-            'by_group' => 'required',
         ];
     }
 }

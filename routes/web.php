@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('scorepeers')->name('scorepeers.')->group(function () {
-        Route::get('/', 'ScorepeerController@index')->name('index');
+        Route::get('/teachers', 'ScorepeerController@teachers')->name('teachers');
         Route::get('/{user}/create', 'ScorepeerController@create')->name('create');
         Route::post('/{user}', 'ScorepeerController@store')->name('store');
     });

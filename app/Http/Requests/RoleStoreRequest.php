@@ -26,6 +26,7 @@ class RoleStoreRequest extends FormRequest
         return [
             'slug' => 'required|max:20|unique:roles',
             'name' => 'required|max:50',
+            'by_group' => 'required',
         ];
     }
 }

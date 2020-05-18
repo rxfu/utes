@@ -190,7 +190,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'peer-teacher',
                 'name' => '同行分配教师',
-                'route' => 'scorepeers.index',
+                'route' => 'scorepeers.teachers',
                 'parent_id' => 21,
                 'order' => 2,
             ],

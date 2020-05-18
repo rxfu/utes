@@ -68,7 +68,7 @@ class ScorepeerController extends Controller
 
             $this->service->assignTeacher($user, $request->teachers);
 
-            return redirect()->route('scorepeers.index');
+            return redirect()->route('scorepeers.teachers');
         }
 
         $this->error(405001);
@@ -142,5 +142,20 @@ class ScorepeerController extends Controller
         $this->error(405001);
 
         return back();
+    }
+
+    /**
+     * Display a listing of the resource assigned teachers.
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function teachers(User $user)
+    {
+        $this->authorize('teacher', Scorepeer::class);
+
+        $items = $this->userService->getUsersByRole('peer');
+
+        return view('scorepeer.teacher', compact('items'));
     }
 }
