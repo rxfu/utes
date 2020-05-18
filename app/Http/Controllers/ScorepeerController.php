@@ -68,7 +68,7 @@ class ScorepeerController extends Controller
 
             $this->service->assignTeacher($user, $request->teachers);
 
-            return redirect()->route('scorepeers.teachers');
+            return redirect()->route('scorepeers.teacher');
         }
 
         $this->error(405001);
@@ -150,9 +150,9 @@ class ScorepeerController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function teachers(User $user)
+    public function list(User $user)
     {
-        $this->authorize('teacher', Scorepeer::class);
+        $this->authorize('list', Scorepeer::class);
 
         $items = $this->userService->getUsersByRole('peer');
 

@@ -102,9 +102,9 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'slug' => 'scorepeer-teachers',
-            'name' => '分配测评教师',
-            'action' => 'teachers',
+            'slug' => 'teacher-list',
+            'name' => '列出测评教师',
+            'action' => 'listTeacher',
             'model' => 'scorepeer',
         ]);
     }

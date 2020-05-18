@@ -12,8 +12,8 @@ class ScorepeerPolicy extends ModelPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function teacher(User $user)
+    public function list(User $user)
     {
-        return $this->service->hasPermission($user, 'scorepeer-teachers');
+        return $this->service->hasPermission($user, 'teacher-list');
     }
 }
