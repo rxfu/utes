@@ -19,6 +19,11 @@ class ScorepeerService extends Service
         $this->settings = $settings;
     }
 
+    public function getAll()
+    {
+        return $this->repository->findWith(['judge', 'user']);
+    }
+
     public function getAssignedTeachers($user)
     {
         return $this->repository->teachers($user->getKey());

@@ -113,9 +113,13 @@ class ScorepeerController extends Controller
     {
         if ($request->isMethod('put')) {
 
-            $this->service->update($scorepeer, $request->all());
+            $file = $this->service->upload($request->file('file'));
 
-            return redirect()->route('scorepeers.show', $scorepeer);
+            $inputs = $request->except('file');
+            $inputs['file'] = $file['path'];
+            $this->service->update($scorepeer, $inputs);
+
+            return redirect()->route('scorepeers.index');
         }
 
         $this->error(405001);

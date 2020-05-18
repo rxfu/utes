@@ -55,7 +55,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/teachers', 'ScorepeerController@list')->name('teacher');
         Route::get('/{user}/create', 'ScorepeerController@create')->name('create');
         Route::post('/{user}', 'ScorepeerController@store')->name('store');
-        Route::get('/{user}/edit', 'ScorepeerController@edit')->name('edit');
+        Route::get('/{scorepeer}/edit', 'ScorepeerController@edit')->name('edit');
+        Route::put('/{scorepeer}', 'ScorepeerController@update')->name('update');
     });
 
     Route::resource('logs', 'LogController')->only(['index', 'show']);

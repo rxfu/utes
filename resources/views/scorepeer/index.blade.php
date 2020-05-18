@@ -45,7 +45,7 @@
                                     <td>{{ $item->classroom }}</td>
                                     <td>{{ $item->class }}</td>
                                     <td>{{ $item->score }}</td>
-                                    <td>{{ $item->file }}</td>
+                                    <td>{!! $item->present()->image !!}</td>
                                     <td>{{ $item->present()->isConfirmed }}</td>
                                     <td>
                                         @can('update', $item)
