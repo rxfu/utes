@@ -36,7 +36,7 @@ class ScorepeerController extends Controller
      */
     public function index()
     {
-        $items = $this->userService->getUsersByRole('peer');
+        $items = $this->service->getAll();
 
         return view('scorepeer.index', compact('items'));
     }

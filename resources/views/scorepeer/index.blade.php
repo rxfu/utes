@@ -11,7 +11,7 @@
             </div>
 
             <div class="card-body">
-                <table id="scorepeers-table" class="table table-bordered table-striped">
+                <table id="scorepeers-table" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>{{ __('scorepeer.id') }}</th>
@@ -30,28 +30,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-								<td>{{ $item->year }}</td>
-								<td>{{ optional($item->user)->name }}</td>
-								<td>{{ optional($item->judge)->name }}</td>
-								<td>{{ $item->number }}</td>
-								<td>{{ $item->score }}</td>
-								<td>{{ $item->is_confirmed }}</td>
-								<td>{{ $item->course }}</td>
-								<td>{{ $item->time }}</td>
-								<td>{{ $item->classroom }}</td>
-								<td>{{ $item->class }}</td>
-								<td>{{ $item->file }}</td>
-                                <td>
-                                    @can('update', $item)
-                                        <a href="{{ route('scorepeers.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Score') }}">
-                                            <i class="fas fa-pencil-alt"></i> {{ __('Score') }}
-                                        </a>
-                                    @endcan
-                                </td>
-                            </tr>
+                        @foreach ($items->groupBy('user_id') as $users)
+                            @foreach ($users as $item)
+                                <tr>
+                                    @if ($loop->first)
+                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->id }}</td>
+                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->year }}</td>
+                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->judge->name }}</td>
+                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->user->name }}</td>
+                                    @endif
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->course }}</td>
+                                    <td>{{ $item->time }}</td>
+                                    <td>{{ $item->classroom }}</td>
+                                    <td>{{ $item->class }}</td>
+                                    <td>{{ $item->score }}</td>
+                                    <td>{{ $item->file }}</td>
+                                    <td>{{ $item->present()->isConfirmed }}</td>
+                                    <td>
+                                        @can('update', $item)
+                                            <a href="{{ route('scorepeers.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Score') }}">
+                                                <i class="fas fa-edit"></i> {{ __('Score') }}{{ $loop->iteration }}
+                                            </a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
                     <tfoot>

@@ -19,4 +19,14 @@ class Scorepeer extends Model
     protected $fillable = [
         'year', 'user_id', 'judge_id', 'score', 'is_confirmed', 'course', 'time', 'classroom', 'class', 'file', 'remark',
     ];
+
+    public function judge()
+    {
+        return $this->belongsTo('App\Models\User', 'judge_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }
