@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Scorepeer;
+use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Services\ScorepeerService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ScorepeerStoreRequest;
 use App\Http\Requests\ScorepeerUpdateRequest;
-use App\Models\Scorepeer;
-use App\Models\User;
-use App\Services\ScorepeerService;
-use App\Services\UserService;
-use Illuminate\Http\Request;
 
 class ScorepeerController extends Controller
 {
@@ -36,7 +37,7 @@ class ScorepeerController extends Controller
      */
     public function index()
     {
-        $items = $this->service->getAll();
+        $items = $this->service->getByUser(Auth::user());
 
         return view('scorepeer.index', compact('items'));
     }
@@ -175,8 +176,6 @@ class ScorepeerController extends Controller
      */
     public function confirm(User $user = null)
     {
-        $this->authorize('update', Scorepeer::class);
-
         $this->service->confirmScores($user);
 
         return redirect()->route('scorepeers.index');

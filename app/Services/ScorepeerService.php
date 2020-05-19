@@ -19,9 +19,13 @@ class ScorepeerService extends Service
         $this->settings = $settings;
     }
 
-    public function getAll()
+    public function getByUser($user)
     {
-        return $this->repository->findWith(['judge', 'user']);
+        if ($user->is_super) {
+            return $this->repository->findWith(['judge', 'user']);
+        } else {
+            return $this->repository->findBy(['judge_id' => $user->id], ['judge', 'user']);
+        }
     }
 
     public function getAssignedTeachers($user)

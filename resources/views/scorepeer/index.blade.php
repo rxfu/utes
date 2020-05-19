@@ -9,11 +9,15 @@
             <div class="card-header">
                 <h3 class="card-title">{{ __('scorepeer.module') . __('List') }}</h3>
                 <div class="card-tools">
-                    @can('update', Scorepeer::class)
-                        <a href="{{ route('scorepeers.confirm') }}" title="{{ __('Confirm') . __('Score') }}" class="btn btn-success">
-                            <i class="fas fa-check-double"></i> {{ __('Confirm') . __('Score') }}
-                        </a>
-                    @endcan
+                    @unless ($items->filter(function($item) {
+                        return $item->is_confirmed == false;
+                    })->isEmpty())
+                        @can('update', $items[0])
+                            <a href="{{ route('scorepeers.confirm') }}" title="{{ __('Confirm') . __('Score') }}" class="btn btn-success confirm" data-toggle="modal" data-target="#dialog" data-whatever="{{ __('Confirm') . __('Score') }}">
+                                <i class="fas fa-check-double"></i> {{ __('Confirm') . __('Score') }}
+                            </a>
+                        @endcan
+                    @endunless
                 </div>
             </div>
 
@@ -55,11 +59,13 @@
                                     <td>{!! $item->present()->image !!}</td>
                                     <td>{{ $item->present()->isConfirmed }}</td>
                                     <td>
-                                        @can('update', $item)
-                                            <a href="{{ route('scorepeers.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Score') }}">
-                                                <i class="fas fa-edit"></i> {{ __('Score') }}{{ $loop->iteration }}
-                                            </a>
-                                        @endcan
+                                        @unless ($item->is_confirmed)
+                                            @can('update', $item)
+                                                <a href="{{ route('scorepeers.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Score') }}">
+                                                    <i class="fas fa-edit"></i> {{ __('Score') }}{{ $loop->iteration }}
+                                                </a>
+                                            @endcan
+                                        @endunless
                                     </td>
                                 </tr>
                             @endforeach
@@ -90,7 +96,7 @@
 @endsection
 
 @push('scripts')
-<script>
+<!--script>
 	$('#scorepeers-table').DataTable({
         'paging': true,
         'lengthChange': true,
@@ -100,7 +106,8 @@
         'autoWidth': true,
         'language': {
             'url': "{{ asset('plugins/datatables/lang/Chinese.json') }}"
-        }
+        },
+        'rowsGroup': [0, 1, 2, 3]
     });
-</script>
+</script-->
 @endpush

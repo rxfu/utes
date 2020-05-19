@@ -23,6 +23,15 @@ class Service
         return $this->repository->findAll();
     }
 
+    public function getByUser($user)
+    {
+        if ($user->is_super) {
+            return $this->repository->findAll();
+        } else {
+            return $this->repository->findBy(['user_id' => $user->id]);
+        }
+    }
+
     public function store($data)
     {
         return $this->repository->save($data);

@@ -44,8 +44,11 @@ class ScorepeerRepository extends Repository
             $confirmed = [
                 'is_confirmed' => true,
             ];
+            $scores = $this->model->whereUserId($userId)->get();
 
-            $this->model->whereUserId($userId)->update($confirmed);
+            foreach ($scores as $score) {
+                $score->update($confirmed);
+            }
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
@@ -57,8 +60,11 @@ class ScorepeerRepository extends Repository
             $confirmed = [
                 'is_confirmed' => true,
             ];
+            $scores = $this->findAll();
 
-            $this->model->update($confirmed);
+            foreach ($scores as $score) {
+                $score->update($confirmed);
+            }
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
