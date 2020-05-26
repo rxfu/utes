@@ -21,19 +21,13 @@ class CreateApplicationsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
                 ->comment('用户ID');
-            $table->foreignId('gender_id')
-                ->constrained()
-                ->comment('性别ID');
+            $table->unsignedBigInteger('gender_id')->nullable()->comment('性别ID');
             $table->foreignId('department_id')
                 ->constrained()
                 ->comment('学院ID');
-            $table->foreignId('title_id')
-                ->constrained()
-                ->comment('现有职称ID');
-            $table->foreignId('applied_title_id')
-                ->constrained('titles')
-                ->comment('申报职称ID');
-            $table->boolean('is_applied_peer')->default(true)->comment('本学期是否申请同行评价');
+            $table->unsignedBigInteger('title_id')->nullable()->comment('现有职称ID');
+            $table->unsignedBigInteger('applied_title_id')->nullable()->comment('申报职称ID');
+            $table->boolean('is_applied_peer')->default(true)->comment('本学期是否申请同行评价，0-否，1-是');
             $table->text('course')->nullable()->comment('主讲本科课程名称');
             $table->text('time')->nullable()->comment('上课时间');
             $table->text('classroom')->nullable()->comment('上课地点');

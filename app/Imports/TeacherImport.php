@@ -31,17 +31,26 @@ class TeacherImport implements OnEachRow, WithHeadingRow
         $rowIndex = $row->getIndex();
         $row = $row->toArray();
 
+        if (isset($row['gender'])) {
+            $gender = Gender::firstOrCreate([
+                'name' => $row['gender'],
+            ]);
+        }
+
+        if (isset($row['title'])) {
+            $title = Title::firstOrCreate([
+                'name' => $row['title'],
+            ]);
+        }
+
+        if (isset($row['applied_title'])) {
+            $appliedTitle = Title::firstOrCreate([
+                'name' => $row['applied_title'],
+            ]);
+        }
+
         $department = Department::firstOrCreate([
             'name' => $row['department'],
-        ]);
-        $gender = Gender::firstOrCreate([
-            'name' => $row['gender'],
-        ]);
-        $title = Title::firstOrCreate([
-            'name' => $row['title'],
-        ]);
-        $appliedTitle = Title::firstOrCreate([
-            'name' => $row['applied_title'],
         ]);
         $user = User::firstOrCreate([
             'username' => str_replace(' ', '', $row['phone']),
@@ -58,10 +67,10 @@ class TeacherImport implements OnEachRow, WithHeadingRow
         $user->application()->create([
             'year' => $this->settingService->getSetting('year'),
             'user_id' => $user->id,
-            'gender_id' => $gender->id,
+            'gender_id' => $gender ? $gender->id : null,
             'department_id' => $department->id,
-            'title_id' => $title->id,
-            'applied_title_id' => $appliedTitle->id,
+            'title_id' => $title ? $title->id : null,
+            'applied_title_id' => $appliedTitle ? $appliedTitle->id : null,
             'is_applied_peer' => $row['is_applied_peer'],
             'course' => preg_replace('#\s+#', '<br>', $row['course']),
             'time' => preg_replace('#\s+#', '<br>', $row['time']),
