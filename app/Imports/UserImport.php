@@ -7,18 +7,22 @@ use App\Models\User;
 use App\Models\Title;
 use App\Models\Gender;
 use App\Models\Department;
-use App\Services\SettingService;
 use Maatwebsite\Excel\Row;
+use App\Services\SettingService;
+use App\Services\ScorepeerService;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class TeacherImport implements OnEachRow, WithHeadingRow
+class UserImport implements OnEachRow, WithHeadingRow
 {
     protected $settingService;
 
-    public function __construct(SettingService $settingService)
+    protected $peerService;
+
+    public function __construct(SettingService $settingService, ScorepeerService $peerService)
     {
         $this->settingService = $settingService;
+        $this->peerService = $peerService;
     }
 
     /**
@@ -57,26 +61,34 @@ class TeacherImport implements OnEachRow, WithHeadingRow
             'password' => '123456',
             'name' => str_replace(' ', '', $row['name']),
             'phone' => $row['phone'],
-            'email' => $row['email'],
+            'email' => $row['email'] ?? null,
         ]);
         $role = Role::firstOrCreate([
             'slug' => $row['role'],
         ]);
         $user->roles()->attach($role->id);
 
-        $user->application()->create([
-            'year' => $this->settingService->getSetting('year'),
-            'user_id' => $user->id,
-            'gender_id' => $gender ? $gender->id : null,
-            'department_id' => $department->id,
-            'title_id' => $title ? $title->id : null,
-            'applied_title_id' => $appliedTitle ? $appliedTitle->id : null,
-            'is_applied_peer' => $row['is_applied_peer'],
-            'course' => preg_replace('#\s+#', '<br>', $row['course']),
-            'time' => preg_replace('#\s+#', '<br>', $row['time']),
-            'classroom' => preg_replace('#\s+#', '<br>', $row['classroom']),
-            'class' => preg_replace('#\s+#', '<br>', $row['class']),
-            'remark' => $row['remark'] ?? null,
-        ]);
+        if ($row['role'] == 'teacher') {
+
+            // 导入测评教师申请材料
+            $user->application()->create([
+                'year' => $this->settingService->getSetting('year'),
+                'user_id' => $user->id,
+                'gender_id' => isset($gender) ? $gender->id : null,
+                'department_id' => $department->id,
+                'title_id' => isset($title) ? $title->id : null,
+                'applied_title_id' => isset($appliedTitle) ? $appliedTitle->id : null,
+                'is_applied_peer' => $row['is_applied_peer'],
+                'course' => preg_replace('#\s+#', '<br>', $row['course']),
+                'time' => preg_replace('#\s+#', '<br>', $row['time']),
+                'classroom' => preg_replace('#\s+#', '<br>', $row['classroom']),
+                'class' => preg_replace('#\s+#', '<br>', $row['class']),
+                'remark' => $row['remark'] ?? null,
+            ]);
+
+            // 导入测评教师分配评委
+            $judges = User::whereIn('name', [$row['judge1'], $row['judge2'], $row['judge3']]);
+            $this->peerService->assignJudge($user, $judges->pluck('id')->toArray());
+        }
     }
 }

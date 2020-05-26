@@ -42,6 +42,15 @@ class ScorepeerService extends Service
         $this->repository->assignTeacher($user, $teachers);
     }
 
+    public function assignJudge($user, $judges)
+    {
+        $user = $this->users->find($user->getKey());
+        $year = $this->settings->item('year')->value;
+        $judges = array_combine(array_values($judges), array_fill(0, count($judges), compact('year')));
+
+        $this->repository->assignJudge($user, $judges);
+    }
+
     public function confirmScores($user)
     {
         if (is_null($user)) {

@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('\App\Models\User', 'scorepeers', 'judge_id', 'user_id')->withTimestamps();
     }
+
+    public function judges()
+    {
+        return $this->belongsToMany('App\Models\User', 'scorepeers', 'user_id', 'judge_id')->withTimestamps();
+    }
 }

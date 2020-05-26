@@ -12,7 +12,7 @@
                     @can('import', User::class)
                         <a href="{{ route('users.import') }}" title="{{ __('Import') }}" class="btn btn-info import" data-toggle="modal" data-target="#dialog" data-whatever="{{  __('user.module') . __('import') }}
                     ">
-                            <i class="fas fa-file-import"></i> {{ __('Import') . '测评教师' }}
+                            <i class="fas fa-file-import"></i> {{ __('Import') . __('user.module') }}
                         </a>
                     @endcan
                     @can('create', User::class)

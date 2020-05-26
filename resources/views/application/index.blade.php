@@ -41,10 +41,10 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->user->name }}</td>
-								<td>{{ $item->gender->name }}</td>
+								<td>{{ optional($item->gender)->name }}</td>
 								<td>{{ $item->department->name }}</td>
-								<td>{{ $item->title->name }}</td>
-								<td>{{ $item->appliedTitle->name }}</td>
+								<td>{{ optional($item->title)->name }}</td>
+								<td>{{ optional($item->appliedTitle)->name }}</td>
 								<td>{!! $item->course !!}</td>
 								<td>{!! $item->time !!}</td>
 								<td>{!! $item->classroom !!}</td>

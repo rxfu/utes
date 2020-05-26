@@ -38,6 +38,20 @@ class ScorepeerRepository extends Repository
         }
     }
 
+    public function assignJudge($user, $judges)
+    {
+        try {
+            $result = $user->judges()->sync($judges);
+            $attached = array_combine(array_values($result['attached']), array_fill(0, count($result['attached']), head($judges)));
+
+            for ($i = 0; $i < 2; ++$i) {
+                $user->judges()->attach($attached);
+            }
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
     public function confirmByUser($userId)
     {
         try {
