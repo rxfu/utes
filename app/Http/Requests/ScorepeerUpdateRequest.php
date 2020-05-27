@@ -25,6 +25,7 @@ class ScorepeerUpdateRequest extends FormRequest
     {
         return [
             'score' => 'required|numeric|min:0|max:100',
+            'file' => 'image',
         ];
     }
 }

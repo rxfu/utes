@@ -42,32 +42,34 @@
                     </thead>
                     <tbody>
                         @foreach ($items->groupBy('user_id') as $users)
-                            @foreach ($users as $item)
-                                <tr>
-                                    @if ($loop->first)
-                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->id }}</td>
-                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->year }}</td>
-                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->judge->name }}</td>
-                                        <td rowspan="{{ $users->count() }}" style="vertical-align: middle">{{ $item->user->name }}</td>
-                                    @endif
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->course }}</td>
-                                    <td>{{ $item->time }}</td>
-                                    <td>{{ $item->classroom }}</td>
-                                    <td>{{ $item->class }}</td>
-                                    <td>{{ $item->score }}</td>
-                                    <td>{!! $item->present()->image !!}</td>
-                                    <td>{{ $item->present()->isConfirmed }}</td>
-                                    <td>
-                                        @unless ($item->is_confirmed)
-                                            @can('update', $item)
-                                                <a href="{{ route('scorepeers.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Score') }}">
-                                                    <i class="fas fa-edit"></i> {{ __('Score') }}{{ $loop->iteration }}
-                                                </a>
-                                            @endcan
-                                        @endunless
-                                    </td>
-                                </tr>
+                            @foreach ($users->groupBy('judge_id') as $judges)
+                                @foreach ($judges as $item)
+                                    <tr>
+                                        @if ($loop->first)
+                                            <td rowspan="{{ $judges->count() }}" style="vertical-align: middle">{{ $item->id }}</td>
+                                            <td rowspan="{{ $judges->count() }}" style="vertical-align: middle">{{ $item->year }}</td>
+                                            <td rowspan="{{ $judges->count() }}" style="vertical-align: middle">{{ $item->judge->name }}</td>
+                                            <td rowspan="{{ $judges->count() }}" style="vertical-align: middle">{{ $item->user->name }}</td>
+                                        @endif
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->course }}</td>
+                                        <td>{{ $item->time }}</td>
+                                        <td>{{ $item->classroom }}</td>
+                                        <td>{{ $item->class }}</td>
+                                        <td>{{ $item->score }}</td>
+                                        <td>{!! $item->present()->image !!}</td>
+                                        <td>{{ $item->present()->isConfirmed }}</td>
+                                        <td>
+                                            @unless ($item->is_confirmed)
+                                                @can('update', $item)
+                                                    <a href="{{ route('scorepeers.edit', $item) }}" class="btn btn-info btn-sm" title="{{ __('Score') }}">
+                                                        <i class="fas fa-edit"></i> {{ __('Score') }}{{ $loop->iteration }}
+                                                    </a>
+                                                @endcan
+                                            @endunless
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         @endforeach
                     </tbody>
