@@ -24,4 +24,9 @@ class Group extends Model
     {
         return $this->belongsTo('App\Models\Group', 'parent_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\Group', 'parent_id');
+    }
 }

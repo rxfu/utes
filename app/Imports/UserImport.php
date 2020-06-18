@@ -68,7 +68,11 @@ class UserImport implements OnEachRow, WithHeadingRow
         ]);
         $user->roles()->attach($role->id);
 
-        if ($row['role'] == 'teacher') {
+        if (isset($row['group'])) {
+            $user->groups()->attach($row['group']);
+        }
+
+        if (isset($row['role']) && ($row['role'] == 'teacher')) {
 
             // 导入测评教师申请材料
             $user->application()->create([
@@ -78,17 +82,19 @@ class UserImport implements OnEachRow, WithHeadingRow
                 'department_id' => $department->id,
                 'title_id' => isset($title) ? $title->id : null,
                 'applied_title_id' => isset($appliedTitle) ? $appliedTitle->id : null,
-                'is_applied_peer' => $row['is_applied_peer'],
-                'course' => preg_replace('#\s+#', '<br>', $row['course']),
-                'time' => preg_replace('#\s+#', '<br>', $row['time']),
-                'classroom' => preg_replace('#\s+#', '<br>', $row['classroom']),
-                'class' => preg_replace('#\s+#', '<br>', $row['class']),
+                'is_applied_peer' => $row['is_applied_peer'] ?? true,
+                'course' => isset($row['course']) ? preg_replace('#\s+#', '<br>', $row['course']) : null,
+                'time' => isset($row['time']) ? preg_replace('#\s+#', '<br>', $row['time']) : null,
+                'classroom' => isset($row['classroom']) ? preg_replace('#\s+#', '<br>', $row['classroom']) : null,
+                'class' => isset($row['class']) ? preg_replace('#\s+#', '<br>', $row['class']) : null,
                 'remark' => $row['remark'] ?? null,
             ]);
 
             // 导入测评教师分配评委
-            $judges = User::whereIn('name', [$row['judge1'], $row['judge2'], $row['judge3']]);
-            $this->peerService->assignJudge($user, $judges->pluck('id')->toArray());
+            if (isset($row['judge1'])) {
+                $judges = User::whereIn('name', [$row['judge1'], $row['judge2'], $row['judge3']]);
+                $this->peerService->assignJudge($user, $judges->pluck('id')->toArray());
+            }
         }
     }
 }

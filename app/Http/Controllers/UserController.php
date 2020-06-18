@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\SettingService;
 use App\Services\ScorepeerService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 
@@ -251,6 +252,44 @@ class UserController extends Controller
             $this->success(200009);
 
             return redirect()->route('users.index');
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+
+    /**
+     * Show the form for drawing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showDrawForm()
+    {
+        $this->authorize('draw', User::class);
+
+        $items = $this->service->getDrawingUsers(Auth::user());
+
+        return view('user.draw', compact('items'));
+    }
+
+    /**
+     * Draw the specified users in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function draw(Request $request)
+    {
+        $this->authorize('draw', User::class);
+
+        if ($request->isMethod('put')) {
+
+            $this->service->drawGroupAndSeq(Auth::user());
+
+            $this->success(200011);
+
+            return redirect()->route('users.draw');
         }
 
         $this->error(405001);

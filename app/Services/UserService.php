@@ -6,15 +6,19 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\InvalidRequestException;
+use App\Repositories\GroupRepository;
 
 class UserService extends Service
 {
     protected $roles;
 
-    public function __construct(UserRepository $users, RoleRepository $roles)
+    protected $groups;
+
+    public function __construct(UserRepository $users, RoleRepository $roles, GroupRepository $groups)
     {
         $this->repository = $users;
         $this->roles = $roles;
+        $this->groups = $groups;
     }
 
     public function getAll()
@@ -131,5 +135,51 @@ class UserService extends Service
     public function getUsersByRole($role)
     {
         return $this->roles->users($role);
+    }
+
+    public function getDrawingUsers($user)
+    {
+        if ($this->isSuperAdmin($user)) {
+            return $this->getUsersByRole('teacher');
+        } else {
+            return $this->repository->findBy($user->getKey());
+        }
+    }
+
+    public function drawGroupAndSeq($user)
+    {
+        $user = $this->get($user);
+
+        foreach ($user->groups as $group) {
+            if (!$group->pivot->is_drawed) {
+                $userCounts = $this->groups->countUsers(false)->keyBy('id');
+
+                $groups = [];
+                foreach ($group->children as $child) {
+                    if ($userCounts[$child->id]->users_count < $child->number) {
+                        $groups[] = [
+                            'group_id' => $child->id,
+                            'number' => $child->number,
+                        ];
+                    }
+                }
+
+                $key = array_rand($groups, 1);
+                $drawedGroup = $groups[$key];
+                $total = range(1, $drawedGroup['number']);
+                $seqs = $this->groups->getSeqs($drawedGroup['group_id']);
+                $surplus = array_diff($total, $seqs);
+                $number = array_rand($surplus, 1);
+                $drawedSeq = $surplus[$number];
+
+                $user->groups()->detach($group->id);
+                $user->groups()->attach([
+                    $drawedGroup['group_id'] => [
+                        'seq' => $drawedSeq,
+                        'is_drawed' => true,
+                    ]
+                ]);
+            }
+        }
     }
 }

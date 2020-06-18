@@ -107,5 +107,12 @@ class PermissionsTableSeeder extends Seeder
             'action' => 'listTeacher',
             'model' => 'scorepeer',
         ]);
+
+        Permission::create([
+            'slug' => 'user-draw',
+            'name' => '分组抽签',
+            'action' => 'draw',
+            'model' => 'user',
+        ]);
     }
 }

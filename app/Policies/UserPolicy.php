@@ -60,4 +60,15 @@ class UserPolicy extends ModelPolicy
     {
         return $this->service->hasPermission($user, 'user-import');
     }
+
+    /**
+     * Determine whether the user can draw groups.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function draw(User $user)
+    {
+        return $this->service->hasPermission($user, 'user-draw');
+    }
 }

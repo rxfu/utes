@@ -34,4 +34,9 @@ class Role extends Model
     {
         return $this->belongsTo('App\Models\Role', 'parent_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\Group', 'parent_id');
+    }
 }

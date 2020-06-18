@@ -215,28 +215,34 @@ class MenusTableSeeder extends Seeder
                 'order' => -10,
             ],
             [
+                'slug' => 'group-draw',
+                'name' => '测评教师分组抽签',
+                'route' => 'users.draw',
+                'order' => -9,
+            ],
+            [
                 'slug' => 'peer-score',
                 'name' => '同行评议评分',
                 'route' => 'scorepeers.index',
-                'order' => -9,
+                'order' => -8,
             ],
             [
                 'slug' => 'expert-score',
                 'name' => '专家评分',
                 'route' => '',
-                'order' => -8
+                'order' => -7,
             ],
             [
                 'slug' => 'plan-score',
                 'name' => '课程教案评分',
                 'route' => '',
-                'order' => -7
+                'order' => -6,
             ],
             [
                 'slug' => 'score-score',
                 'name' => '学生评教评分',
                 'route' => '',
-                'order' => -7
+                'order' => -5,
             ],
             [
                 'slug' => 'statistic',

@@ -24,6 +24,9 @@ class CreateGroupUserTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
                 ->comment('用户ID');
+            $table->unsignedInteger('seq')->nullable()->comment('序号');
+            $table->boolean('is_drawed')->default(false)->comment('是否已抽签，0-否，1-是');
+            $table->timestamps();
 
             $table->index(['user_id', 'group_id']);
             $table->unique(['user_id', 'group_id']);

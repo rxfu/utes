@@ -56,7 +56,9 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->belongsToMany('App\Models\Group');
+        return $this->belongsToMany('App\Models\Group')
+            ->withPivot('seq', 'is_drawed')
+            ->withTimestamps();
     }
 
     public function application()
