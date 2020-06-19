@@ -17,7 +17,9 @@ class Group extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User')
+            ->withPivot('seq', 'is_drawed')
+            ->withTimestamps();
     }
 
     public function parent()

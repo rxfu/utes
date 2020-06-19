@@ -19,7 +19,7 @@ class GroupRepository extends Repository
         try {
             return $this->model->withCount(['users' => function (Builder $query) use ($isDrawed) {
                 $query->whereIsDrawed($isDrawed);
-            }])->get();
+            }])->lockForUpdate()->get();
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
@@ -31,7 +31,7 @@ class GroupRepository extends Repository
             $group = $this->find($groupId);
 
             $seqs = [];
-            foreach ($group->users as $user) {
+            foreach ($group->users()->lockForUpdate()->get() as $user) {
                 $seqs[] = $user->pivot->seq;
             }
 

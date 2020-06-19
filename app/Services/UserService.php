@@ -7,6 +7,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\InvalidRequestException;
 use App\Repositories\GroupRepository;
+use Illuminate\Support\Facades\DB;
 
 class UserService extends Service
 {
@@ -150,36 +151,44 @@ class UserService extends Service
     {
         $user = $this->get($user);
 
-        foreach ($user->groups as $group) {
-            if (!$group->pivot->is_drawed) {
-                $userCounts = $this->groups->countUsers(false)->keyBy('id');
+        DB::transaction(function () use ($user) {
+            foreach ($user->groups as $group) {
+                if (!$group->pivot->is_drawed) {
+                    if (empty($group->pivot->seq)) {
+                        $userCounts = $this->groups->countUsers(false)->keyBy('id');
 
-                $groups = [];
-                foreach ($group->children as $child) {
-                    if ($userCounts[$child->id]->users_count < $child->number) {
-                        $groups[] = [
-                            'group_id' => $child->id,
-                            'number' => $child->number,
-                        ];
+                        $groups = [];
+                        foreach ($group->children as $child) {
+                            if ($userCounts[$child->id]->users_count < $child->number) {
+                                $groups[] = [
+                                    'group_id' => $child->id,
+                                    'number' => $child->number,
+                                ];
+                            }
+                        }
+
+                        $key = array_rand($groups, 1);
+                        $drawedGroup = $groups[$key];
+                        $total = range(1, $drawedGroup['number']);
+                        $seqs = $this->groups->getSeqs($drawedGroup['group_id']);
+                        $surplus = array_diff($total, $seqs);
+                        $number = array_rand($surplus, 1);
+                        $drawedSeq = $surplus[$number];
+
+                        $user->groups()->detach($group->id);
+                        $user->groups()->attach([
+                            $drawedGroup['group_id'] => [
+                                'seq' => $drawedSeq,
+                                'is_drawed' => true,
+                            ]
+                        ]);
+                    } else {
+                        $group->users()->updateExistingPivot($user->id, [
+                            'is_drawed' => true,
+                        ]);
                     }
                 }
-
-                $key = array_rand($groups, 1);
-                $drawedGroup = $groups[$key];
-                $total = range(1, $drawedGroup['number']);
-                $seqs = $this->groups->getSeqs($drawedGroup['group_id']);
-                $surplus = array_diff($total, $seqs);
-                $number = array_rand($surplus, 1);
-                $drawedSeq = $surplus[$number];
-
-                $user->groups()->detach($group->id);
-                $user->groups()->attach([
-                    $drawedGroup['group_id'] => [
-                        'seq' => $drawedSeq,
-                        'is_drawed' => true,
-                    ]
-                ]);
             }
-        }
+        });
     }
 }

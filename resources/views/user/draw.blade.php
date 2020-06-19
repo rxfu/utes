@@ -11,50 +11,49 @@
             </div>
 
             <div class="card-body">
-                    <table id="users-table" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>{{ __('user.seq') }}</th>
-                                <th>{{ __('user.group') }}</th>
-                                <th>{{ __('user.name') }}</th>
-                                <th>{{ __('application.department_id') }}</th>
-                                <th>{{ __('application.gender_id') }}</th>
-                                <th>{{ __('user.phone') }}</th>
-                                <th>{{ __('application.applied_title_id') }}</th>
-                                <th>{{ __('application.course') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($items as $item)
-                                @foreach ($item->groups as $group)
-                                    <tr>
-                                        <td>{{ $group->pivot->seq }}</td>
-                                        <td>{{ $group->name }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->application->department->name }}</td>
-                                        <td>{{ $item->application->gender->name }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->application->appliedTitle->name }}</td>
-                                        <td>{{ $item->application->course }}</td>
-                                    </tr>
-                                @endforeach
+                <table id="users-table" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{ __('user.seq') }}</th>
+                            <th>{{ __('user.group') }}</th>
+                            <th>{{ __('user.name') }}</th>
+                            <th>{{ __('application.department_id') }}</th>
+                            <th>{{ __('application.gender_id') }}</th>
+                            <th>{{ __('user.phone') }}</th>
+                            <th>{{ __('application.applied_title_id') }}</th>
+                            <th>{{ __('application.course') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($items as $item)
+                            @foreach ($item->groups as $group)
+                                <tr>
+                                    <td>{{ $group->pivot->is_drawed ? $group->pivot->seq : '' }}</td>
+                                    <td>{{ $group->pivot->is_drawed ? $group->name : '' }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->application->department->name }}</td>
+                                    <td>{{ $item->application->gender->name }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>{{ $item->application->appliedTitle->name }}</td>
+                                    <td>{{ $item->application->course }}</td>
+                                </tr>
                             @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>{{ __('user.seq') }}</th>
-                                <th>{{ __('user.group') }}</th>
-                                <th>{{ __('user.name') }}</th>
-                                <th>{{ __('application.department_id') }}</th>
-                                <th>{{ __('application.gender_id') }}</th>
-                                <th>{{ __('user.phone') }}</th>
-                                <th>{{ __('application.applied_title_id') }}</th>
-                                <th>{{ __('application.course') }}</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>{{ __('user.seq') }}</th>
+                            <th>{{ __('user.group') }}</th>
+                            <th>{{ __('user.name') }}</th>
+                            <th>{{ __('application.department_id') }}</th>
+                            <th>{{ __('application.gender_id') }}</th>
+                            <th>{{ __('user.phone') }}</th>
+                            <th>{{ __('application.applied_title_id') }}</th>
+                            <th>{{ __('application.course') }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
                 @if (!Auth::user()->is_super)
-                    
                     @foreach ($items[0]->groups as $group)
                         @if ($group->pivot->is_drawed)
                             <h1 class="text-center text-success" style="font-size: 4em">
@@ -76,6 +75,7 @@
                         @endif
                     @endforeach
                 @endif
+            </div>
         </div>
     </div>
 </div>
