@@ -24,6 +24,7 @@
                             <th>{{ __('group.id') }}</th>
 							<th>{{ __('group.slug') }}</th>
 							<th>{{ __('group.name') }}</th>
+							<th>{{ __('group.number') }}</th>
 							<th>{{ __('group.parent_id') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
@@ -34,6 +35,7 @@
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->slug }}</td>
 								<td>{{ $item->name }}</td>
+								<td>{{ $item->number }}</td>
 								<td>{{ optional($item->parent)->name }}</td>
                                 <td>
                                     @can('view', $item)
@@ -60,6 +62,7 @@
                             <th>{{ __('group.id') }}</th>
 							<th>{{ __('group.slug') }}</th>
 							<th>{{ __('group.name') }}</th>
+							<th>{{ __('group.number') }}</th>
 							<th>{{ __('group.parent_id') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>

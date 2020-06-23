@@ -7,4 +7,5 @@ return [
 	'name' => '名称',
 	'parent_id' => '父组',
 	'description' => '描述',
+	'number' => '人数'
 ];

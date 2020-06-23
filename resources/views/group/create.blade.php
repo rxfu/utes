@@ -39,6 +39,18 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="number" class="col-sm-3 col-form-label text-right">{{ __('group.number') }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" name="number" id="number" placeholder="{{ __('group.number') }}" value="{{ old('number') }}">
+                            @if ($errors->has('number'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('number') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('group.parent_id') }}</label>
                         <div class="col-sm-9">
                             @inject('groups', 'App\Services\GroupService')

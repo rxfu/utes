@@ -34,6 +34,13 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="number" class="col-sm-3 col-form-label text-right">{{ __('group.number') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="number" id="number" value="{{ $item->number }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="parent_id" class="col-sm-3 col-form-label text-right">{{ __('group.parent_id') }}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext" name="parent_id" id="parent_id" value="{{ optional($item->parent)->name }}" readonly>
