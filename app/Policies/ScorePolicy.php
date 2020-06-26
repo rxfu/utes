@@ -27,4 +27,15 @@ class ScorePolicy extends ModelPolicy
     {
         return $this->service->hasPermission($user, 'score-export');
     }
+
+    /**
+     * Determine whether the user can rank scores.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function rank(User $user)
+    {
+        return $this->service->hasPermission($user, 'score-rank');
+    }
 }

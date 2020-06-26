@@ -9,7 +9,7 @@
             <div class="card-header">
                 <h3 class="card-title">{{ __('score.module') . __('List') }}</h3>
                 <div class="card-tools">
-                    @can('import', User::class)
+                    @can('import', Score::class)
                         <a href="{{ route('scores.export') }}" title="{{ __('Export') }}" class="btn btn-secondary">
                             <i class="fas fa-file-export"></i> {{ __('Export') . __('score.module') }}
                         </a>

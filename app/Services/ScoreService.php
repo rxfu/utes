@@ -10,4 +10,10 @@ class ScoreService extends Service
     {
         $this->repository = $scores;
     }
+
+    public function getRank($type = null)
+    {
+        if (is_null($type)) {
+        }
+    }
 }

@@ -190,4 +190,19 @@ class ScoreController extends Controller
 
         return $this->service->exportExcel(new ScoreExport, 'score.xlsx');
     }
+
+    /**
+     * Rank the specified scores in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function rank(Request $request)
+    {
+        $this->authorize('rank', Score::class);
+
+        $items = $this->service->getRank();
+
+        return view('scores.rank', compact('items'));
+    }
 }

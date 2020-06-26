@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', 'ScoreController@showImportForm')->name('import');
         Route::post('/import', 'ScoreController@import');
         Route::get('/export', 'ScoreController@export')->name('export');
+        Route::get('/rank', 'ScoreController@rank')->name('rank');
     });
 
     Route::resource('logs', 'LogController')->only(['index', 'show']);
