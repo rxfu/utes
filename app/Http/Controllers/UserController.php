@@ -7,7 +7,6 @@ use App\Imports\UserImport;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\SettingService;
-use App\Services\ScorepeerService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -16,23 +15,19 @@ class UserController extends Controller
 {
     protected $settingService;
 
-    protected $scorepeerService;
-
     /**
      * Create a new controller instance.
      *
      * @param \App\Services\UserService  $userService
      * @param \App\Services\SettingService  $settingService
-     * @param \App\Services\ScorepeerService  $scorepeerService
      * @return void
      */
-    public function __construct(UserService $userService, SettingService $settingService, ScorepeerService $scorepeerService)
+    public function __construct(UserService $userService, SettingService $settingService)
     {
         $this->authorizeResource(User::class, 'user');
 
         $this->service = $userService;
         $this->settingService = $settingService;
-        $this->scorepeerService = $scorepeerService;
     }
 
     /**
@@ -247,7 +242,7 @@ class UserController extends Controller
 
         if ($request->isMethod('post')) {
 
-            $this->service->import(new UserImport($this->settingService, $this->scorepeerService), $request->file('import'));
+            $this->service->import(new UserImport($this->settingService), $request->file('import'));
 
             $this->success(200009);
 

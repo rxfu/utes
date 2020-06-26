@@ -9,7 +9,6 @@ use App\Models\Gender;
 use App\Models\Department;
 use Maatwebsite\Excel\Row;
 use App\Services\SettingService;
-use App\Services\ScorepeerService;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -17,12 +16,9 @@ class UserImport implements OnEachRow, WithHeadingRow
 {
     protected $settingService;
 
-    protected $peerService;
-
-    public function __construct(SettingService $settingService, ScorepeerService $peerService)
+    public function __construct(SettingService $settingService)
     {
         $this->settingService = $settingService;
-        $this->peerService = $peerService;
     }
 
     /**
@@ -89,12 +85,6 @@ class UserImport implements OnEachRow, WithHeadingRow
                 'class' => isset($row['class']) ? preg_replace('#\s+#', '<br>', $row['class']) : null,
                 'remark' => $row['remark'] ?? null,
             ]);
-
-            // 导入测评教师分配评委
-            if (isset($row['judge1'])) {
-                $judges = User::whereIn('name', [$row['judge1'], $row['judge2'], $row['judge3']]);
-                $this->peerService->assignJudge($user, $judges->pluck('id')->toArray());
-            }
         }
     }
 }

@@ -52,14 +52,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/{password}', 'PasswordController@update')->name('update');
     });
 
-    Route::prefix('scorepeers')->name('scorepeers.')->group(function () {
-        Route::get('/', 'ScorepeerController@index')->name('index');
-        Route::get('/teachers', 'ScorepeerController@list')->name('teacher');
-        Route::get('/{user}/create', 'ScorepeerController@create')->name('create');
-        Route::post('/{user}', 'ScorepeerController@store')->name('store');
-        Route::get('/{scorepeer}/edit', 'ScorepeerController@edit')->name('edit');
-        Route::put('/{scorepeer}', 'ScorepeerController@update')->name('update');
-        Route::get('/confirm/{user?}', 'ScorepeerController@confirm')->name('confirm');
+    Route::prefix('scores')->name('scores.')->group(function () {
+        Route::get('/import', 'ScoreController@showImportForm')->name('import');
+        Route::post('/import', 'ScoreController@import');
+        Route::get('/export', 'ScoreController@export')->name('export');
     });
 
     Route::resource('logs', 'LogController')->only(['index', 'show']);
@@ -75,6 +71,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('departments', 'DepartmentController');
     Route::resource('titles', 'TitleController');
     Route::resource('applications', 'ApplicationController');
-    // Route::resource('scorepeers', 'ScorepeerController');
+    Route::resource('scores', 'ScoreController');
     // route_here
 });

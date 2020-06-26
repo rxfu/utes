@@ -33,6 +33,7 @@ class CreateScoresTable extends Migration
             $table->decimal('expert4', 5, 2)->default(0)->comment('专家评价成绩4');
             $table->decimal('expert5', 5, 2)->default(0)->comment('专家评价成绩5');
             $table->unsignedBigInteger('creator_id')->comment('创建者ID');
+            $table->text('remark')->nullable()->comment('备注');
             $table->timestamps();
 
             $table->foreign('creator_id')->on('users')->references('id');
