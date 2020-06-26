@@ -26,6 +26,5 @@ return [
         App\Models\Title::class,
         App\Models\Grade::class,
         App\Models\Application::class,
-        App\Models\Scorepeer::class,
     ],
 ];
