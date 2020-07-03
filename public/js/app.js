@@ -21,15 +21,39 @@ $(function () {
         }
     });
     // });
+    /* 
+        $('#dialog').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var title = button.data('whatever');
 
-    $('#dialog').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var title = button.data('whatever');
+            $(this).find('.modal-title').text(title);
+        });
+     */
+    /* $('.delete').on('click', function (e) {
+        e.preventDefault();
 
-        $(this).find('.modal-title').text(title);
+        var href = $(this).attr('href');
+        var $form = $('#delete-form').attr('action', href);
+        $('.modal-body').load(href, function () {
+            $('#dialog').modal({
+                'show': true
+            });
+        });
     });
 
-    $('.delete').click(function (e) {
+    $('.reset, .import').on('click', function (e) {
+        e.preventDefault();
+
+        var href = $(this).attr('href');
+        var $form = $('#delete-form').attr('action', href);
+        $('.modal-body').load(href, function () {
+            $('#dialog').modal({
+                'show': true
+            });
+        });
+    }); */
+
+    $('.table').on('click', '.delete', function (e) {
         e.preventDefault();
 
         var href = $(this).attr('href');
@@ -43,13 +67,13 @@ $(function () {
 
             modal.find('.modal-content').removeClass().addClass('modal-content bg-danger');
             modal.find('.modal-title').text(title);
-            modal.find('.modal-body p').html(message);
+            modal.find('.modal-body').html(message);
         }).on('click', '#btn-confirmed', function () {
             $form.submit();
         });
     });
 
-    $('.reset').click(function (e) {
+    $('.table').on('click', '.reset', function (e) {
         e.preventDefault();
 
         var href = $(this).attr('href');
