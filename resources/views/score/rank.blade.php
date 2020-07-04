@@ -34,14 +34,15 @@
                     <tbody>
                         @foreach ($items as $item)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item['department'] }}</td>
+                                <td>
+                                    <a href="{{ route('scores.show', $item['id']) }}" title="成绩明细">{{ $item['name'] }}</a></td>
+                                <td>{{ $item['student'] }}</td>
+                                <td>{{ $item['plan'] }}</td>
+                                <td>{{ $item['peer'] }}</td>
+                                <td>{{ $item['expert'] }}</td>
+                                <td>{{ $item['total'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>

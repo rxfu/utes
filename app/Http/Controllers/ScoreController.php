@@ -203,6 +203,6 @@ class ScoreController extends Controller
 
         $items = $this->service->getRank();
 
-        return view('scores.rank', compact('items'));
+        return view('score.rank', compact('items'));
     }
 }

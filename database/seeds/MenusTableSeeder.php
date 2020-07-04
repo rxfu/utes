@@ -232,7 +232,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'rank',
                 'name' => '统计与排名',
-                'route' => '',
+                'route' => 'scores.rank',
                 'parent_id' => 21,
                 'order' => 0,
             ],
