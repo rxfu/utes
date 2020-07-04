@@ -53,6 +53,10 @@ $(function () {
         });
     }); */
 
+    $('#dialog').on('hidden.bs.modal', function (e) {
+        $(this).removeData('bs.modal').find('.modal-body').empty();
+    });
+
     $('.table').on('click', '.delete', function (e) {
         e.preventDefault();
 
@@ -68,6 +72,8 @@ $(function () {
             modal.find('.modal-content').removeClass().addClass('modal-content bg-danger');
             modal.find('.modal-title').text(title);
             modal.find('.modal-body').html(message);
+
+            $(this).off('show.bs.modal');
         }).on('click', '#btn-confirmed', function () {
             $form.submit();
         });
@@ -86,6 +92,8 @@ $(function () {
             modal.find('.modal-content').removeClass().addClass('modal-content bg-secondary');
             modal.find('.modal-title').text(title);
             modal.find('.modal-body').load(href);
+            
+            $(this).off('show.bs.modal');
         }).on('click', '#btn-confirmed', function () {
             $('#reset-form').submit();
         });
@@ -104,6 +112,8 @@ $(function () {
             modal.find('.modal-content').removeClass().addClass('modal-content bg-info');
             modal.find('.modal-title').text(title);
             modal.find('.modal-body').load(href);
+            
+            $(this).off('show.bs.modal');
         }).on('click', '#btn-confirmed', function () {
             $('#import-form').submit();
         });
@@ -123,7 +133,7 @@ $(function () {
 
             modal.find('.modal-content').removeClass().addClass('modal-content bg-success');
             modal.find('.modal-title').text(title);
-            modal.find('.modal-body p').html(message);
+            modal.find('.modal-body').html(message);
         }).on('click', '#btn-confirmed', function () {
             window.location.href = href;
         });
