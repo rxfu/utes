@@ -18,7 +18,7 @@ class ScoreExport implements FromCollection, WithHeadings
             ->leftJoin('scores', 'users.id', 'scores.user_id')
             ->select('users.id', 'users.name AS name', 'departments.name AS department', 'student1', 'plan1', 'plan2', 'peer1', 'peer2', 'peer3', 'expert1', 'expert2', 'expert3', 'expert4', 'expert5', 'scores.remark')
             ->whereIsSuper(false)
-            ->orderBy('users.id')
+            ->orderBy('department')
             ->get();
     }
 

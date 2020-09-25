@@ -19,7 +19,7 @@
                         <div class="col-sm-9">
                             @inject('users', 'App\Services\UserService')
 							<select name="user_id" id="user_id" class="form-control select2 select2-success{{ $errors->has('user_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
-                                @foreach ($users->getAll() as $collection)
+                                @foreach ($users->getUsersByRole('teacher') as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
                             </select>

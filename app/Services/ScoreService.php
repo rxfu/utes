@@ -2,13 +2,15 @@
 
 namespace App\Services;
 
+use App\Repositories\GradeRepository;
 use App\Repositories\ScoreRepository;
 use App\Repositories\SettingRepository;
-use PhpParser\Node\Stmt\Foreach_;
 
 class ScoreService extends Service
 {
     protected $settings;
+
+    protected $grades;
 
     private $_numStudent;
 
@@ -18,10 +20,11 @@ class ScoreService extends Service
 
     private $_numExpert;
 
-    public function __construct(ScoreRepository $scores, SettingRepository $settings)
+    public function __construct(ScoreRepository $scores, SettingRepository $settings, GradeRepository $grades)
     {
         $this->repository = $scores;
         $this->settings = $settings;
+        $this->grades = $grades;
 
         $this->_numStudent = 1;
         $this->_numPlan = 2;
@@ -63,21 +66,27 @@ class ScoreService extends Service
             }, $result);
 
             $total = $parts['student'] * 0.3 + $parts['plan'] * 0.1 + $parts['peer'] * 0.3 + $parts['expert'] * 0.3;
+            $grade = $this->grades->grade($total)->name;
 
             $scores[] = [
                 'id' => $result->id,
                 'name' => $result->user->name,
                 'department' => $result->user->application->department->name,
+                'applied_title' => $result->user->application->appliedTitle->name,
                 'student' => round($parts['student'], 2),
                 'plan' => round($parts['plan'], 2),
                 'peer' => round($parts['peer'], 2),
                 'expert' => round($parts['expert'], 2),
                 'total' => round($total, 2),
+                'grade' => $grade,
             ];
         }
 
         usort($scores, function ($a, $b) {
-            return $a['total'] > $b['total'] ? -1 : 1;
+            $first = mb_convert_encoding($a['department'], 'gbk', 'utf-8');
+            $second = mb_convert_encoding($b['department'], 'gbk', 'utf-8');
+
+            return $first < $second ? -1 : 1;
         });
 
         return $scores;

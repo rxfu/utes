@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ScoreExport;
 use App\Models\Score;
+use App\Exports\RankExport;
+use App\Exports\ScoreExport;
 use App\Imports\ScoreImport;
 use Illuminate\Http\Request;
 use App\Services\ScoreService;
+use App\Services\SettingService;
 use App\Http\Requests\ScoreStoreRequest;
 use App\Http\Requests\ScoreUpdateRequest;
-use App\Services\SettingService;
 
 class ScoreController extends Controller
 {
@@ -204,5 +205,20 @@ class ScoreController extends Controller
         $items = $this->service->getRank();
 
         return view('score.rank', compact('items'));
+    }
+
+    /**
+     * Export the specified scores in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function exportRank(Request $request)
+    {
+        $this->authorize('export', Score::class);
+
+        $this->success(200010);
+
+        return $this->service->exportExcel(new RankExport($this->service), 'rank.xlsx');
     }
 }

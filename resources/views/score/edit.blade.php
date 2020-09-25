@@ -18,17 +18,14 @@
                     <div class="form-group row">
                         <label for="user_id" class="col-sm-3 col-form-label text-right">{{ __('score.user_id') }}</label>
                         <div class="col-sm-9">
-                            @inject('users', 'App\Services\UserService')
-							<select name="user_id" id="user_id" class="form-control select2 select2-info{{ $errors->has('user_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-info">
-                                @foreach ($users->getAll() as $collection)
-                                    <option value="{{ $collection->getKey() }}"{{ old('user_id', $item->user_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('user_id'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('user_id') }}</strong>
-                                </div>
-                            @endif
+                            <input type="text" class="form-control-plaintext" name="user_id" id="user_id" value="{{ optional($item->user)->name }}" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ optional($item->user->application->department)->name }}" readonly>
                         </div>
                     </div>
 

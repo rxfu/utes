@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Str;
 use App\Exceptions\InternalException;
 use Illuminate\Database\QueryException;
 use App\Exceptions\InvalidRequestException;
@@ -34,61 +35,71 @@ abstract class Repository
         }
     }
 
-    public function findAll($order = 'id', $direction = 'asc', $trashed = false)
+    public function findAll($order = null, $direction = 'asc', $trashed = false)
     {
         try {
-            $query = $this->model->orderBy($order, $direction);
-
-            if ($trashed) {
-                $query = $query->withTrashed();
-            }
-
-            return $query->get();
+            return $this->queryBy(null, null, $order, $direction, $trashed)->get();
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
 
-    public function findWith($relations, $order = 'id', $direction = 'asc', $trashed = false)
+    public function findWith($relations, $order = null, $direction = 'asc', $trashed = false)
     {
         try {
+            return $this->queryBy(null, $relations, $order, $direction, $trashed)->get();
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function findBy($attributes, $relations = null, $order = null, $direction = 'asc', $trashed = false)
+    {
+        try {
+            return $this->queryBy($attributes, $relations, $order, $direction, $trashed)->get();
+        } catch (QueryException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
+
+    public function queryBy($attributes = null, $relations = null, $order = null, $direction = 'asc', $trashed = false)
+    {
+        $order = is_null($order) ? $this->model->getKeyName() : $order;
+        $query = $this->model;
+
+        if (!is_null($relations)) {
             $relations = is_array($relations) ? $relations : [$relations];
 
-            $query = $this->model->with($relations)->orderBy($order, $direction);
+            $query = $query->with($relations);
+        }
 
-            if ($trashed) {
-                $query = $query->withTrashed();
-            }
+        if (!is_null($attributes)) {
+            $attributes = is_array($attributes) ? $attributes : [$this->model->getKeyName() => $attributes];
+            $query = $this->parseAttributes($query, $attributes);
+        }
 
+        $query = $query->orderBy($order, $direction);
+
+        if ($trashed) {
+            $query = $query->withTrashed();
+        }
+
+        return $query;
+    }
+
+    public function get($query)
+    {
+        try {
             return $query->get();
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
 
-    public function findBy($attributes, $relations = null, $order = 'id', $direction = 'asc', $trashed = false)
+    public function paginate($query, $limit)
     {
         try {
-            $attributes = is_array($attributes) ? $attributes : ['id' => $attributes];
-            $query = $this->model;
-
-            if (!is_null($relations)) {
-                $relations = is_array($relations) ? $relations : [$relations];
-
-                $query = $query->with($relations);
-            }
-
-            foreach ($attributes as $key => $value) {
-                $query = $query->where($key, '=', $value);
-            }
-
-            $query = $query->orderBy($order, $direction);
-
-            if ($trashed) {
-                $query = $query->withTrashed();
-            }
-
-            return $query->get();
+            return $query->paginate($limit);
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
@@ -160,5 +171,30 @@ abstract class Repository
     public function __call($method, $arguments)
     {
         return call_user_func_array([$this->model, $method], $arguments);
+    }
+
+    protected function parseAttributes($query, $attributes)
+    {
+        $attributes = is_array($attributes) ? $attributes : [$this->model->getKeyName() => $attributes];
+
+        foreach ($attributes as $field => $attribute) {
+            $attribute = is_array($attribute) ? $attribute : ['=', $attribute];
+
+            if ('in' === Str::lower(trim($attribute[0]))) {
+                $values = is_array($attribute[1]) ? $attribute[1] : [$attribute[1]];
+
+                $query = $query->whereIn($field, $values);
+            } elseif ('not in' === Str::lower(trim($attribute[0]))) {
+                $values = is_array($attribute[1]) ? $attribute[1] : [$attribute[1]];
+
+                $query = $query->whereNotIn($field, $values);
+            } elseif (('like' === Str::lower($attribute[0]) && (0 !== Str::length(trim($attribute[1], '%'))))
+                || ('like' !== Str::lower($attribute[0])) && (0 !== Str::length($attribute[1]))
+            ) {
+                $query = $query->where($field, $attribute[0], $attribute[1]);
+            }
+        }
+
+        return $query;
     }
 }

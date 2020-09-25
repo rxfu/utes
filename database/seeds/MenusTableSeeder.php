@@ -197,7 +197,7 @@ class MenusTableSeeder extends Seeder
             [
                 'slug' => 'score',
                 'name' => '评价成绩导入',
-                'route' => '',
+                'route' => 'scores.index',
                 'parent_id' => 21,
                 'order' => -9,
             ],
