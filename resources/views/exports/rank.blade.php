@@ -6,12 +6,12 @@
             <th>学院</th>
             <th>姓名</th>
             <th>拟申报职称</th>
-            <th>学生评价成绩</th>
-            <th>教案评价成绩</th>
+            <th>学生评教成绩</th>
+            <th>课程教案成绩</th>
             <th>同行评价成绩</th>
             <th>专家评价成绩</th>
             <th>总成绩</th>
-            <th>等级</th>
+            <th>评定等级</th>
         </tr>
     </thead>
     <tbody>
@@ -34,16 +34,16 @@
     </tbody>
     <tfoot>
         <tr>
-            <th>名次</th>
+            <th>序号</th>
             <th>学院</th>
             <th>姓名</th>
             <th>拟申报职称</th>
-            <th>学生评价成绩</th>
-            <th>教案评价成绩</th>
+            <th>学生评教成绩</th>
+            <th>课程教案成绩</th>
             <th>同行评价成绩</th>
             <th>专家评价成绩</th>
             <th>总成绩</th>
-            <th>等级</th>
+            <th>评定等级</th>
         </tr>
     </tfoot>
 </table>

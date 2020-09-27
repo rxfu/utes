@@ -231,7 +231,7 @@ class MenusTableSeeder extends Seeder
             ],
             [
                 'slug' => 'rank',
-                'name' => '统计与排名',
+                'name' => '总成绩统计',
                 'route' => 'scores.rank',
                 'parent_id' => 21,
                 'order' => 0,
