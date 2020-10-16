@@ -1,77 +1,280 @@
 @extends('layouts.app')
 
+@section('title', __('Register'))
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="form-group row">
+        <label for="username" class="col-sm-3 col-form-label text-right">工号</label>
+        <div class="col-md-9">
+            <input type="text" id="username" name="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="工号" required>
+            @if ($errors->has('username'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('username') }}</strong>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
-</div>
+
+    <div class="form-group row">
+        <label for="username" class="col-sm-3 col-form-label text-right">{{ __('user.password') }}</label>
+        <div class="col-md-9">
+            <input type="password" id="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('user.password') }}" required>
+            @if ($errors->has('password'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </div>
+            @endif
+            <small class="form-text text-light">密码至少8位</small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="password_confirmation" class="col-sm-3 col-form-label text-right">{{ __('user.password_confirmation') }}</label>
+        <div class="col-md-9">
+            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" placeholder="{{ __('user.password_confirmation') }}" required>
+            @if ($errors->has('password_confirmation'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('user.name') }}</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('user.name') }}" value="{{ old('name') }}" required>
+            @if ($errors->has('name'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('name') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('application.gender_id') }}</label>
+        <div class="col-sm-9">
+            @inject('genders', 'App\Services\GenderService')
+            <select name="gender_id" id="gender_id" class="form-control select2 select2-success{{ $errors->has('gender_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                @foreach ($genders->getAll() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('gender_id'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('gender_id') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+        <div class="col-sm-9">
+            @inject('departments', 'App\Services\DepartmentService')
+            <select name="department_id" id="department_id" class="form-control select2 select2-success{{ $errors->has('department_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                @foreach ($departments->getAll() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('department_id'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('department_id') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="degree_id" class="col-sm-3 col-form-label text-right">{{ __('application.degree_id') }}</label>
+        <div class="col-sm-9">
+            @inject('degrees', 'App\Services\DegreeService')
+            <select name="degree_id" id="degree_id" class="form-control select2 select2-success{{ $errors->has('degree_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                @foreach ($degrees->getAll() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('degree_id'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('degree_id') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="phone" class="col-sm-3 col-form-label text-right">{{ __('user.phone') }}</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" id="phone" placeholder="{{ __('user.phone') }}" value="{{ old('phone') }}" required>
+            @if ($errors->has('phone'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('phone') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email') }}" required>
+            @if ($errors->has('email'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="title_id" class="col-sm-3 col-form-label text-right">{{ __('application.title_id') }}</label>
+        <div class="col-sm-9">
+            @inject('titles', 'App\Services\TitleService')
+            <select name="title_id" id="title_id" class="form-control select2 select2-success{{ $errors->has('title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                @foreach ($titles->getAll() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('title_id'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('title_id') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="applied_title_id" class="col-sm-3 col-form-label text-right">{{ __('application.applied_title_id') }}</label>
+        <div class="col-sm-9">
+            @inject('appliedTitles', 'App\Services\TitleService')
+            <select name="applied_title_id" id="applied_title_id" class="form-control select2 select2-success{{ $errors->has('applied_title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                @foreach ($appliedTitles->getAppliedTitles() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('applied_title_id'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('applied_title_id') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="has_course" class="col-sm-3 col-form-label text-right">{{ __('application.has_course') }}</label>
+        <div class="col-sm-9">
+            <div class="icheck-success icheck-inline">
+                <input type="radio" name="has_course" id="has_course1" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="1" checked>
+                <label class="form-check-label" for="has_course1">是</label>
+            </div>
+            <div class="icheck-success icheck-inline">
+                <input type="radio" name="has_course" id="has_course0" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="0">
+                <label class="form-check-label" for="has_course0">否</label>
+            </div>
+            @if ($errors->has('has_course'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('has_course') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="is_applied_expert" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_expert') }}</label>
+        <div class="col-sm-9">
+            <div class="icheck-success icheck-inline">
+                <input type="radio" name="is_applied_expert" id="is_applied_expert1" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="1" checked>
+                <label class="form-check-label" for="is_applied_expert1">是</label>
+            </div>
+            <div class="icheck-success icheck-inline">
+                <input type="radio" name="is_applied_expert" id="is_applied_expert0" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="0">
+                <label class="form-check-label" for="is_applied_expert0">否</label>
+            </div>
+            @if ($errors->has('is_applied_expert'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('is_applied_expert') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="reason" class="col-sm-3 col-form-label text-right">{{ __('application.reason') }}</label>
+        <div class="col-sm-9">
+            @inject('appliedTitles', 'App\Services\TitleService')
+            <select name="reason" id="reason" class="form-control select2 select2-success{{ $errors->has('reason') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                @foreach ($appliedTitles->getAppliedTitles() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('reason'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('reason') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="file" class="col-sm-3 col-form-label text-right">{{ __('user.file') }}</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" name="file" id="file" placeholder="{{ __('user.file') }}" value="{{ old('file') }}" required>
+            @if ($errors->has('file'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('file') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="course" class="col-sm-3 col-form-label text-right">{{ __('application.course') }}</label>
+        <div class="col-sm-9">
+            <textarea class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" id="course" rows="5" placeholder="{{ __('application.course') }}">{{ old('course') }}</textarea>
+            @if ($errors->has('course'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('course') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="subject_id" class="col-sm-3 col-form-label text-right">{{ __('application.subject_id') }}</label>
+        <div class="col-sm-9">
+            @inject('subjects', 'App\Services\SubjectService')
+            <select name="subject_id" id="subject_id" class="form-control select2 select2-success{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                @foreach ($subjects->getAll() as $collection)
+                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('subject_id'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('subject_id') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="remark" class="col-sm-3 col-form-label text-right">{{ __('application.remark') }}</label>
+        <div class="col-sm-9">
+            <textarea class="form-control{{ $errors->has('remark') ? ' is-invalid' : '' }}" name="remark" id="remark" rows="5" placeholder="{{ __('application.remark') }}">{{ old('remark') }}</textarea>
+            @if ($errors->has('remark'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('remark') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">{{ __('Register') }}</button>
+        </div>
+    </div>
+</form>
 @endsection

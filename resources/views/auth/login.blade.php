@@ -32,16 +32,11 @@
         @endif
     </div>
     <div class="row">
-        <div class="col-8">
-            <div class="icheck-primary">
-                <input type="checkbox" value="1" name="remember_me" id="remember_me">
-                <label for="remember_me">
-                    {{ __('Remember me') }}
-                </label>
-            </div>
+        <div class="col-6">
+            <a href="{{ route('register') }}" title="{{ __('Register') }}" class="btn btn-secondary btn-block">{{ __('Register') }}</a>
         </div>
 
-        <div class="col-4">
+        <div class="col-6">
             <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
         </div>
     </div>

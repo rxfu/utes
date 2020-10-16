@@ -74,5 +74,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('titles', 'TitleController');
     Route::resource('applications', 'ApplicationController');
     Route::resource('scores', 'ScoreController');
+    Route::resource('degrees', 'DegreeController');
     // route_here
 });
