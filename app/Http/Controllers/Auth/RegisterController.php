@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Arr;
+use App\Services\UserService;
+use App\Services\SettingService;
 use App\Http\Controllers\Controller;
+use App\Services\ApplicationService;
 use App\Providers\RouteServiceProvider;
-use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -31,14 +33,22 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected $applicationService;
+
+    protected $settingService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService, ApplicationService $applicationService, SettingService $settingService)
     {
         $this->middleware('guest');
+
+        $this->service = $userService;
+        $this->applicationService = $applicationService;
+        $this->settingService = $settingService;
     }
 
     /**
@@ -50,9 +60,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'uid' => ['required', 'string', 'size:8', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'numeric'],
+            'reason' => ['required_if:is_applied_expert,0'],
         ]);
     }
 
@@ -64,10 +77,44 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        foreach (range(1, 3) as $id) {
+            if (isset($data['file' . $id])) {
+                $files[$id] = $this->applicationService->upload($data['file' . $id], $data['username']);
+            }
+        }
+
+        $user = $this->service->store([
+            'uid' => $data['uid'],
+            'username' => $data['name'] . $data['uid'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
+            'phone' => $data['phone'],
+            'gender_id' => $data['gender_id'],
+            'department_id' => $data['department_id'],
         ]);
+
+        $this->service->assignRole($user, 2);
+
+        $file = isset($files) ? implode(';', Arr::pluck($files, 'path')) : null;
+
+        $application = [
+            'year' => $this->settingService->getSetting('year'),
+            'user_id' => $user->id,
+            'degree_id' => $data['degree_id'],
+            'title_id' => $data['title_id'],
+            'applied_title_id' => $data['applied_title_id'],
+            'is_applied_expert' => $data['is_applied_expert'],
+            'reason' => ($data['is_applied_expert'] == 1) ? 0 : $data['reason'],
+            'has_course' => $data['has_course'],
+            'course' => $data['course'],
+            'subject_id' => $data['subject_id'],
+            'remark' => $data['remark'],
+            'file' => $file,
+        ];
+
+        $this->applicationService->store($application);
+
+        return $user;
     }
 }

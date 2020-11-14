@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.single')
 
 @section('title', __('Register'))
 
@@ -6,12 +6,12 @@
 <form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group row">
-        <label for="username" class="col-sm-3 col-form-label text-right">工号</label>
+        <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('user.uid') }}</label>
         <div class="col-md-9">
-            <input type="text" id="username" name="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="工号" required>
-            @if ($errors->has('username'))
+            <input type="text" id="uid" name="uid" class="form-control{{ $errors->has('uid') ? ' is-invalid' : '' }}" placeholder="{{ __('user.uid') }}" value="{{ old('uid') }}" required>
+            @if ($errors->has('uid'))
                 <div class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('username') }}</strong>
+                    <strong>{{ $errors->first('uid') }}</strong>
                 </div>
             @endif
         </div>
@@ -26,7 +26,7 @@
                     <strong>{{ $errors->first('password') }}</strong>
                 </div>
             @endif
-            <small class="form-text text-light">密码至少8位</small>
+            <small class="form-text text-muted">密码至少8位</small>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
     </div>
 
     <div class="form-group row">
-        <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('application.gender_id') }}</label>
+        <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('user.gender_id') }}</label>
         <div class="col-sm-9">
             @inject('genders', 'App\Services\GenderService')
             <select name="gender_id" id="gender_id" class="form-control select2 select2-success{{ $errors->has('gender_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
@@ -72,7 +72,7 @@
     </div>
     
     <div class="form-group row">
-        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('user.department_id') }}</label>
         <div class="col-sm-9">
             @inject('departments', 'App\Services\DepartmentService')
             <select name="department_id" id="department_id" class="form-control select2 select2-success{{ $errors->has('department_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
@@ -201,14 +201,12 @@
         </div>
     </div>
     
-    <div class="form-group row">
+    <div class="form-group row" id="block-reason">
         <label for="reason" class="col-sm-3 col-form-label text-right">{{ __('application.reason') }}</label>
         <div class="col-sm-9">
-            @inject('appliedTitles', 'App\Services\TitleService')
             <select name="reason" id="reason" class="form-control select2 select2-success{{ $errors->has('reason') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
-                @foreach ($appliedTitles->getAppliedTitles() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
-                @endforeach
+                <option value="1">{{ config('setting.audit.1') }}</option>
+                <option value="2">{{ config('setting.audit.2') }}</option>
             </select>
             @if ($errors->has('reason'))
                 <div class="invalid-feedback" role="alert">
@@ -218,19 +216,43 @@
         </div>
     </div>
     
-    <div class="form-group row">
-        <label for="file" class="col-sm-3 col-form-label text-right">{{ __('user.file') }}</label>
+    <div class="form-group row" id="block-file1">
+        <label for="file1" class="col-sm-3 col-form-label text-right">{{ __('application.file1') }}</label>
         <div class="col-sm-9">
-            <input type="file" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" name="file" id="file" placeholder="{{ __('user.file') }}" value="{{ old('file') }}" required>
+            <input type="file" class="form-control{{ $errors->has('file1') ? ' is-invalid' : '' }}" name="file1" id="file1" placeholder="{{ __('application.file1') }}" value="{{ old('file') }}">
             @if ($errors->has('file'))
                 <div class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('file') }}</strong>
+                    <strong>{{ $errors->first('file1') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row" id="block-file2">
+        <label for="file2" class="col-sm-3 col-form-label text-right">{{ __('application.file2') }}</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control{{ $errors->has('file2') ? ' is-invalid' : '' }}" name="file2" id="file2" placeholder="{{ __('application.file2') }}" value="{{ old('file') }}">
+            @if ($errors->has('file'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('file2') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+    
+    <div class="form-group row" id="block-file3">
+        <label for="file3" class="col-sm-3 col-form-label text-right">{{ __('application.file3') }}</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control{{ $errors->has('file3') ? ' is-invalid' : '' }}" name="file3" id="file3" placeholder="{{ __('application.file3') }}" value="{{ old('file') }}">
+            @if ($errors->has('file'))
+                <div class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('file3') }}</strong>
                 </div>
             @endif
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" id="block-course">
         <label for="course" class="col-sm-3 col-form-label text-right">{{ __('application.course') }}</label>
         <div class="col-sm-9">
             <textarea class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" id="course" rows="5" placeholder="{{ __('application.course') }}">{{ old('course') }}</textarea>
@@ -242,7 +264,7 @@
         </div>
     </div>
     
-    <div class="form-group row">
+    <div class="form-group row" id="block-subject">
         <label for="subject_id" class="col-sm-3 col-form-label text-right">{{ __('application.subject_id') }}</label>
         <div class="col-sm-9">
             @inject('subjects', 'App\Services\SubjectService')
@@ -271,10 +293,27 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">{{ __('Register') }}</button>
+    <div class="row justify-content-center">
+        <div class="col-2">
+            <button type="submit" class="btn btn-success btn-block btn-lg">{{ __('Register') }}</button>
         </div>
     </div>
 </form>
 @endsection
+
+@push('scripts')
+<script>
+    $('#block-reason, #block-file1, #block-file2, #block-file3').hide();
+    $('#block-course, #block-subject').show();
+
+    $('input[name=is_applied_expert]').change(function() {
+        if ($(this).val() == '1') {
+            $('#block-reason, #block-file1, #block-file2, #block-file3').hide();
+            $('#block-course, #block-subject').show();
+        } else if ($(this).val() == 0) {
+            $('#block-reason, #block-file1, #block-file2, #block-file3').show();
+            $('#block-course, #block-subject').hide();
+        }
+    })
+</script>
+@endpush

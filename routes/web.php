@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
@@ -60,6 +62,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/export-rank', 'ScoreController@exportRank')->name('export-rank');
     });
 
+    Route::prefix('applications')->name('applications.')->group(function () {
+        Route::get('/{application}/audit', 'ApplicationController@showAuditForm')->name('audit');
+        Route::post('/{application}/audit', 'ApplicationController@audit');
+    });
+
     Route::resource('logs', 'LogController')->only(['index', 'show']);
     Route::resource('settings', 'SettingController');
     Route::resource('menus', 'MenuController');
@@ -74,6 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('titles', 'TitleController');
     Route::resource('applications', 'ApplicationController');
     Route::resource('scores', 'ScoreController');
+    Route::resource('subjects', 'SubjectController');
     Route::resource('degrees', 'DegreeController');
     // route_here
 });

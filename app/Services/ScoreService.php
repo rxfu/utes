@@ -39,7 +39,7 @@ class ScoreService extends Service
         if (is_null($type)) {
             $results = $this->repository->findBy([
                 'year' => $year,
-            ], ['user', 'user.application.department']);
+            ], ['user', 'user.department']);
         } else {
             switch ($type) {
             }
@@ -71,8 +71,8 @@ class ScoreService extends Service
             $scores[] = [
                 'id' => $result->id,
                 'name' => $result->user->name,
-                'department' => $result->user->application->department->name,
-                'applied_title' => $result->user->application->appliedTitle->name,
+                'department' => optional($result->user->department)->name,
+                'applied_title' => optional($result->user->application->appliedTitle)->name,
                 'student' => round($parts['student'], 2),
                 'plan' => round($parts['plan'], 2),
                 'peer' => round($parts['peer'], 2),

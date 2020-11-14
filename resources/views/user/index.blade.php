@@ -9,12 +9,6 @@
             <div class="card-header">
                 <h3 class="card-title">{{ __('user.module') . __('List') }}</h3>
                 <div class="card-tools">
-                    @can('import', User::class)
-                        <a href="{{ route('users.import') }}" title="{{ __('Import') }}" class="btn btn-info import" data-toggle="modal" data-target="#dialog" data-whatever="{{  __('user.module') . __('import') }}
-                    ">
-                            <i class="fas fa-file-import"></i> {{ __('Import') . __('user.module') }}
-                        </a>
-                    @endcan
                     @can('create', User::class)
                         <a href="{{ route('users.create') }}" title="{{ __('Create') }}" class="btn btn-success">
                             <i class="fas fa-plus"></i> {{ __('Create') . __('user.module') }}
@@ -30,6 +24,7 @@
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
 							<th>{{ __('user.name') }}</th>
+							<th>{{ __('user.department_id') }}</th>
 							<th>{{ __('user.role') }}</th>
 							<th>{{ __('user.group') }}</th>
 							<th>{{ __('user.phone') }}</th>
@@ -45,6 +40,7 @@
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->username }}</td>
 								<td>{{ $item->name }}</td>
+								<td>{{ optional($item->department)->name }}</td>
 								<td>{{ $item->present()->allRoles }}</td>
 								<td>{{ $item->present()->allGroups }}</td>
 								<td>{{ $item->phone }}</td>
@@ -93,6 +89,7 @@
                             <th>{{ __('user.id') }}</th>
 							<th>{{ __('user.username') }}</th>
 							<th>{{ __('user.name') }}</th>
+							<th>{{ __('user.department_id') }}</th>
 							<th>{{ __('user.role') }}</th>
 							<th>{{ __('user.group') }}</th>
 							<th>{{ __('user.phone') }}</th>

@@ -18,6 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique()->comment('用户名');
             $table->string('password')->comment('密码');
             $table->string('name')->comment('真实姓名');
+            $table->unsignedBigInteger('gender_id')->nullable()->comment('性别ID');
+            $table->unsignedBigInteger('department_id')->nullable()->comment('学院ID');
+            $table->string('uid')->unique()->nullable()->comment('工号');
             $table->string('phone')->unique()->nullable()->comment('联系电话');
             $table->string('email')->unique()->nullable()->comment('电子邮箱');
             $table->timestamp('email_verified_at')->nullable()->comment('电子邮箱验证时间');

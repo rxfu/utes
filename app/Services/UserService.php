@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Exceptions\InvalidRequestException;
 use App\Repositories\GroupRepository;
 use Illuminate\Support\Facades\DB;
+use App\Services\ApplicationService;
 
 class UserService extends Service
 {

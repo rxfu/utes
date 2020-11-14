@@ -43,7 +43,7 @@ class RoleRepository extends Repository
     public function users($role)
     {
         try {
-            $role = $this->model->with('users', 'users.groups', 'users.application', 'users.application.department', 'users.application.gender', 'users.application.appliedTitle')
+            $role = $this->model->with('users', 'users.groups', 'users.application', 'users.department', 'users.gender', 'users.application.appliedTitle')
                 ->whereSlug($role)
                 ->firstOrFail();
 

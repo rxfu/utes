@@ -33,7 +33,7 @@
                             <th>{{ __('score.id') }}</th>
 							<th>{{ __('score.year') }}</th>
 							<th>{{ __('score.user_id') }}</th>
-							<th>{{ __('application.department_id') }}</th>
+							<th>{{ __('user.department_id') }}</th>
 							<th>{{ __('score.student1') }}</th>
 							<th>{{ __('score.plan1') }}</th>
 							<th>{{ __('score.plan2') }}</th>
@@ -54,7 +54,7 @@
                                 <td>{{ $item->id }}</td>
 								<td>{{ $item->year }}</td>
 								<td>{{ optional($item->user)->name }}</td>
-								<td>{{ optional($item->user->application->department)->name }}</td>
+								<td>{{ optional($item->user->department)->name }}</td>
 								<td>{{ $item->student1 }}</td>
 								<td>{{ $item->plan1 }}</td>
 								<td>{{ $item->plan2 }}</td>
@@ -91,7 +91,7 @@
                             <th>{{ __('score.id') }}</th>
 							<th>{{ __('score.year') }}</th>
 							<th>{{ __('score.user_id') }}</th>
-							<th>{{ __('application.department_id') }}</th>
+							<th>{{ __('user.department_id') }}</th>
 							<th>{{ __('score.student1') }}</th>
 							<th>{{ __('score.plan1') }}</th>
 							<th>{{ __('score.plan2') }}</th>

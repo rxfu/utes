@@ -54,10 +54,10 @@ class ApplicationController extends Controller
     public function store(ApplicationStoreRequest $request)
     {
         if ($request->isMethod('post')) {
-    
-            $item = $this->service->store($request->all());
 
-            return redirect()->route('applications.show', $item);
+            $item = $this->service->register($request->all());
+
+            return redirect()->route('applications.show', $item->application->id);
         }
 
         $this->error(405001);
@@ -101,7 +101,7 @@ class ApplicationController extends Controller
     public function update(ApplicationUpdateRequest $request, Application $application)
     {
         if ($request->isMethod('put')) {
-    
+
             $this->service->update($application, $request->all());
 
             return redirect()->route('applications.show', $application);
@@ -124,6 +124,46 @@ class ApplicationController extends Controller
         if ($request->isMethod('delete')) {
 
             $this->service->delete($application);
+
+            return redirect()->route('applications.index');
+        }
+
+        $this->error(405001);
+
+        return back();
+    }
+
+    /**
+     * Show the form for auditing the specified resource.
+     *
+     * @param  Application  $application
+     * @return \Illuminate\Http\Response
+     */
+    public function showAuditForm(Application $application)
+    {
+        $this->authorize('audit', Application::class);
+
+        $item = $this->service->get($application);
+
+        return view('application.audit', compact('item'));
+    }
+
+    /**
+     * Audit the specified users in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  Application  $application
+     * @return \Illuminate\Http\Response
+     */
+    public function audit(Request $request, Application $application)
+    {
+        $this->authorize('audit', Application::class);
+
+        if ($request->isMethod('put')) {
+
+            $this->service->update($application, $request->all());
+
+            $this->success(200011);
 
             return redirect()->route('applications.index');
         }

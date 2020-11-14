@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'name', 'email', 'phone', 'is_enable', 'last_login_at',
+        'username', 'password', 'name', 'email', 'phone', 'is_enable', 'last_login_at', 'uid', 'department_id', 'gender_id',
     ];
 
     /**
@@ -74,5 +74,15 @@ class User extends Authenticatable
     public function judges()
     {
         return $this->belongsToMany('App\Models\User', 'scorepeers', 'user_id', 'judge_id')->withTimestamps();
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo('App\Models\Gender');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Department');
     }
 }

@@ -10,32 +10,64 @@
                 <h3 class="card-title">{{ __('Create') . __('application.module') }}</h3>
             </div>
 
-		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route('applications.store') }}">
+		    <form role="form" id="create-form" name="create-form" method="post" action="{{ route('applications.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     
                     <div class="form-group row">
-                        <label for="user_id" class="col-sm-3 col-form-label text-right">{{ __('application.user_id') }}</label>
-                        <div class="col-sm-9">
-                            @inject('users', 'App\Services\UserService')
-							<select name="user_id" id="user_id" class="form-control select2 select2-success{{ $errors->has('user_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
-                                @foreach ($users->getAll() as $collection)
-                                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('user_id'))
+                        <label for="uid" class="col-sm-3 col-form-label text-right">{{ __('user.uid') }}</label>
+                        <div class="col-md-9">
+                            <input type="text" id="uid" name="uid" class="form-control{{ $errors->has('uid') ? ' is-invalid' : '' }}" placeholder="{{ __('user.uid') }}" value="{{ old('uid') }}" required>
+                            @if ($errors->has('uid'))
                                 <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('user_id') }}</strong>
+                                    <strong>{{ $errors->first('uid') }}</strong>
                                 </div>
                             @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('application.gender_id') }}</label>
+                        <label for="username" class="col-sm-3 col-form-label text-right">{{ __('user.password') }}</label>
+                        <div class="col-md-9">
+                            <input type="password" id="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('user.password') }}" required>
+                            @if ($errors->has('password'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </div>
+                            @endif
+                            <small class="form-text text-muted">密码至少8位</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password_confirmation" class="col-sm-3 col-form-label text-right">{{ __('user.password_confirmation') }}</label>
+                        <div class="col-md-9">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" placeholder="{{ __('user.password_confirmation') }}" required>
+                            @if ($errors->has('password_confirmation'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-3 col-form-label text-right">{{ __('user.name') }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('user.name') }}" value="{{ old('name') }}" required>
+                            @if ($errors->has('name'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('user.gender_id') }}</label>
                         <div class="col-sm-9">
                             @inject('genders', 'App\Services\GenderService')
-							<select name="gender_id" id="gender_id" class="form-control select2 select2-success{{ $errors->has('gender_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                            <select name="gender_id" id="gender_id" class="form-control select2 select2-success{{ $errors->has('gender_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                                 @foreach ($genders->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -47,12 +79,12 @@
                             @endif
                         </div>
                     </div>
-
+                    
                     <div class="form-group row">
-                        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+                        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('user.department_id') }}</label>
                         <div class="col-sm-9">
                             @inject('departments', 'App\Services\DepartmentService')
-							<select name="department_id" id="department_id" class="form-control select2 select2-success{{ $errors->has('department_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                            <select name="department_id" id="department_id" class="form-control select2 select2-success{{ $errors->has('department_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                                 @foreach ($departments->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -64,12 +96,53 @@
                             @endif
                         </div>
                     </div>
+                    
+                    <div class="form-group row">
+                        <label for="degree_id" class="col-sm-3 col-form-label text-right">{{ __('application.degree_id') }}</label>
+                        <div class="col-sm-9">
+                            @inject('degrees', 'App\Services\DegreeService')
+                            <select name="degree_id" id="degree_id" class="form-control select2 select2-success{{ $errors->has('degree_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                                @foreach ($degrees->getAll() as $collection)
+                                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('degree_id'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('degree_id') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="phone" class="col-sm-3 col-form-label text-right">{{ __('user.phone') }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" id="phone" placeholder="{{ __('user.phone') }}" value="{{ old('phone') }}" required>
+                            @if ($errors->has('phone'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('phone') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="email" placeholder="{{ __('user.email') }}" value="{{ old('email') }}" required>
+                            @if ($errors->has('email'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="title_id" class="col-sm-3 col-form-label text-right">{{ __('application.title_id') }}</label>
                         <div class="col-sm-9">
                             @inject('titles', 'App\Services\TitleService')
-							<select name="title_id" id="title_id" class="form-control select2 select2-success{{ $errors->has('title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                            <select name="title_id" id="title_id" class="form-control select2 select2-success{{ $errors->has('title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                                 @foreach ($titles->getAll() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -86,7 +159,7 @@
                         <label for="applied_title_id" class="col-sm-3 col-form-label text-right">{{ __('application.applied_title_id') }}</label>
                         <div class="col-sm-9">
                             @inject('appliedTitles', 'App\Services\TitleService')
-							<select name="applied_title_id" id="applied_title_id" class="form-control select2 select2-success{{ $errors->has('applied_title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                            <select name="applied_title_id" id="applied_title_id" class="form-control select2 select2-success{{ $errors->has('applied_title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                                 @foreach ($appliedTitles->getAppliedTitles() as $collection)
                                     <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
                                 @endforeach
@@ -100,25 +173,95 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="is_applied_peer" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_peer') }}</label>
+                        <label for="has_course" class="col-sm-3 col-form-label text-right">{{ __('application.has_course') }}</label>
                         <div class="col-sm-9">
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_applied_peer" id="is_applied_peer1" class="form-check-input{{ $errors->has('is_applied_peer') ? ' is-invalid' : '' }}" value="1" checked>
-                                <label class="form-check-label" for="is_applied_peer1">是</label>
+                                <input type="radio" name="has_course" id="has_course1" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="1" checked>
+                                <label class="form-check-label" for="has_course1">是</label>
                             </div>
                             <div class="icheck-success icheck-inline">
-                                <input type="radio" name="is_applied_peer" id="is_applied_peer0" class="form-check-input{{ $errors->has('is_applied_peer') ? ' is-invalid' : '' }}" value="0">
-                                <label class="form-check-label" for="is_applied_peer0">否</label>
+                                <input type="radio" name="has_course" id="has_course0" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="0">
+                                <label class="form-check-label" for="has_course0">否</label>
                             </div>
-                            @if ($errors->has('is_applied_peer'))
+                            @if ($errors->has('has_course'))
                                 <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('is_applied_peer') }}</strong>
+                                    <strong>{{ $errors->first('has_course') }}</strong>
                                 </div>
                             @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
+                        <label for="is_applied_expert" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_expert') }}</label>
+                        <div class="col-sm-9">
+                            <div class="icheck-success icheck-inline">
+                                <input type="radio" name="is_applied_expert" id="is_applied_expert1" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="1" checked>
+                                <label class="form-check-label" for="is_applied_expert1">是</label>
+                            </div>
+                            <div class="icheck-success icheck-inline">
+                                <input type="radio" name="is_applied_expert" id="is_applied_expert0" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="0">
+                                <label class="form-check-label" for="is_applied_expert0">否</label>
+                            </div>
+                            @if ($errors->has('is_applied_expert'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('is_applied_expert') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row" id="block-reason">
+                        <label for="reason" class="col-sm-3 col-form-label text-right">{{ __('application.reason') }}</label>
+                        <div class="col-sm-9">
+                            <select name="reason" id="reason" class="form-control select2 select2-success{{ $errors->has('reason') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
+                                <option value="1">{{ config('setting.reason.1') }}</option>
+                                <option value="2">{{ config('setting.reason.2') }}</option>
+                            </select>
+                            @if ($errors->has('reason'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('reason') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row" id="block-file1">
+                        <label for="file1" class="col-sm-3 col-form-label text-right">{{ __('application.file1') }}</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control{{ $errors->has('file1') ? ' is-invalid' : '' }}" name="file1" id="file1" placeholder="{{ __('application.file1') }}" value="{{ old('file') }}">
+                            @if ($errors->has('file'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('file1') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row" id="block-file2">
+                        <label for="file2" class="col-sm-3 col-form-label text-right">{{ __('application.file2') }}</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control{{ $errors->has('file2') ? ' is-invalid' : '' }}" name="file2" id="file2" placeholder="{{ __('application.file2') }}" value="{{ old('file') }}">
+                            @if ($errors->has('file'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('file2') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row" id="block-file3">
+                        <label for="file3" class="col-sm-3 col-form-label text-right">{{ __('application.file3') }}</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control{{ $errors->has('file3') ? ' is-invalid' : '' }}" name="file3" id="file3" placeholder="{{ __('application.file3') }}" value="{{ old('file') }}">
+                            @if ($errors->has('file'))
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('file3') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="block-course">
                         <label for="course" class="col-sm-3 col-form-label text-right">{{ __('application.course') }}</label>
                         <div class="col-sm-9">
                             <textarea class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" id="course" rows="5" placeholder="{{ __('application.course') }}">{{ old('course') }}</textarea>
@@ -129,38 +272,19 @@
                             @endif
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="time" class="col-sm-3 col-form-label text-right">{{ __('application.time') }}</label>
+                    
+                    <div class="form-group row" id="block-subject">
+                        <label for="subject_id" class="col-sm-3 col-form-label text-right">{{ __('application.subject_id') }}</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control{{ $errors->has('time') ? ' is-invalid' : '' }}" name="time" id="time" rows="5" placeholder="{{ __('application.time') }}">{{ old('time') }}</textarea>
-                            @if ($errors->has('time'))
+                            @inject('subjects', 'App\Services\SubjectService')
+                            <select name="subject_id" id="subject_id" class="form-control select2 select2-success{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
+                                @foreach ($subjects->getAll() as $collection)
+                                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('subject_id'))
                                 <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('time') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="classroom" class="col-sm-3 col-form-label text-right">{{ __('application.classroom') }}</label>
-                        <div class="col-sm-9">
-                            <textarea class="form-control{{ $errors->has('classroom') ? ' is-invalid' : '' }}" name="classroom" id="classroom" rows="5" placeholder="{{ __('application.classroom') }}">{{ old('classroom') }}</textarea>
-                            @if ($errors->has('classroom'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('classroom') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="class" class="col-sm-3 col-form-label text-right">{{ __('application.class') }}</label>
-                        <div class="col-sm-9">
-                            <textarea class="form-control{{ $errors->has('class') ? ' is-invalid' : '' }}" name="class" id="class" rows="5" placeholder="{{ __('application.class') }}">{{ old('class') }}</textarea>
-                            @if ($errors->has('class'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('class') }}</strong>
+                                    <strong>{{ $errors->first('subject_id') }}</strong>
                                 </div>
                             @endif
                         </div>
@@ -173,18 +297,6 @@
                             @if ($errors->has('remark'))
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('remark') }}</strong>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="file" class="col-sm-3 col-form-label text-right">{{ __('application.file') }}</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control{{ $errors->has('file') ? ' is-invalid' : '' }}" name="file" id="file" placeholder="{{ __('application.file') }}" value="{{ old('file') }}">
-                            @if ($errors->has('file'))
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('file') }}</strong>
                                 </div>
                             @endif
                         </div>
@@ -203,3 +315,20 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $('#block-reason, #block-file1, #block-file2, #block-file3').hide();
+    $('#block-course, #block-subject').show();
+
+    $('input[name=is_applied_expert]').change(function() {
+        if ($(this).val() == '1') {
+            $('#block-reason, #block-file1, #block-file2, #block-file3').hide();
+            $('#block-course, #block-subject').show();
+        } else if ($(this).val() == 0) {
+            $('#block-reason, #block-file1, #block-file2, #block-file3').show();
+            $('#block-course, #block-subject').hide();
+        }
+    })
+</script>
+@endpush

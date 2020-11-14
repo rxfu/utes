@@ -20,4 +20,7 @@ return [
 	'import' => '导入文件',
 	'draw' => '分组抽签',
 	'seq' => '顺序号',
+	'uid' => '工号',
+	'gender_id' => '性别',
+	'department_id' => '所在学院',
 ];

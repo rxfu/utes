@@ -34,9 +34,9 @@
                 </div>
                 
                 <div class="form-group row">
-                    <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+                    <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('user.department_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ optional($item->user->application->department)->name }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ optional($item->user->department)->name }}" readonly>
                     </div>
                 </div>
 

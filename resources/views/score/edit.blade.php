@@ -18,14 +18,14 @@
                     <div class="form-group row">
                         <label for="user_id" class="col-sm-3 col-form-label text-right">{{ __('score.user_id') }}</label>
                         <div class="col-sm-9">
-                            <span>{{ optional($item->user)->name }}</span>
+                            <span class="form-control-plaintext">{{ optional($item->user)->name }}</span>
                         </div>
                     </div>
                     
                     <div class="form-group row">
-                        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+                        <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('user.department_id') }}</label>
                         <div class="col-sm-9">
-                            <span>{{ optional($item->user->application->department)->name }}</span>
+                            <span class="form-control-plaintext">{{ optional($item->user->department)->name }}</span>
                         </div>
                     </div>
 

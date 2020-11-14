@@ -17,8 +17,8 @@
                             <th>{{ __('user.seq') }}</th>
                             <th>{{ __('user.group') }}</th>
                             <th>{{ __('user.name') }}</th>
-                            <th>{{ __('application.department_id') }}</th>
-                            <th>{{ __('application.gender_id') }}</th>
+                            <th>{{ __('user.department_id') }}</th>
+                            <th>{{ __('user.gender_id') }}</th>
                             <th>{{ __('user.phone') }}</th>
                             <th>{{ __('application.applied_title_id') }}</th>
                             <th>{{ __('application.course') }}</th>
@@ -31,11 +31,11 @@
                                     <td>{{ $group->pivot->is_drawed ? $group->pivot->seq : '' }}</td>
                                     <td>{{ $group->pivot->is_drawed ? $group->name : '' }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->application->department->name }}</td>
-                                    <td>{{ $item->application->gender->name }}</td>
+                                    <td>{{ optional($item->department)->name }}</td>
+                                    <td>{{ optional($item->gender)->name }}</td>
                                     <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->application->appliedTitle->name }}</td>
-                                    <td>{{ $item->application->course }}</td>
+                                    <td>{{ optional($item->application->appliedTitle)->name }}</td>
+                                    <td>{{ optional($item->application)->course }}</td>
                                 </tr>
                             @endforeach
                         @endforeach
@@ -45,8 +45,8 @@
                             <th>{{ __('user.seq') }}</th>
                             <th>{{ __('user.group') }}</th>
                             <th>{{ __('user.name') }}</th>
-                            <th>{{ __('application.department_id') }}</th>
-                            <th>{{ __('application.gender_id') }}</th>
+                            <th>{{ __('user.department_id') }}</th>
+                            <th>{{ __('user.gender_id') }}</th>
                             <th>{{ __('user.phone') }}</th>
                             <th>{{ __('application.applied_title_id') }}</th>
                             <th>{{ __('application.course') }}</th>

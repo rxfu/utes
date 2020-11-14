@@ -17,22 +17,12 @@ class Application extends Model
      * @var array
      */
     protected $fillable = [
-        'year', 'user_id', 'gender_id', 'department_id', 'title_id', 'applied_title_id', 'is_applied_peer', 'course', 'time', 'classroom', 'class', 'remark', 'file',
+        'year', 'user_id', 'degree_id', 'title_id', 'applied_title_id', 'is_applied_expert', 'course', 'reason', 'is_audit', 'audit_reason', 'has_course', 'file', 'subject_id', 'remark',
     ];
 
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    public function gender()
-    {
-        return $this->belongsTo('App\Models\Gender');
-    }
-
-    public function department()
-    {
-        return $this->belongsTo('App\Models\Department');
     }
 
     public function title()
@@ -43,5 +33,15 @@ class Application extends Model
     public function appliedTitle()
     {
         return $this->belongsTo('App\Models\Title', 'applied_title_id');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo('App\Models\Subject');
+    }
+
+    public function degree()
+    {
+        return $this->belongsTo('App\Models\Degree');
     }
 }

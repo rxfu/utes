@@ -53,5 +53,8 @@ class TitlesTableSeeder extends Seeder
         Title::create([
             'name' => '未定级',
         ]);
+        Title::create([
+            'name' => '副高',
+        ]);
     }
 }

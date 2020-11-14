@@ -246,7 +246,7 @@ class UserController extends Controller
 
             $this->success(200009);
 
-            return redirect()->route('users.index');
+            return redirect()->route('applications.index');
         }
 
         $this->error(405001);

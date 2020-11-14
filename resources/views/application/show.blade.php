@@ -27,37 +27,80 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('application.gender_id') }}</label>
+                    <label for="gender_id" class="col-sm-3 col-form-label text-right">{{ __('user.gender_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="gender_id" id="gender_id" value="{{ $item->gender->name }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="gender_id" id="gender_id" value="{{ optional($item->user->gender)->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('application.department_id') }}</label>
+                    <label for="department_id" class="col-sm-3 col-form-label text-right">{{ __('user.department_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ $item->department->name }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="department_id" id="department_id" value="{{ optional($item->user->department)->name }}" readonly>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="degree_id" class="col-sm-3 col-form-label text-right">{{ __('application.degree_id') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="degree_id" id="degree_id" value="{{ optional($item->degree)->name }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="phone" class="col-sm-3 col-form-label text-right">{{ __('user.phone') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="phone" id="phone" value="{{ $item->user->phone }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label text-right">{{ __('user.email') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="email" id="email" value="{{ $item->user->email }}" readonly>
+                    </div>
+                </div>
+
 
                 <div class="form-group row">
                     <label for="title_id" class="col-sm-3 col-form-label text-right">{{ __('application.title_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="title_id" id="title_id" value="{{ $item->title->name }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="title_id" id="title_id" value="{{ optional($item->title)->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="applied_title_id" class="col-sm-3 col-form-label text-right">{{ __('application.applied_title_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="applied_title_id" id="applied_title_id" value="{{ $item->appliedTitle->name }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="applied_title_id" id="applied_title_id" value="{{ optional($item->appliedTitle)->name }}" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="has_course" class="col-sm-3 col-form-label text-right">{{ __('application.has_course') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="has_course" id="has_course" value="{{ $item->present()->hasCourse }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="is_applied_peer" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_peer') }}</label>
+                    <label for="is_applied_expert" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_expert') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="is_applied_peer" id="is_applied_peer" value="{{ $item->present()->isAppliedPeer }}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_applied_expert" id="is_applied_expert" value="{{ $item->present()->isAppliedExpert }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row" id="block-reason">
+                    <label for="reason" class="col-sm-3 col-form-label text-right">{{ __('application.reason') }}</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext" name="reason" id="reason" value="{{ $item->present()->reason }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="file" class="col-sm-3 col-form-label text-right">{{ __('application.file') }}</label>
+                    <div class="col-sm-9">
+                        {!! $item->present()->files !!}
                     </div>
                 </div>
 
@@ -69,23 +112,23 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="time" class="col-sm-3 col-form-label text-right">{{ __('application.time') }}</label>
+                    <label for="course" class="col-sm-3 col-form-label text-right">{{ __('application.subject_id') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="time" id="time" value="{!! $item->time !!}" readonly>
+                        <input type="text" class="form-control-plaintext" name="subject_id" id="subject_id" value="{{ optional($item->subject)->name }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="classroom" class="col-sm-3 col-form-label text-right">{{ __('application.classroom') }}</label>
+                    <label for="has_course" class="col-sm-3 col-form-label text-right">{{ __('application.is_audit') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="classroom" id="classroom" value="{!! $item->classroom !!}" readonly>
+                        <input type="text" class="form-control-plaintext" name="is_audit" id="is_audit" value="{{ $item->present()->isAudit }}" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="class" class="col-sm-3 col-form-label text-right">{{ __('application.class') }}</label>
+                    <label for="remark" class="col-sm-3 col-form-label text-right">{{ __('application.audit_reason') }}</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="class" id="class" value="{!! $item->class !!}" readonly>
+                        <input type="text" class="form-control-plaintext" name="audit_reason" id="audit_reason" value="{{ $item->audit_reason }}" readonly>
                     </div>
                 </div>
 
@@ -96,12 +139,6 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="file" class="col-sm-3 col-form-label text-right">{{ __('application.file') }}</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" name="file" id="file" value="{{ $item->file }}" readonly>
-                    </div>
-                </div>
             </div>
 
             <div class="card-footer">

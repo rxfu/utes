@@ -41,7 +41,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $modules = [
-            'setting', 'menu', 'menuitem', 'group', 'role', 'permission', 'user', 'gender', 'title', 'department', 'grade', 'application'
+            'setting', 'menu', 'menuitem', 'group', 'role', 'permission', 'user', 'gender', 'title', 'department', 'grade', 'application', 'subject', 'degree', 'score'
         ];
 
         $actions = [
@@ -99,13 +99,6 @@ class PermissionsTableSeeder extends Seeder
             'name' => '导入用户',
             'action' => 'import',
             'model' => 'user',
-        ]);
-
-        Permission::create([
-            'slug' => 'teacher-list',
-            'name' => '列出测评教师',
-            'action' => 'listTeacher',
-            'model' => 'scorepeer',
         ]);
 
         Permission::create([
