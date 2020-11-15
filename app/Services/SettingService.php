@@ -13,8 +13,8 @@ class SettingService extends Service
 
     public function getSetting($name)
     {
-        $value = $this->repository->item($name)->value;
+        $setting = $this->repository->item($name);
 
-        return $value;
+        return empty($setting) ? null : $setting->value;
     }
 }

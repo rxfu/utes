@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Setting;
+
 return [
     'listeners' => [
         Illuminate\Auth\Events\Login::class => [
@@ -26,5 +28,8 @@ return [
         App\Models\Title::class,
         App\Models\Grade::class,
         App\Models\Application::class,
+        App\Models\Subject::class,
+        App\Models\Degree::class,
+        App\Models\Score::class,
     ],
 ];

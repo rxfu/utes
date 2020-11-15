@@ -33,7 +33,10 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <a href="{{ route('register') }}" title="{{ __('Register') }}" class="btn btn-secondary btn-block">{{ __('Register') }}</a>
+            @inject('settings', 'App\Services\SettingService')
+            @if (1 == $settings->getSetting('register'))
+                <a href="{{ route('register') }}" title="{{ __('Register') }}" class="btn btn-secondary btn-block">{{ __('Register') }}</a>
+            @endif
         </div>
 
         <div class="col-6">
