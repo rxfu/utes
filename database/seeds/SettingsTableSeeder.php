@@ -26,7 +26,7 @@ class SettingsTableSeeder extends Seeder
 
         Setting::create([
             'name' => 'register',
-            'value' => '0',
+            'value' => '1',
             'description' => '测评教师注册开关，0-关闭注册，1-开启注册',
         ]);
     }

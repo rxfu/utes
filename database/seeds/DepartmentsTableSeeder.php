@@ -13,7 +13,7 @@ class DepartmentsTableSeeder extends Seeder
     public function run()
     {
         Department::create([
-            'name'       => '文学院',
+            'name'       => '文学院/新闻与传播学院',
         ]);
         Department::create([
             'name'       => '历史文化与旅游学院',
@@ -58,10 +58,10 @@ class DepartmentsTableSeeder extends Seeder
             'name'       => '环境与资源学院',
         ]);
         Department::create([
-            'name'       => '计算机科学与信息工程学院',
+            'name'       => '计算机科学与信息工程学院/软件学院',
         ]);
         Department::create([
-            'name'       => '体育学院',
+            'name'       => '体育与健康学院',
         ]);
         Department::create([
             'name'       => '电子工程学院',
@@ -70,10 +70,10 @@ class DepartmentsTableSeeder extends Seeder
             'name'       => '职业技术师范学院',
         ]);
         Department::create([
-            'name'       => '健康管理学院',
+            'name'       => '设计学院',
         ]);
         Department::create([
-            'name'       => '设计学院',
+            'name'       => '国际文化教育学院',
         ]);
     }
 }

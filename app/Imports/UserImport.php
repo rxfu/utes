@@ -77,6 +77,7 @@ class UserImport implements OnEachRow, WithHeadingRow
             'department_id' => $department->id,
         ]);
 
+        $row['role'] = isset($row['role']) ? $row['role'] : 'teacher';
         $role = Role::firstOrCreate([
             'slug' => $row['role'],
         ]);
@@ -85,8 +86,6 @@ class UserImport implements OnEachRow, WithHeadingRow
         if (isset($row['group'])) {
             $user->groups()->attach($row['group']);
         }
-
-        $row['role'] = isset($row['role']) ? $row['role'] : 'teacher';
 
         if ($row['role'] == 'teacher') {
 

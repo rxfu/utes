@@ -205,8 +205,8 @@
         <label for="reason" class="col-sm-3 col-form-label text-right">{{ __('application.reason') }}</label>
         <div class="col-sm-9">
             <select name="reason" id="reason" class="form-control select2 select2-success{{ $errors->has('reason') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
-                <option value="1">{{ config('setting.audit.1') }}</option>
-                <option value="2">{{ config('setting.audit.2') }}</option>
+                <option value="1">{{ config('setting.reason.1') }}</option>
+                <option value="2">{{ config('setting.reason.2') }}</option>
             </select>
             @if ($errors->has('reason'))
                 <div class="invalid-feedback" role="alert">
