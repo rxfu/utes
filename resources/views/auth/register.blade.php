@@ -60,7 +60,7 @@
             @inject('genders', 'App\Services\GenderService')
             <select name="gender_id" id="gender_id" class="form-control select2 select2-success{{ $errors->has('gender_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                 @foreach ($genders->getAll() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->getKey() }}"{{ old('gender_id', $item->gender_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('gender_id'))
@@ -77,7 +77,7 @@
             @inject('departments', 'App\Services\DepartmentService')
             <select name="department_id" id="department_id" class="form-control select2 select2-success{{ $errors->has('department_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                 @foreach ($departments->getAll() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->getKey() }}"{{ old('department_id', $item->department_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('department_id'))
@@ -94,7 +94,7 @@
             @inject('degrees', 'App\Services\DegreeService')
             <select name="degree_id" id="degree_id" class="form-control select2 select2-success{{ $errors->has('degree_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                 @foreach ($degrees->getAll() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->getKey() }}"{{ old('degree_id', $item->degree_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('degree_id'))
@@ -135,7 +135,7 @@
             @inject('titles', 'App\Services\TitleService')
             <select name="title_id" id="title_id" class="form-control select2 select2-success{{ $errors->has('title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                 @foreach ($titles->getAll() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->getKey() }}"{{ old('title_id', $item->title_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('title_id'))
@@ -152,7 +152,7 @@
             @inject('appliedTitles', 'App\Services\TitleService')
             <select name="applied_title_id" id="applied_title_id" class="form-control select2 select2-success{{ $errors->has('applied_title_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                 @foreach ($appliedTitles->getAppliedTitles() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->getKey() }}"{{ old('applied_title_id', $item->applied_title_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('applied_title_id'))
@@ -167,11 +167,11 @@
         <label for="has_course" class="col-sm-3 col-form-label text-right">{{ __('application.has_course') }}</label>
         <div class="col-sm-9">
             <div class="icheck-success icheck-inline">
-                <input type="radio" name="has_course" id="has_course1" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="1" checked>
+                <input type="radio" name="has_course" id="has_course1" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="1"{{ old('has_course', $item->has_course) == '1' ? ' checked' : '' }}>
                 <label class="form-check-label" for="has_course1">是</label>
             </div>
             <div class="icheck-success icheck-inline">
-                <input type="radio" name="has_course" id="has_course0" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="0">
+                <input type="radio" name="has_course" id="has_course0" class="form-check-input{{ $errors->has('has_course') ? ' is-invalid' : '' }}" value="0"{{ old('has_course', $item->has_course) == '0' ? ' checked' : '' }}>
                 <label class="form-check-label" for="has_course0">否</label>
             </div>
             @if ($errors->has('has_course'))
@@ -186,11 +186,11 @@
         <label for="is_applied_expert" class="col-sm-3 col-form-label text-right">{{ __('application.is_applied_expert') }}</label>
         <div class="col-sm-9">
             <div class="icheck-success icheck-inline">
-                <input type="radio" name="is_applied_expert" id="is_applied_expert1" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="1" checked>
+                <input type="radio" name="is_applied_expert" id="is_applied_expert1" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="1"{{ old('is_applied_expert', $item->is_applied_expert) == '1' ? ' checked' : '' }}>
                 <label class="form-check-label" for="is_applied_expert1">是</label>
             </div>
             <div class="icheck-success icheck-inline">
-                <input type="radio" name="is_applied_expert" id="is_applied_expert0" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="0">
+                <input type="radio" name="is_applied_expert" id="is_applied_expert0" class="form-check-input{{ $errors->has('is_applied_expert') ? ' is-invalid' : '' }}" value="0"{{ old('is_applied_expert', $item->is_applied_expert) == '0' ? ' checked' : '' }}>
                 <label class="form-check-label" for="is_applied_expert0">否</label>
             </div>
             @if ($errors->has('is_applied_expert'))
@@ -205,8 +205,8 @@
         <label for="reason" class="col-sm-3 col-form-label text-right">{{ __('application.reason') }}</label>
         <div class="col-sm-9">
             <select name="reason" id="reason" class="form-control select2 select2-success{{ $errors->has('reason') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success">
-                <option value="1">{{ config('setting.reason.1') }}</option>
-                <option value="2">{{ config('setting.reason.2') }}</option>
+                <option value="1"{{ old('reason', $item->reason) === '1' ? ' selected' : '' }}>{{ config('setting.reason.1') }}</option>
+                <option value="2"{{ old('reason', $item->reason) === '2' ? ' selected' : '' }}>{{ config('setting.reason.2') }}</option>
             </select>
             @if ($errors->has('reason'))
                 <div class="invalid-feedback" role="alert">
@@ -270,7 +270,7 @@
             @inject('subjects', 'App\Services\SubjectService')
             <select name="subject_id" id="subject_id" class="form-control select2 select2-success{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-success" required>
                 @foreach ($subjects->getAll() as $collection)
-                    <option value="{{ $collection->getKey() }}">{{ $collection->name }}</option>
+                    <option value="{{ $collection->getKey() }}"{{ old('subject_id', $item->subject_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                 @endforeach
             </select>
             @if ($errors->has('subject_id'))

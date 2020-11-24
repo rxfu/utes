@@ -79,7 +79,7 @@ class RegisterController extends Controller
     {
         foreach (range(1, 3) as $id) {
             if (isset($data['file' . $id])) {
-                $files[$id] = $this->applicationService->upload($data['file' . $id], $data['username']);
+                $files[$id] = $this->applicationService->upload($data['file' . $id], $data['uid']);
             }
         }
 
