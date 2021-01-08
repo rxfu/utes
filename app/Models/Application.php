@@ -44,4 +44,9 @@ class Application extends Model
     {
         return $this->belongsTo('App\Models\Degree');
     }
+
+    public function application()
+    {
+        return $this->belongsTo('App\Models\Application');
+    }
 }

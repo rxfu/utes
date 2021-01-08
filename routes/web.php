@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/{user}/groups', 'UserController@assignGroup');
         Route::get('/import', 'UserController@showImportForm')->name('import');
         Route::post('/import', 'UserController@import');
+        Route::get('/export', 'UserController@showExportForm')->name('export');
+        Route::post('/export', 'UserController@export');
         Route::get('/draw', 'UserController@showDrawForm')->name('draw');
         Route::put('/draw', 'UserController@draw');
     });

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Exports\UserExport;
 use App\Imports\UserImport;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\SettingService;
+use App\Services\ApplicationService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -15,19 +17,23 @@ class UserController extends Controller
 {
     protected $settingService;
 
+    protected $applicationService;
+
     /**
      * Create a new controller instance.
      *
      * @param \App\Services\UserService  $userService
      * @param \App\Services\SettingService  $settingService
+     * @param \App\Services\ApplicationService  $applicationService
      * @return void
      */
-    public function __construct(UserService $userService, SettingService $settingService)
+    public function __construct(UserService $userService, SettingService $settingService, ApplicationService $applicationService)
     {
         $this->authorizeResource(User::class, 'user');
 
         $this->service = $userService;
         $this->settingService = $settingService;
+        $this->applicationService = $applicationService;
     }
 
     /**
@@ -263,7 +269,9 @@ class UserController extends Controller
     {
         $this->authorize('draw', User::class);
 
-        $items = $this->service->getDrawingUsers(Auth::user());
+        $year = $this->settingService->getSetting('year');
+
+        $items = $this->service->getDrawingUsers($year, Auth::user());
 
         return view('user.draw', compact('items'));
     }
@@ -290,5 +298,34 @@ class UserController extends Controller
         $this->error(405001);
 
         return back();
+    }
+
+    /**
+     * Show the form for exporting the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showExportForm()
+    {
+        $this->authorize('import', User::class);
+
+        $years = $this->applicationService->getYears();
+
+        return view('user.export', compact('years'));
+    }
+
+    /**
+     * Export the specified users in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function export(Request $request)
+    {
+        $this->authorize('import', User::class);
+
+        $this->success(200010);
+
+        return $this->service->exportExcel(new UserExport($request->year), 'export.xlsx');
     }
 }

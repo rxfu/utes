@@ -89,4 +89,21 @@ class UserRepository extends Repository
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }
     }
+
+    public function application($year, $userId = null)
+    {
+        try {
+            $users = $this->model->whereHas('application', function ($query) use ($year) {
+                $query->where('year', '=', $year);
+            });
+
+            if (!is_null($userId)) {
+                $users = $users->whereId($userId);
+            }
+
+            return $users->get();
+        } catch (ModelNotFoundException $e) {
+            throw new InternalException($e, $this->getModel(), __FUNCTION__);
+        }
+    }
 }

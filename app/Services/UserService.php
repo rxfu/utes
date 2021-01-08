@@ -139,12 +139,12 @@ class UserService extends Service
         return $this->roles->users($role);
     }
 
-    public function getDrawingUsers($user)
+    public function getDrawingUsers($year, $user)
     {
         if ($this->isSuperAdmin($user)) {
-            return $this->getUsersByRole('teacher');
+            return $this->repository->application($year);
         } else {
-            return $this->repository->findBy($user->getKey());
+            return $this->repository->application($year, $user->getKey());
         }
     }
 

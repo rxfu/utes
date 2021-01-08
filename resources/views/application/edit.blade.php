@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Edit') . __('application.module') }}: {{ $item->getKey() }}</h3>
+                <h3 class="card-title">{{ __('Edit') . __('application.module') }}: {{ $item->user->username }}</h3>
             </div>
 
 		    <form role="form" id="edit-form" name="edit-form" method="post" action="{{ route('applications.update', $item) }}">

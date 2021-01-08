@@ -23,6 +23,16 @@ class ApplicationService extends Service
         return $this->repository->findWith(['user', 'user.gender', 'user.department', 'title', 'appliedTitle']);
     }
 
+    public function getAllByYear($year)
+    {
+        return $this->repository->findBy(['year' => $year], ['user', 'user.gender', 'user.department', 'title', 'appliedTitle']);
+    }
+
+    public function getYears()
+    {
+        return $this->repository->years();
+    }
+
     public function register($data)
     {
         foreach (range(1, 3) as $id) {
