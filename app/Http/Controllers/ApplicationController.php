@@ -102,7 +102,7 @@ class ApplicationController extends Controller
     {
         if ($request->isMethod('put')) {
 
-            $this->service->update($application, $request->all());
+            $this->service->amend($application, $request->all());
 
             return redirect()->route('applications.show', $application);
         }
