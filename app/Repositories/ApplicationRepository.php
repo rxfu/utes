@@ -16,7 +16,7 @@ class ApplicationRepository extends Repository
     public function years()
     {
         try {
-            return $this->model->distinct()->select('year')->get();
+            return $this->model->distinct()->select('year')->orderBy('year', 'desc')->get();
         } catch (QueryException $e) {
             throw new InternalException($e, $this->getModel(), __FUNCTION__);
         }

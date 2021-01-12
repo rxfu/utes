@@ -71,7 +71,7 @@ class ApplicationService extends Service
             'reason' => ($data['is_applied_expert'] == 1) ? 0 : $data['reason'],
             'has_course' => $data['has_course'],
             'course' => $data['course'],
-            'subject_id' => $data['subject_id'],
+            'subject_id' => ($data['is_applied_expert'] == 0) ? 14 : $data['subject_id'],
             'remark' => $data['remark'],
             'file' => $file,
         ];
@@ -109,7 +109,7 @@ class ApplicationService extends Service
             'reason' => ($data['is_applied_expert'] == 1) ? 0 : $data['reason'],
             'has_course' => $data['has_course'],
             'course' => $data['course'],
-            'subject_id' => $data['subject_id'],
+            'subject_id' => ($data['is_applied_expert'] == 0) ? 14 : $data['subject_id'],
             'remark' => $data['remark'],
         ];
 

@@ -202,9 +202,10 @@ class ScoreController extends Controller
     {
         $this->authorize('rank', Score::class);
 
-        $items = $this->service->getRank();
+        $items = $this->service->getRank($request->year);
+        $years = $this->service->getYears();
 
-        return view('score.rank', compact('items'));
+        return view('score.rank', compact('items', 'years'));
     }
 
     /**
@@ -219,6 +220,6 @@ class ScoreController extends Controller
 
         $this->success(200010);
 
-        return $this->service->exportExcel(new RankExport($this->service), 'rank.xlsx');
+        return $this->service->exportExcel(new RankExport($this->service, $request->year), 'rank.xlsx');
     }
 }

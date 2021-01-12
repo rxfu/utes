@@ -24,4 +24,5 @@ return [
 	'uid' => '工号',
 	'gender_id' => '性别',
 	'department_id' => '所在学院',
+	'uid' => '工号',
 ];

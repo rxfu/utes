@@ -51,5 +51,8 @@ class SubjectsTableSeeder extends Seeder
         Subject::create([
             'name' => '艺术学',
         ]);
+        Subject::create([
+            'name' => '无',
+        ]);
     }
 }

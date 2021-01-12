@@ -13,7 +13,7 @@ class ApplicationPresenter extends Presenter
 
     public function hasCourse()
     {
-        return $this->has_course ? '有' : '没有';
+        return $this->has_course ? '有' : '无';
     }
 
     public function reason()

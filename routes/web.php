@@ -63,8 +63,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', 'ScoreController@showImportForm')->name('import');
         Route::post('/import', 'ScoreController@import');
         Route::get('/export', 'ScoreController@export')->name('export');
-        Route::get('/rank', 'ScoreController@rank')->name('rank');
-        Route::get('/export-rank', 'ScoreController@exportRank')->name('export-rank');
+        Route::get('/rank/{year?}', 'ScoreController@rank')->name('rank');
+        Route::get('/export-rank/{year?}', 'ScoreController@exportRank')->name('export-rank');
     });
 
     Route::prefix('applications')->name('applications.')->group(function () {

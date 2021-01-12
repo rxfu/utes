@@ -77,6 +77,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        /* 
         foreach (range(1, 3) as $id) {
             if (isset($data['file' . $id])) {
                 $files[$id] = $this->applicationService->upload($data['file' . $id], $data['uid']);
@@ -116,5 +117,7 @@ class RegisterController extends Controller
         $this->applicationService->store($application);
 
         return $user;
+     */
+        return $this->applicationService->register($data);
     }
 }

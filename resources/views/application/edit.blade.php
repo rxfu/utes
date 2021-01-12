@@ -263,7 +263,7 @@
                         <div class="col-sm-9">
                             @inject('subjects', 'App\Services\SubjectService')
                             <select name="subject_id" id="subject_id" class="form-control select2 select2-info{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" data-dropdown-css-class="select2-info" required>
-                                @foreach ($subjects->getAll() as $collection)
+                                @foreach ($subjects->getAll()->reject(function ($subject) { return $subject->name === '无'; }) as $collection)
                                     <option value="{{ $collection->getKey() }}"{{ old('subject_id', $item->subject_id) === $collection->getKey() ? ' selected' : '' }}>{{ $collection->name }}</option>
                                 @endforeach
                             </select>

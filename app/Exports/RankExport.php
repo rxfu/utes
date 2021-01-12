@@ -10,9 +10,12 @@ class RankExport implements FromView
 {
     protected $scoreService;
 
-    public function __construct(ScoreService $scoreService)
+    protected $year;
+
+    public function __construct(ScoreService $scoreService, $year)
     {
         $this->scoreService = $scoreService;
+        $this->year = $year;
     }
 
     /**
@@ -20,7 +23,7 @@ class RankExport implements FromView
      */
     public function view(): View
     {
-        $items = $this->scoreService->getRank();
+        $items = $this->scoreService->getRank($this->year);
 
         return view('exports.rank', compact('items'));
     }

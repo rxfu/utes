@@ -32,9 +32,11 @@ class ScoreService extends Service
         $this->_numExpert = 5;
     }
 
-    public function getRank($type = null)
+    public function getRank($year = null, $type = null)
     {
-        $year = $this->settings->item('year')->value;
+        if (is_null($year)) {
+            $year = $this->settings->item('year')->value;
+        }
 
         if (is_null($type)) {
             $results = $this->repository->findBy([
@@ -90,5 +92,10 @@ class ScoreService extends Service
         });
 
         return $scores;
+    }
+
+    public function getYears()
+    {
+        return $this->repository->years();
     }
 }
