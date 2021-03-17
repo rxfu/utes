@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('applications')->name('applications.')->group(function () {
         Route::get('/{application}/audit', 'ApplicationController@showAuditForm')->name('audit');
-        Route::post('/{application}/audit', 'ApplicationController@audit');
+        Route::put('/{application}/audit', 'ApplicationController@audit');
     });
 
     Route::resource('logs', 'LogController')->only(['index', 'show']);

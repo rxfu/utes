@@ -10,7 +10,7 @@
                 <h3 class="card-title">{{ __('Audit') . __('application.module') }}: {{ $item->getKey() }}</h3>
             </div>
 
-		    <form role="form" id="audit-form" name="audit-form" method="post" action="{{ route('applications.update', $item) }}">
+		    <form role="form" id="audit-form" name="audit-form" method="post" action="{{ route('applications.audit', $item) }}">
                 @csrf
                 @method('put')
                 <div class="card-body">

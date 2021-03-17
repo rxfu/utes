@@ -163,7 +163,7 @@ class ApplicationController extends Controller
 
             $this->service->update($application, $request->all());
 
-            $this->success(200011);
+            $this->success(200012);
 
             return redirect()->route('applications.index');
         }
