@@ -27,7 +27,7 @@ class ScoreService extends Service
         $this->grades = $grades;
 
         $this->_numStudent = 1;
-        $this->_numPlan = 2;
+        $this->_numPlan = 3;
         $this->_numPeer = 3;
         $this->_numExpert = 5;
     }
